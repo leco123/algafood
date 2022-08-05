@@ -33,5 +33,9 @@ public class Cliente {
 	public void ativar() {
 		this.ativo = true;
 	}
+	
+	public void inativar() {
+		this.ativo = false;
+	}
 
 }
