@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.algaworks.algafood.AlgafoodApiApplication;
 import com.algaworks.algafood.domain.model.Cozinha;
+import com.algaworks.algafood.infrastructure.repository.CozinhaRepositoryImpl;
 
 public class ExclusaoCozinhaMain {
 
@@ -14,7 +15,7 @@ public class ExclusaoCozinhaMain {
 				.web(WebApplicationType.NONE)
 				.run(args);
 		
-		CadastroCozinha cadastroCozinha = applicationContext.getBean(CadastroCozinha.class);
+		CozinhaRepositoryImpl cozinhaRepositoryImpl = applicationContext.getBean(CozinhaRepositoryImpl.class);
 		
 		Cozinha cozinha1 = new Cozinha();
 		cozinha1.setNome("Brasileira");
@@ -22,8 +23,8 @@ public class ExclusaoCozinhaMain {
 		Cozinha cozinha2 = new Cozinha();
 		cozinha2.setNome("Japonesa");
 		
-		cozinha1 = cadastroCozinha.salvar(cozinha1);
-		cozinha2 = cadastroCozinha.salvar(cozinha2);
+		cozinha1 = cozinhaRepositoryImpl.adicionar(cozinha1);
+		cozinha2 = cozinhaRepositoryImpl.adicionar(cozinha2);
 		System.out.println("\n");
 		System.out.println("+-------------------- LISTA DE COZINHAS ADICIONADAS --------+");
 		System.out.printf("| Incluido cozinha código: %d nome: %s \n", cozinha1.getId(), cozinha1.getNome());

@@ -1,4 +1,4 @@
-package com.algaworks.algafood.jpa;
+package com.algaworks.algafood.infrastructure.repository;
 
 import java.util.List;
 
@@ -9,24 +9,29 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.domain.model.Cozinha;
+import com.algaworks.algafood.domain.repository.CozinhaRepository;
 
 @Component
-public class CadastroCozinha {
+public class CozinhaRepositoryImpl implements CozinhaRepository {
 
+	
 	@PersistenceContext
 	private EntityManager manager;
 	
-	public List<Cozinha> listar() {
+	@Override
+	public List<Cozinha> todas() {
 		return manager.createQuery("from Cozinha", Cozinha.class)
 				.getResultList();
 	}
 	
-	public Cozinha buscar(Long id) {
+	@Override
+	public Cozinha porId(Long id) {
 		return manager.find(Cozinha.class, id);
 	}
 	
+	@Override
 	@Transactional
-	public Cozinha salvar(Cozinha cozinha) {
+	public Cozinha adicionar(Cozinha cozinha) {
 		try {
 			return manager.merge(cozinha);	
 		} catch (Exception e) {
@@ -34,14 +39,14 @@ public class CadastroCozinha {
 		}
 	}
 	
+	@Override
 	@Transactional
-	public void remove(Cozinha cozinha) {
+	public void remover(Cozinha cozinha) {
 		try {
-			cozinha = buscar(cozinha.getId());
+			cozinha = porId(cozinha.getId());
 			manager.remove(cozinha);	
 		} catch (Exception e) {
 			throw new RuntimeException("Não foi possivel remover a cozinha não pode ser do tipo null");
 		}
 	}
-		
 }

@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.algaworks.algafood.AlgafoodApiApplication;
 import com.algaworks.algafood.domain.model.Cozinha;
+import com.algaworks.algafood.infrastructure.repository.CozinhaRepositoryImpl;
 
 public class AtualizacaoCozinhaMain {
 
@@ -14,11 +15,11 @@ public class AtualizacaoCozinhaMain {
 				.web(WebApplicationType.NONE)
 				.run(args);
 		
-		CadastroCozinha cadastroCozinha = applicationContext.getBean(CadastroCozinha.class);
+		CozinhaRepositoryImpl cozinhaRepositoryImpl = applicationContext.getBean(CozinhaRepositoryImpl.class);
 		
 		Cozinha cozinha = new Cozinha();
 		cozinha.setId(1L);
-		cadastroCozinha.remove(cozinha);
+		cozinhaRepositoryImpl.remover(cozinha);
 		
 		System.out.println("\n");
 		System.out.println("+-------------------- AÇÃO DE REMOVER COZINHA --------+");
