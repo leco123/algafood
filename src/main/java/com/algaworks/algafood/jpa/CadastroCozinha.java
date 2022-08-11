@@ -29,4 +29,8 @@ public class CadastroCozinha {
 			throw new RuntimeException("Cozinha não pode ser do tipo null");
 		}
 	}
+	
+	public Cozinha buscar(Long id) {
+		return manager.find(Cozinha.class, id);
+	}
 }
