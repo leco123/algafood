@@ -21,16 +21,27 @@ public class CadastroCozinha {
 				.getResultList();
 	}
 	
+	public Cozinha buscar(Long id) {
+		return manager.find(Cozinha.class, id);
+	}
+	
 	@Transactional
 	public Cozinha salvar(Cozinha cozinha) {
 		try {
 			return manager.merge(cozinha);	
 		} catch (Exception e) {
-			throw new RuntimeException("Cozinha não pode ser do tipo null");
+			throw new RuntimeException("Não foi possivel salvar a cozinha não pode ser do tipo null");
 		}
 	}
 	
-	public Cozinha buscar(Long id) {
-		return manager.find(Cozinha.class, id);
+	@Transactional
+	public void remove(Cozinha cozinha) {
+		try {
+			cozinha = buscar(cozinha.getId());
+			manager.remove(cozinha);	
+		} catch (Exception e) {
+			throw new RuntimeException("Não foi possivel remover a cozinha não pode ser do tipo null");
+		}
 	}
+		
 }
