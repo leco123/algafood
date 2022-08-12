@@ -31,3 +31,10 @@ Uma breve descrição sobre o que esse projeto faz e para quem ele é
 
 #### RESTful ou REST API: 
 É uma API desenvolvida em conformidade com as constraints, resumindo é uma API que segue todas as constraints obrigatórias, caso seja violado alguma constraint não deve ser reconhecida ou trata como ````RESTful````.
+
+## Aprendizados
+
+O que aprendi construindo esse projeto? 
+
+Quais desafios foram enfrentandos e como foram superador?
+
