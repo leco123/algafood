@@ -21,6 +21,7 @@ public class Restaurante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(length = 150,unique = true)
 	private String nome;
 	
 	@Column(name = "taxa_frete")
