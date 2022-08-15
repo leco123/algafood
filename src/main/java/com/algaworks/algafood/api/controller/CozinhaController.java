@@ -38,18 +38,10 @@ public class CozinhaController {
 	// ResponseEntity<T> Permite que nós possamos personalizar nossa resposta http 
 	public ResponseEntity<Cozinha> buscar(@PathVariable("cozinhaid") Long cozinhaid) {
 		Cozinha cozinha =  cozinhaRepository.porId(cozinhaid);
-		// Existe duas formas de retornar o corpo da requisição 
-		//1º) return ResponseEntity.status(HttpStatus.OK).body(cozinha);
-		//2º Opção, que é mais simples
-		//return ResponseEntity.ok(cozinha);
-		//3º Exemplo customizando o header
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.add(HttpHeaders.LOCATION, "http://localhost:8080/cozinhas");
-		
-		return ResponseEntity
-				.status(HttpStatus.FOUND)
-				.headers(headers)
-				.build();
+		if(cozinha != null) {
+			return ResponseEntity.ok(cozinha);
+		}
+		return ResponseEntity.notFound().build();
 	}
 }
