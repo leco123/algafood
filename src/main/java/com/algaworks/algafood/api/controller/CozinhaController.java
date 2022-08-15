@@ -81,7 +81,6 @@ public class CozinhaController {
 			
 			if (cozinha != null) {
 				cozinhaRepository.remover(cozinha);
-				
 				return ResponseEntity.noContent().build();
 			}
 			
