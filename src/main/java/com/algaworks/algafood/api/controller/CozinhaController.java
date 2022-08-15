@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,10 +40,15 @@ public class CozinhaController {
 	// ResponseEntity<T> Permite que nós possamos personalizar nossa resposta http 
 	public ResponseEntity<Cozinha> buscar(@PathVariable("cozinhaid") Long cozinhaid) {
 		Cozinha cozinha =  cozinhaRepository.porId(cozinhaid);
-		
 		if(cozinha != null) {
 			return ResponseEntity.ok(cozinha);
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public Cozinha salvar(@RequestBody Cozinha cozinha) {
+		return cozinhaRepository.adicionar(cozinha);
 	}
 }
