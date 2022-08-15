@@ -46,7 +46,7 @@ public class CozinhaController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_XML_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cozinha salvar(@RequestBody Cozinha cozinha) {
 		return cozinhaRepository.adicionar(cozinha);
