@@ -56,12 +56,17 @@ public class CozinhaController {
 	@PutMapping("/{cozinhaid}")
 	public ResponseEntity<Cozinha> atualizar(@PathVariable("cozinhaid") Long id, @RequestBody Cozinha cozinha) {
 		Cozinha cozinhaAtual = cozinhaRepository.porId(id);
+		if(cozinhaAtual == null) {
+			return ResponseEntity.notFound().build();
+		}
+		
 		// Existe duas maneiras de implementar put
 		// 1º Setando todos os parâmetros
 		cozinhaAtual.setNome(cozinha.getNome());
 		// 2º recomendado usar a class BeanUtils.copyProperties
 		// faz a cópia das propriedades cozinha e adicionar no cozinhaAtual.
-		BeanUtils.copyProperties(cozinha, cozinhaAtual);
+		// o terceiro parametro "id" é para ignorar porque ele vem sempre nullo
+		BeanUtils.copyProperties(cozinha, cozinhaAtual,"id");
 		cozinhaRepository.adicionar(cozinhaAtual);
 		return ResponseEntity.ok(cozinhaAtual);
 	}
