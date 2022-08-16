@@ -2,6 +2,7 @@ package com.algaworks.algafood.api.controller;
 
 import java.util.List;
 
+import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -81,15 +82,11 @@ public class CozinhaController {
 	@DeleteMapping("/{cozinhaId}")
 	public ResponseEntity<Cozinha> remover(@PathVariable Long cozinhaId) {
 		try {
-			Cozinha cozinha = cozinhaRepository.porId(cozinhaId);
-			
-			if (cozinha != null) {
-				cozinhaRepository.remover(cozinha);
-				return ResponseEntity.noContent().build();
-			}
-			
+			cadastroCozinhaService.excluir(cozinhaId);
 			return ResponseEntity.notFound().build();
-		} catch (DataIntegrityViolationException e) {
+		} catch (EntidadeNaoEncontradaException e) { // Entidade não foi encontrada retorna um 404 notfound
+			return ResponseEntity.notFound().build();
+		} catch (DataIntegrityViolationException e) { // Entidade esta em uso retorna 409 Em conflito
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
 	}
