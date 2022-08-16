@@ -18,7 +18,7 @@ public class RestauranteRepositoryImpl implements RestauranteRepository {
 	private EntityManager manager;
 	
 	@Override
-	public List<Restaurante> todas() {
+	public List<Restaurante> todos() {
 		return manager.createQuery("from Restaurante", Restaurante.class)
 				.getResultList();
 	}
@@ -40,9 +40,9 @@ public class RestauranteRepositoryImpl implements RestauranteRepository {
 	
 	@Override
 	@Transactional
-	public void remover(Restaurante restaurante) {
+	public void remover(Long id) {
 		try {
-			restaurante = porId(restaurante.getId());
+			Restaurante restaurante = porId(id);
 			manager.remove(restaurante);	
 		} catch (Exception e) {
 			throw new RuntimeException("Não foi possivel remover a restaurante não pode ser do tipo null");

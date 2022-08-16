@@ -18,7 +18,7 @@ public class ConsultaRestauranteMain {
 
 		RestauranteRepositoryImpl restauranteRepositoryImpl = applicationContext.getBean(RestauranteRepositoryImpl.class);
 
-		List<Restaurante> restaurantes = restauranteRepositoryImpl.todas();
+		List<Restaurante> restaurantes = restauranteRepositoryImpl.todos();
 
 		System.out.println("\n");
 		System.out.println("+-------------------- CONSULTAR TODOS RESTAURANTES ------------------------------------+");

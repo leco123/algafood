@@ -19,7 +19,7 @@ public class AtualizacaoCozinhaMain {
 		
 		Cozinha cozinha = new Cozinha();
 		cozinha.setId(1L);
-		cozinhaRepositoryImpl.remover(cozinha);
+		cozinhaRepositoryImpl.remover(cozinha.getId());
 		
 		System.out.println("\n");
 		System.out.println("+-------------------- AÇÃO DE REMOVER COZINHA --------+");
