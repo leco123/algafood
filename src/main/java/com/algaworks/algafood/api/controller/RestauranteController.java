@@ -48,16 +48,19 @@ public class RestauranteController {
 	}
 
 	@PutMapping("/{restaurantid}")
-	public ResponseEntity<Restaurante> atualizar(@PathVariable("restaurantid") Long id, @RequestBody Restaurante restaurante) {
-		Restaurante restauranteAtual = crudRestauranteServide.porId(id);
-
-		if(restauranteAtual == null) {
-			return ResponseEntity.notFound().build();
+	public ResponseEntity<?> atualizar(@PathVariable("restaurantid") Long id, @RequestBody Restaurante restaurante) {
+		try {
+			Restaurante restauranteAtual = crudRestauranteServide.porId(id);
+			if (restauranteAtual == null) {
+				return ResponseEntity.notFound().build();
+			}
+			restauranteAtual.setNome(restaurante.getNome());
+			BeanUtils.copyProperties(restaurante, restauranteAtual,"id");
+			crudRestauranteServide.adicionar(restauranteAtual);
+			return ResponseEntity.ok(restauranteAtual);
+		} catch (EntidadeNaoEncontradaException e) { // Entidade Cozinha não foi encontrada retorna um 404 notfound
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
 		}
-		restauranteAtual.setNome(restaurante.getNome());
-		BeanUtils.copyProperties(restaurante, restauranteAtual,"id");
-		crudRestauranteServide.adicionar(restauranteAtual);
-		return ResponseEntity.ok(restauranteAtual);
 	}
 
 	@DeleteMapping("/{restaurantid}")
