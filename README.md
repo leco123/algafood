@@ -3,6 +3,13 @@
 
 Uma breve descrição sobre o que esse projeto faz e para quem ele é
 
+#CONCEITOS
+
+## CONCEITO: O QUE É REST e RESTful?
+
+Existem 2(dois) tipos de desenvolvedores que usam REST:
+ - **Puristas:** São os que seguem a rísca as constraints do RESTFUL
+ - **Pragmáticos:** São os que seguem algumas contrainsts
 
 ## Conhecendo as constraints do REST
 
@@ -23,14 +30,58 @@ Uma breve descrição sobre o que esse projeto faz e para quem ele é
 
 #### REST: 
 É o estilo cultural que possui as **constraints**, mencionadas acima: 
-- Cliente-servidor;
+- Cliente-servidor (Client-Server);
 - Stateless;
-- Cache; 
-- Interface Uniforme; 
-- Sistema em camadas;
+- Cache (Cacheable); 
+- Interface Uniforme (Uniform Interface); 
+- Sistema em camadas (Layered system);
 
 #### RESTful ou REST API: 
 É uma API desenvolvida em conformidade com as constraints, resumindo é uma API que segue todas as constraints obrigatórias, caso seja violado alguma constraint não deve ser reconhecida ou trata como ````RESTful````.
+
+## CONCEITO: Medindo a Maturidade de sua API - "Richardson Maturity Model" (RMM)
+Pra saber se uma API é REST pergunte a ela qual o nível de maturidade da API de acordo com Richardson, quem criou o modelo de Maturidade Richardson;
+
+- **Nível 3**: "Level Three Services" HATEOAS Último nível considerado a glória do REST, na teoria apenas o nível 3 deve ser considerado como REST de acordo com [Roy Fielding](https://roy.gbiv.com/) Cientista de computação
+
+  **Explicação:** O nível 3(três) de maturidade faz o uso eficiente dos três fatores. **URIs**, **HTTP** e **HATEOAS**.
+
+
+- **Nível 2**: "Level Two Services" Verbos HTTP -> Apesar dos desenvolvedores purista não considerarem REST, porém a maioria dos desenvolvedores nomearam sendo REST
+
+  **Explicação:** O nível 2(dois) de maturidade faz o uso eficiente de URIs e verbos HTTP. Nos níveis anteriores o protocolo HTTP estava sendo usado superficialmente.
+
+    Neste nível a API suporta os diversos verbos **HTTP**:
+
+  - **POST** - Criar
+  - **GET** - Ler
+  - **PUT** - Atualizar
+  - **DELETE** - Excluir
+  - **PATCH** - Atualizar parcialmente
+
+  
+
+  - **Nível 1**: "Level One Services" Recursos -> Não é consideado como REST.
+
+       **Explicação:**
+
+       -O nível 1(um) de maturidade já considera a utilização eficiente de URIs. 
+        
+       -Os recursos são mapeados, mas ainda não emprega o uso eficiente dos verbos. 
+        
+       -Geralmente utilizam apenas GET e POST.
+
+
+
+  - **Nível 0**: "Level Zero Services" POX -> Não é considerado como REST.
+
+       **Explicação:** 
+
+       -O nível 0(zero) de maturidade não utiliza recursos de URI, HTTP Methods e HATEOAS. 
+
+       -A API têm um único URI e usa um único método HTTP (normalmente POST).
+
+
 
 ## Aprendizados
 
