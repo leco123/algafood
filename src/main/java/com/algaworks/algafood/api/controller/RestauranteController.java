@@ -4,13 +4,19 @@ import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.CrudRestauranteServide;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.el.util.ReflectionUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -90,9 +96,26 @@ public class RestauranteController {
 		return atualizar(restaurantid, restauranteAtual);
 	}
 
-	private void merge(Map<String, Object> camposOrigem, Restaurante restauranteDestion) {
-		camposOrigem.forEach((String nomePropriedade, Object valorPropriedade) -> {
-			System.out.println(nomePropriedade + " = "+valorPropriedade);
+	private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		// Estamos dizendo aqui objectMapper convert pra mim dados de Origem em um objecto do tipo Restaurante
+		// criando uma instância restauranteOrigem
+		Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
+
+		dadosOrigem.forEach((String nomePropriedade, Object valorPropriedade) -> {
+			// findField Retorna instância de um campo
+			Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
+			// É necessário setar o field como true devido as propriedades de restaurante
+			// serem declaradas como private
+			field.setAccessible(true);
+			// getField retorna o valor da propriedade representado por field
+			Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
+			System.out.println("+------------------------- PROPRIEDADES PATH ---------------------------------+");
+			System.out.println("| Informação data/hora: "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss")));
+			System.out.println("| Nome propriedade: "+nomePropriedade+ " Valor propriedade: "+valorPropriedade);
+			System.out.println("| Nome propriedade: "+nomePropriedade+ " Novo Valor propriedade: "+novoValor);
+			System.out.println("+-----------------------------------------------------------------------------+");
+			ReflectionUtils.setField(field, restauranteDestino, novoValor);
 		});
 	}
 }

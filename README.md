@@ -34,9 +34,56 @@ Uma breve descrição sobre o que esse projeto faz e para quem ele é
 
 ## Aprendizados
 
-O que aprendi construindo esse projeto? 
+#### Exemplo de como implementar PATCH dinâmico
 
-Quais desafios foram enfrentandos e como foram superador?
+O exemplo a seguir representa um PATCH para classe de Restaurante. 
+
+Criar uma classe Controller e adiciona o método que será implementado o PATCH e como usar **_Reflections do Spring_**
+**Implementado no commit:** 4.34. Finalizando a atualização parcial com a API de Reflections do Spring
+
+```
+@PatchMapping("/{restaurantid}")
+public ResponseEntity<?> atualizarParcial(@PathVariable Long restaurantid,
+@RequestBody Map<String, Object> campos) {
+		Restaurante restauranteAtual = crudRestauranteServide.porId(restaurantid);
+		if (restauranteAtual == null ) {
+			return ResponseEntity.notFound().build();
+		}
+		merge(campos, restauranteAtual);
+		return atualizar(restaurantid, restauranteAtual);
+	}
+```
+
+Criar método merge onde será aplicada toda a regra de comparação dos campos atualizados sem quebrar tipagem
+
+```
+private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
+  ObjectMapper objectMapper = new ObjectMapper();
+  // Estamos dizendo aqui objectMapper convert pra mim dados de Origem em um objecto do tipo Restaurante
+  // criando uma instância restauranteOrigem
+  Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
+  
+  dadosOrigem.forEach((String nomePropriedade, Object valorPropriedade) -> {
+    // findField Retorna instância de um campo
+    Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
+
+    // É necessário setar o field como true devido as propriedades de restaurante serem declaradas como private
+    field.setAccessible(true);
+    
+    // getField retorna o valor da propriedade representado por field
+    Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
+
+    System.out.println("+------------------------- PROPRIEDADES PATH ---------------------------------+");
+    System.out.println("| Informação data/hora: "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss")));
+    System.out.println("| Nome propriedade: "+nomePropriedade+ " Valor propriedade: "+valorPropriedade);
+    System.out.println("| Nome propriedade: "+nomePropriedade+ " Novo Valor propriedade: "+novoValor);
+    System.out.println("+-----------------------------------------------------------------------------+");
+
+    ReflectionUtils.setField(field, restauranteDestino, novoValor);
+  });
+}
+```
+
 
 ## Termos
 
