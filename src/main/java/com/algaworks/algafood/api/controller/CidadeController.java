@@ -54,7 +54,7 @@ public class CidadeController {
 		}
 	}
 
-	@PutMapping("/{cidadeAId}")
+	@PutMapping("/{cidadeId}")
 	public ResponseEntity<Cidade> atualizar(@PathVariable Long cidadeId,
 											@RequestBody Cidade cidade) {
 		Cidade cidadeAtual = cidadeRepository.porId(cidadeId);
