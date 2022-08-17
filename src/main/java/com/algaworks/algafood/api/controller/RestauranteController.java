@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/restaurantes")
@@ -73,5 +74,25 @@ public class RestauranteController {
 		} catch (DataIntegrityViolationException e) { // Entidade esta em uso retorna 409 Em conflito
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
+	}
+
+	@PatchMapping("/{restaurantid}")
+	public ResponseEntity<?> atualizarParcial(@PathVariable Long restaurantid,
+											  @RequestBody Map<String, Object> campos) {
+
+		Restaurante restauranteAtual = crudRestauranteServide.porId(restaurantid);
+
+		if (restauranteAtual == null ) {
+			return ResponseEntity.notFound().build();
+		}
+
+		merge(campos, restauranteAtual);
+		return atualizar(restaurantid, restauranteAtual);
+	}
+
+	private void merge(Map<String, Object> camposOrigem, Restaurante restauranteDestion) {
+		camposOrigem.forEach((String nomePropriedade, Object valorPropriedade) -> {
+			System.out.println(nomePropriedade + " = "+valorPropriedade);
+		});
 	}
 }
