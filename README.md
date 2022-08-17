@@ -6,19 +6,19 @@ Uma breve descrição sobre o que esse projeto faz e para quem ele é
 
 ## Conhecendo as constraints do REST
 
-— **Constraints:** É uma restrição é algo que limita ou controla o que você pode fazer. 
+ _Constraints_ é uma restrição há algo que limita ou controla o que você pode fazer, abaixo esta listado as constraints do padrão REST 
 
 — **Cliente-servidor:** devem poder evoluir separadamente sem qualquer dependência entre elas.
 
-— **Stateless:** Sem estador, aplicação não deve possuir estado, resumindo a requisição feita ao servidor deve conter tudo que precisa para ser processado, o servidor não pode manter sessão no servidor, isso significa que o servidor não manterá o histórico de uso;
+— **Stateless:** Sem estador, aplicação não deve possuir estado, resumindo a requisição feita ao servidor deve conter tudo que precisa para ser processado, o servidor não pode manter sessão nele mesmo, isso significa que o servidor não manterá o histórico de uso;
 
-— **Cache:** API pode fazer cache das requisições ao servidor, resumindo ao fazer uma nova requisição não, na verdade, não chega ser concretizado a requisição e sim buscado essa requisição no cache, melhorando a escalabilidade e desempenho.
+— **Cache:** API pode fazer caches das requisições ao servidor ao fazer uma nova requisição? A requisição para o mesmo endpoint pode ser configurada para buscar no cache, melhorando a escalabilidade e desempenho, sitando alguns exemplos: nomes de cidades, endereços, enfim esses dados que dificilmente sofreram alterações.
 
 — **Interface** Uniforme: Conjunto de operações bem definidas no sistema, uma vez definida deve seguir isso como verdade total;
 
-— **Sistema em camadas:** Entre o cliente que prove a API e o cliente que consome API existe outro servidor no meio que fornece outras camadas como segurança, cache, balanceamento de carga, etc.
+— **Sistema em camadas:** Entre o cliente que prove a API e o cliente que consome API existem outros servidores no meio que fornecem outras camadas como segurança, cache, balanceamento de carga, etc.
 
-— **Código sob demanda:** Opcional, o servidor pode enviar como resposta algum código que pode executado no cliente, porém é muito pouco usado.
+— **Código sob demanda:** Opcional, o servidor pode enviar como resposta algum código que pode ser executado no cliente, porém é muito pouco usado.
 ## Diferença entre REST e RESTful
 
 #### REST: 
