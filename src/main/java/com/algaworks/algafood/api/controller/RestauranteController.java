@@ -36,9 +36,15 @@ public class RestauranteController {
 	}
 
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public Restaurante salvar(@RequestBody Restaurante restaurante) {
-		return crudRestauranteServide.adicionar(restaurante);
+	public ResponseEntity<?> adicionar(@RequestBody Restaurante restaurante) {
+		try {
+			restaurante = crudRestauranteServide.adicionar(restaurante);
+			return ResponseEntity
+					.status(HttpStatus.CREATED)
+					.body(restaurante);
+		} catch (EntidadeNaoEncontradaException e) { // Entidade não foi encontrada retorna um 400 badrequest
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 	@PutMapping("/{restaurantid}")

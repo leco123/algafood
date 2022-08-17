@@ -31,11 +31,7 @@ public class RestauranteRepositoryImpl implements RestauranteRepository {
 	@Override
 	@Transactional
 	public Restaurante adicionar(Restaurante restaurante) {
-		try {
-			return manager.merge(restaurante);	
-		} catch (Exception e) {
-			throw new RuntimeException("Não foi possivel salvar o restaurante não pode ser do tipo null");
-		}
+		return manager.merge(restaurante);
 	}
 	
 	@Override

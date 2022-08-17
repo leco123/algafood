@@ -4,6 +4,7 @@ import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
+import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +18,9 @@ public class CrudRestauranteServide {
 
     @Autowired
     private RestauranteRepository restauranteRepository;
+
+    @Autowired
+    private CozinhaRepository cozinhaRepository;
 
     public List<Restaurante> listar(){
         return restauranteRepository.todos();
@@ -47,6 +51,11 @@ public class CrudRestauranteServide {
     }
 
     public Restaurante adicionar(Restaurante restaurante) {
+        Cozinha cozinha = cozinhaRepository.porId(restaurante.getCozinha().getId());
+        if (cozinha == null) {
+           throw new EntidadeNaoEncontradaException(
+                   String.format("Não existe cadastro de cozinha com código: %d ", restaurante.getCozinha().getId()));
+        }
         return restauranteRepository.adicionar(restaurante);
     }
 }
