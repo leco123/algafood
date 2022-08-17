@@ -39,7 +39,7 @@ Existem 2(dois) tipos de desenvolvedores que usam REST:
 #### RESTful ou REST API: 
 É uma API desenvolvida em conformidade com as constraints, resumindo é uma API que segue todas as constraints obrigatórias, caso seja violado alguma constraint não deve ser reconhecida ou trata como ````RESTful````.
 
-## CONCEITO: Medindo a Maturidade de sua API - "Richardson Maturity Model" (RMM)
+## Medindo a Maturidade de sua API - "Richardson Maturity Model" (RMM)
 Pra saber se uma API é REST pergunte a ela qual o nível de maturidade da API de acordo com Richardson, quem criou o modelo de Maturidade Richardson;
 
 - **Nível 3**: "Level Three Services" HATEOAS Último nível considerado a glória do REST, na teoria apenas o nível 3 deve ser considerado como REST de acordo com [Roy Fielding](https://roy.gbiv.com/) Cientista de computação
