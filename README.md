@@ -85,7 +85,7 @@ Pra saber se uma API é REST pergunte a ela qual o nível de maturidade da API d
 
 ## Aprendizados
 
-#### Exemplo de como implementar PATCH dinâmico
+### Exemplo de como implementar PATCH dinâmico
 
 O exemplo a seguir representa um PATCH para classe de Restaurante. 
 
@@ -135,6 +135,9 @@ private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDesti
 }
 ```
 
+### Exemplos de JPQL em repositórios
+
+?????
 
 ## Termos
 
