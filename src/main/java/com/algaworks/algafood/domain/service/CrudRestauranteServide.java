@@ -12,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CrudRestauranteServide {
@@ -51,7 +52,7 @@ public class CrudRestauranteServide {
     }
 
     public Restaurante adicionar(Restaurante restaurante) {
-        Cozinha cozinha = cozinhaRepository.porId(restaurante.getCozinha().getId());
+        Optional<Cozinha> cozinha = cozinhaRepository.findById(restaurante.getCozinha().getId());
         if (cozinha == null) {
            throw new EntidadeNaoEncontradaException(
                    String.format("Não existe cadastro de cozinha com código: %d ", restaurante.getCozinha().getId()));
