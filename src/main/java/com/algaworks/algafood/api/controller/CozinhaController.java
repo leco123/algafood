@@ -41,7 +41,7 @@ public class CozinhaController {
 	@GetMapping("/{cozinhaid}")
 	public ResponseEntity<Cozinha> buscar(@PathVariable("cozinhaid") Long cozinhaid) {
 		Optional<Cozinha> cozinha =  cozinhaRepository.findById(cozinhaid);
-		if(cozinha != null) {
+		if(cozinha.isPresent()) {
 			return ResponseEntity.ok(cozinha.get());
 		}
 		return ResponseEntity.notFound().build();
@@ -57,11 +57,11 @@ public class CozinhaController {
 	public ResponseEntity<Optional<Cozinha>> atualizar(@PathVariable("cozinhaid") Long id, @RequestBody Cozinha cozinha) {
 		Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(id);
 		
-		if(cozinhaAtual == null) {
+		if(!cozinhaAtual.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 		cozinhaAtual.get().setNome(cozinha.getNome());
-		BeanUtils.copyProperties(cozinha, cozinhaAtual,"id");
+		BeanUtils.copyProperties(cozinha, cozinhaAtual.get(),"id");
 		cozinhaRepository.save(cozinhaAtual.get());
 		return ResponseEntity.ok(cozinhaAtual);
 	}

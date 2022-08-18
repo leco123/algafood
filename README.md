@@ -1,9 +1,11 @@
 
 # Treinamento Algaworks Especialista em REST
 
-Uma breve descrição sobre o que esse projeto faz e para quem ele é
+Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_, como o curso é amplo dexei apenas informações que não conhecia ou não lembrava e até mesmo informação que conhecia, porém, de uma abordagem diferente.
 
 # CONCEITOS
+
+
 
 ## CONCEITO: O QUE É REST e RESTful?
 
@@ -39,8 +41,8 @@ Existem 2(dois) tipos de desenvolvedores que usam REST:
 #### RESTful ou REST API: 
 É uma API desenvolvida em conformidade com as constraints, resumindo é uma API que segue todas as constraints obrigatórias, caso seja violado alguma constraint não deve ser reconhecida ou trata como ````RESTful````.
 
-## Medindo a Maturidade de sua API - "Richardson Maturity Model" (RMM)
-Pra saber se uma API é REST pergunte a ela qual o nível de maturidade da API de acordo com Richardson, quem criou o modelo de Maturidade Richardson;
+## Medindo a maturidade de sua (API) - "Richardson Maturity Model" (RMM)
+Quem criou o modelo de Maturidade foi _Richardson_ e para saber se uma API é REST, faça uma pergunta: **-Em qual nível de maturidade de acordo com Richardson, foi desenvolvida API?** 
 
 - **Nível 3**: "Level Three Services" `HATEOAS` Último nível considerado a glória do REST, na teoria apenas o nível 3 deve ser considerado como REST de acordo com [Roy Fielding](https://roy.gbiv.com/) Cientista de computação
 
@@ -135,10 +137,63 @@ private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDesti
 }
 ```
 
-### Exemplos de JPQL em repositórios
 
-?????
+### Dícas
 
-## Termos
+#### Como evitar erros de NullPointerException usando o Optional lançado no Java 8 
 
-O que aprendi construindo esse projeto? 
+#### Propósitos dos Optional
+- Evitar erros `NullPointerException`.
+- Parar de fazer verificações de valor nulo do tipo `if (cliente != null)`.
+- Escrever código mais limpo e elegante.
+
+##### Principais Métodos
+**empty** - Retorna uma instância de Optional vazia.
+```java
+    Optional<Cliente> retorno = Optional.empty();
+```
+**of** - Retorna um `Optional` com o valor fornecido, mas o valor não pode ser nulo. Se não tiver certeza de que o valor não é nulo use `Optional.ofNullable`.
+```java
+   Optional<Cliente> retorno = Optional.of(buscaCliente(cpf));
+```
+**ofNullable** - Se um valor estiver presente, retorna um Optional com o valor, caso contrário, retorna um `Optional` vazio. Este é um dos métodos mais indicados para criar um `Optional`.
+```java
+   Optional<Cliente> retorno = Optional.ofNullable(buscaCliente(cpf));
+```
+**filter** - Se um valor estiver presente e o valor corresponder ao predicado retorna um `Optional` com o valor, se não, retorna um `Optional` vazio.
+```java
+   Optional<Cliente> retorno = buscaCliente(cpf).filter(cliente -> !cliente.getNome().isEmpty());
+```
+**isPresent** - Se um valor estiver presente retorna `true`, se não, retorna `false`.
+```java
+   Optional<Cliente> retorno = Optional.ofNullable(buscaCliente(cpf));
+        if (retorno.isPresent()) {
+            System.out.println("Cliente encontrado.");
+        } else {
+            System.out.println("Cliente não encontrado.");
+        }
+```
+**get** - Se um valor estiver presente retorna o valor, caso contrário, lança `NoSuchElementException`. Então para usar `get` é preciso ter certeza de que o `Optional` não está vazio.
+```java
+   Optional<Cliente> retorno = Optional.ofNullable(buscaCliente(cpf));
+        if (retorno.isPresent()) {
+            Cliente cliente = retorno.get();
+        }
+```
+**ifPresent** - Se um valor estiver presente, executa a ação no valor, caso contrário, não faz nada.
+```java
+   public void login(String cpf, String senha) {
+        dao.buscaPorCPF(cpf).
+        ifPresent(cliente -> cliente.realizaLogin(senha));
+   }
+```
+**map** -  Se um valor estiver presente retorna um `Optinal` com o resultado da aplicação da função de mapeamento no valor, caso contrário, retorna um `Optional` vazio.
+```java
+   if (optCliente.isPresent()) {
+        String nome = optCliente.map(Cliente::getNome);
+   }
+```
+**flatMap** -  Semelhante a `map`, se um valor estiver presente, retorna o resultado da aplicação da função de mapeamento no valor, caso contrário retorna um `Optional` vazio. A diferença é que `flatMap` pode se aplicado a um mapeamento que também retorna um `Optional`.
+```java
+   Endereco endereco = buscaCliente(cpf).flatMap(Cliente::getEndereco).get();
+```
