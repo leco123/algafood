@@ -42,7 +42,7 @@ Existem 2(dois) tipos de desenvolvedores que usam REST:
 ## Medindo a Maturidade de sua API - "Richardson Maturity Model" (RMM)
 Pra saber se uma API é REST pergunte a ela qual o nível de maturidade da API de acordo com Richardson, quem criou o modelo de Maturidade Richardson;
 
-- **Nível 3**: "Level Three Services" HATEOAS Último nível considerado a glória do REST, na teoria apenas o nível 3 deve ser considerado como REST de acordo com [Roy Fielding](https://roy.gbiv.com/) Cientista de computação
+- **Nível 3**: "Level Three Services" `HATEOAS` Último nível considerado a glória do REST, na teoria apenas o nível 3 deve ser considerado como REST de acordo com [Roy Fielding](https://roy.gbiv.com/) Cientista de computação
 
   **Explicação:** O nível 3(três) de maturidade faz o uso eficiente dos três fatores. **URIs**, **HTTP** e **HATEOAS**.
 
@@ -92,7 +92,7 @@ O exemplo a seguir representa um PATCH para classe de Restaurante.
 Criar uma classe Controller e adiciona o método que será implementado o PATCH e como usar **_Reflections do Spring_**
 **Implementado no commit:** 4.34. Finalizando a atualização parcial com a API de Reflections do Spring
 
-```
+```java
 @PatchMapping("/{restaurantid}")
 public ResponseEntity<?> atualizarParcial(@PathVariable Long restaurantid,
 @RequestBody Map<String, Object> campos) {
@@ -107,7 +107,7 @@ public ResponseEntity<?> atualizarParcial(@PathVariable Long restaurantid,
 
 Criar método merge onde será aplicada toda a regra de comparação dos campos atualizados sem quebrar tipagem
 
-```
+```java
 private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
   ObjectMapper objectMapper = new ObjectMapper();
   // Estamos dizendo aqui objectMapper convert pra mim dados de Origem em um objecto do tipo Restaurante
