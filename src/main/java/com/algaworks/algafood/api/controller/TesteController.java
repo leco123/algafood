@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/teste")
@@ -18,8 +19,12 @@ public class TesteController {
     private CozinhaRepository cozinhaRepository;
 
     @GetMapping("/cozinhas/por-nome")
-    public List<Cozinha> cozinhasPorNome(@RequestParam("nome") String nome) {
-        //return cozinhaRepository.consultarPorNome(nome);
-        return null;
+    public List<Cozinha> cozinhasPorNome(String nome) {
+        return cozinhaRepository.findTodasByNome(nome);
+    }
+
+    @GetMapping("/cozinhas/unica-por-nome")
+    public Optional<Cozinha> cozinhaPorNome(String nome) {
+        return cozinhaRepository.findByNome(nome);
     }
 }
