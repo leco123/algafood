@@ -197,3 +197,7 @@ private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDesti
 ```java
    Endereco endereco = buscaCliente(cpf).flatMap(Cliente::getEndereco).get();
 ```
+
+## Links de documentações
+
+- [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
