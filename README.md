@@ -4,10 +4,10 @@
 Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_, como o curso é amplo dexei apenas informações que não conhecia ou não lembrava e até mesmo informação que conhecia, porém, de uma abordagem diferente.
 
 ## Aprendizados
-
 - Mapeapento de Entidades
+- Injeção de Dependência
 - Implementar Resquisições _MediaTypes_: `Json` e `XML`;
-- Implementar Requisições onde o cliente consiga escolher qual `MediaType` vai usar para consumir API;
+- Implementar Requisições onde o cliente consiga fazer escolha em qual `MediaType` vai consumir API;
 - Oque é REST e RESTful;
 # CONCEITOS
 
