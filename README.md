@@ -3,9 +3,13 @@
 
 Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_, como o curso é amplo dexei apenas informações que não conhecia ou não lembrava e até mesmo informação que conhecia, porém, de uma abordagem diferente.
 
+## Aprendizados
+
+- Mapeapento de Entidades
+- Implementar Resquisições _MediaTypes_: `Json` e `XML`;
+- Implementar Requisições onde o cliente consiga escolher qual `MediaType` vai usar para consumir API;
+- Oque é REST e RESTful;
 # CONCEITOS
-
-
 
 ## CONCEITO: O QUE É REST e RESTful?
 
@@ -82,10 +86,7 @@ Quem criou o modelo de Maturidade foi _Richardson_ e para saber se uma API é RE
        -O nível 0(zero) de maturidade não utiliza recursos de URI, HTTP Methods e HATEOAS. 
 
        -A API têm um único URI e usa um único método HTTP (normalmente POST).
-
-
-
-## Aprendizados
+  
 
 ### Exemplo de como implementar PATCH dinâmico
 
