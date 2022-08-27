@@ -4,14 +4,59 @@
 Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_, como o curso é amplo dexei apenas informações que não conhecia ou não lembrava e até mesmo informação que conhecia, porém, de uma abordagem diferente.
 
 ## Aprendizados
+- Variável serialVersionUID
 - Mapeapento de Entidades
 - Injeção de Dependência
 - Implementar Resquisições _MediaTypes_: `Json` e `XML`;
 - Implementar Requisições onde o cliente consiga fazer escolha em qual `MediaType` vai consumir API;
 - Oque é REST e RESTful;
+
+### Variável _`serialVersionUID`_ e sua importância na arquitetura Java
+Para compreender sobre a váriável _`serialVersionUID`_ é nescessário comprender alguns conceitos funcionalidades.
+
+**Oque é serializar um objeto ou serialização**
+
+**Serializar** um objeto, dentro da plataforma **Java**, significa converter o estado atual dele em outro formato "**padrão**" por exemplo: imagem, json, pdf... e depois disponibilizá-lo em um stream de _bytes_ que poderá ser escrito em disco ou transmitido.
+
+**Cenários comuns para o uso do mecanismo de serialização**, dentro do ecossistema Java, são as invocações de métodos remotos (**RPC**) e também na replicação de **sessões** dos servidores web ou de aplicação.
+
+**Classes que fazem uso do Serializable**: _wrappers_ juntamente com os primitivos - "_esses não implementam, pois, não são classes, mas podem ser serializados_". 
+
+#### O que é o serialVersionUID?
+Esse é um atributo utilizado para controlar explicitamente a compatibilidade entre o **.class** usado para serializar e o **.class** que será utilizado na desserialização.
+
+**Porque e quando usar?**: O controle é necessário porque um **.class** pode ter sofrido alterações e ainda assim se manter compatível com sua versão anterior.
+
+Caso você não informe o atributo _serialVersionUID_, o Java o fará por você na hora em que for compilar e para gerar o valor de _serialVersionUID_ são levados em consideração alguns aspectos de estrutura da classe:
+
+* **Nome da classe e seus modificadores**;
+* **Nomes das interfaces que a classe implementa**;
+* **Atributos e seus modificadores**;
+* **Outros**: podem ser conferida na [documentação conferir na documentação Oracle JAVASE 8](https://docs.oracle.com/javase/8/docs/platform/serialization/spec/class.html#a4100)
+* **Como evitar erro Exception por causa do _serialVersionUID_**: Sempre que for usado o implements Serializable deve ser declarado o valor do _serialVersionUID_ para evitar Exception no futuro: **java.io.InvalidClassException**, este erro acontece por:
+
+Imagine que foi adicionado um novo atributo a classe:
+
+>Basicamente quando não informamos de forma explícita o valor do `serialVersionUID` o Java faz isso de forma implícita, 
+porém é aqui que está o problema, quando adicionamos um novo atributo a classe esse valor é atualizado devido o Java usar os atributos da classe para gerar um 
+Hash explícito ao `serialVersionUID`, porém ele cria isso como se fosse uma nova versão do arquivo e no momento de deserializar esse arquivo com a versão antiga não vai conseguir porque esta em 
+uma versão diferente da primeira. Existe duas maneiras de resolver esse problema:
+
+
+**1º A mais simples foi descrito no tópico acima**: É adicionar de forma explícita o _serialVersionUID_, assim que for adicionado o implements Serializable tópico: Como evitar erro Exception por causa do _serialVersionUID_;
+
+**2ª Descubir qual era o valor _serialVersionUID que o Java tinha atribuido para classe**:
+
+Descoberto o valor de serialVersionUID na versão antiga da classe, então, basta declará-lo explicitamente na nova versão para conseguir desserializar os objetos mais antigos:
+````shell
+$ serialver -classpath :target/artigo-java-serialVersionUID-1.0-SNAPSHOT.jar com.meudominio.serialversionuid.exemplo.NomeClasse
+// RETORNO DO CONSOLE:
+com.meudominio.serialversionuid.exemplo.NomeClasse: private static final long serialVersionUID = -3969352858203924755L;
+````
+
 # CONCEITOS
 
-## CONCEITO: O QUE É REST e RESTful?
+## Oque é REST e RESTful?
 
 Existem 2(dois) tipos de desenvolvedores que usam REST:
  - **Puristas:** São os que seguem a rísca as constraints do RESTFUL
@@ -88,9 +133,12 @@ Quem criou o modelo de Maturidade foi _Richardson_ e para saber se uma API é RE
        -A API têm um único URI e usa um único método HTTP (normalmente POST).
   
 
-### Exemplo de como implementar PATCH dinâmico
 
-O exemplo a seguir representa um PATCH para classe de Restaurante. 
+### Dícas
+
+### Como implementar Verbo PATCH de forma dinâmica
+
+O exemplo a seguir representa um PATCH para classe de Restaurante.
 
 Criar uma classe Controller e adiciona o método que será implementado o PATCH e como usar **_Reflections do Spring_**
 **Implementado no commit:** 4.34. Finalizando a atualização parcial com a API de Reflections do Spring
@@ -137,9 +185,6 @@ private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDesti
   });
 }
 ```
-
-
-### Dícas
 
 #### Como evitar erros de NullPointerException usando o Optional lançado no Java 8 
 
@@ -202,3 +247,4 @@ private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDesti
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
+- [Mais informações sobre a váriavel `serialVersionUID`](https://blog.algaworks.com/serialversionuid/)  Veja o artigo completo da **AlgaWorks** sobre a váriavel `serialVersionUID` descrito por **Alexandre Afonso**
