@@ -6,9 +6,12 @@ insert into cozinha (nome) values ('Brasileira');
 insert into cozinha (nome) values ('Itáliana');
 
 -- TAB RESTAURANTE
-insert into restaurante (nome, taxa_frete, cozinha) values ('Thai Gourmet', 10, 1);
-insert into restaurante (nome, taxa_frete, cozinha) values ('Thai Delivery', 9.50, 2);
-insert into restaurante (nome, taxa_frete, cozinha) values ('Tuk Tuk Comida Indiana', 15, 1);
+insert into restaurante (nome, taxa_frete, cozinha, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, endereco_cidade_id)
+values ('Thai Gourmet', 10, 1, 85504313, "Nome do endereço logradouro 1(um)", "001", "Rua sem nome", "Centro", 1);
+insert into restaurante (nome, taxa_frete, cozinha, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, endereco_cidade_id)
+values ('Thai Delivery', 9.50, 2, 85123123, "Nome do endereço logradouro 2(dois)", "002", "Rua sem nome dois", "Centro dois", 1);
+insert into restaurante (nome, taxa_frete, cozinha, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, endereco_cidade_id)
+values ('Tuk Tuk Comida Indiana', 15, 1, 85123333, "Nome do endereço logradouro 3(três)", "003", "Rua sem nome três", "Centro três", 1);
 
 -- TAB PERMISÕES DE ACESSO/ESCOPO
 insert into permissao (nome, descricao) values ('ADMINISTRADOR','Administrador-Acesso total ao sistema');
