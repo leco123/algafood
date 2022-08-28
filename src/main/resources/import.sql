@@ -15,8 +15,9 @@ insert into permissao (nome, descricao) values ('ADMINISTRADOR','Administrador-A
 insert into permissao (nome, descricao) values ('CLIENTE','Cliente-Acesso aos pedidos e itens');
 
 -- TAB FORMAS DE PAGAMENTO
+insert into forma_pagamento (descricao) values ('Cartão de crédito');
+insert into forma_pagamento (descricao) values ('Cartão de débito');
 insert into forma_pagamento (descricao) values ('Dinheiro');
-insert into forma_pagamento (descricao) values ('Cartão');
 
 -- TAB Estados do país
 insert into estado (nome) values ('Paraná');
@@ -29,5 +30,8 @@ insert into cidade (nome, estado) values ('Pato Branco', 1);
 insert into cidade (nome, estado) values ('Clevelândia', 1);
 insert into cidade (nome, estado) values ('Gramado',4);
 insert into cidade (nome, estado) values ('Canela',4);
+
+-- TAB Relacionamento Forma pagamento restaurante
+insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1,1),(1,2),(1,3),(2,3),(3,2),(3,3);
 
 
