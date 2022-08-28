@@ -33,3 +33,6 @@ insert into permissao (nome, descricao) values ('CLIENTE','Cliente-Acesso aos pe
 -- TAB Relacionamento Forma pagamento restaurante
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3);
 
+-- TAB PRODUTO
+insert into produto (id, nome, descricao, preco, ativo, restaurante) values (1, 'TV Samsung 50p', 'Descrição da televisão', 3200.25, true, 1), (2, 'livro JAVA 8 ', 'Descrição do livro java 8', 73.12, true, 2), (3, 'Notebook Acer Nitro', 'Descrição do notebook', 5705.17, true, 2), (4, 'Celular', 'Descrição da Celular', 1725, true, 1);
+
