@@ -30,10 +30,6 @@ insert into forma_pagamento (id, descricao) values (1, 'Cartão de crédito');
 insert into forma_pagamento (id, descricao) values (2, 'Cartão de débito');
 insert into forma_pagamento (id, descricao) values (3, 'Dinheiro');
 
--- TAB PERMISÕES DE ACESSO/ESCOPO
-insert into permissao (nome, descricao) values ('ADMINISTRADOR','Administrador-Acesso total ao sistema');
-insert into permissao (nome, descricao) values ('CLIENTE','Cliente-Acesso aos pedidos e itens');
-
 -- TAB Relacionamento Forma pagamento restaurante
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3), (4, 1), (4, 2), (5, 1), (5, 2), (6, 3);
 
@@ -47,4 +43,22 @@ insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Bif
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('T-Bone', 'Corte muito saboroso, com um osso em formato de T, sendo de um lado o contrafilé e do outro o filé mignon', 89, 1, 4);
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Sanduíche X-Tudo', 'Sandubão com muito queijo, hamburger bovino, bacon, ovo, salada e maionese', 19, 1, 5);
 insert into produto (nome, descricao, preco, ativo, restaurante_id) values ('Espetinho de Cupim', 'Acompanha farinha, mandioca e vinagrete', 8, 1, 6);
+
+-- TAB GRUPOS
+insert into grupo (nome) values ('GRUPO Administrador');
+insert into grupo (nome) values ('GRUPO Cliente');
+
+-- TAB PERMISÕES DE ACESSO/ESCOPO
+insert into permissao (nome, descricao) values ('ADMINISTRADOR','Administrador-Acesso total ao sistema');
+insert into permissao (nome, descricao) values ('CLIENTE','Cliente-Acesso aos pedidos e itens');
+
+insert into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (2, 1), (2, 2);
+
+--TAB USUÁRIO
+insert into usuario (id, nome, email, senha, data_cadastro) values (1, 'Alex de Carvalho','email@email.com', '123456',utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro) values (2, 'Carina Alves Barbieri','email@email.com', '123456',utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro) values (3, 'João da Silva','email@email.com', '123456',utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro) values (4, 'Miguel dos Santos','email@email.com', '123456',utc_timestamp);
+
+insert into usuario_grupo (usuario_id, grupo_id) values (1, 1), (1, 2), (2, 1), (3,2), (4,2);
 
