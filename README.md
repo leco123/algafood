@@ -243,6 +243,18 @@ private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDesti
 ```java
    Endereco endereco = buscaCliente(cpf).flatMap(Cliente::getEndereco).get();
 ```
+### Como Fazer backup MySQL com dump
+
+Para fazer um dump (backup dos dados) database "nomebanco" no MySQL, use o seguinte comando:
+
+```sql
+mysqldump --host localhost --user root --password --databases nomebanco > dump-nomebanco.sql
+```
+Para criar o database "nomebanco" a partir do dump, execute o comando:
+```sql
+mysql --host localhost --user root --password < dump-nomebanco.sql
+```
+
 
 ## Links de documentações
 
