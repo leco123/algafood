@@ -1,4 +1,29 @@
 
+SET foreign_key_checks = 0;
+
+DELETE FROM cidade;
+DELETE FROM cozinha;
+DELETE FROM estado;
+DELETE FROM forma_pagamento;
+DELETE FROM grupo;
+DELETE FROM grupo_permissao;
+DELETE FROM produto;
+DELETE FROM restaurante;
+DELETE FROM restaurante_forma_pagamento;
+DELETE FROM usuario;
+DELETE FROM usuario_grupo;
+
+SET foreign_key_checks = 1;
+
+alter table cidade auto_increment = 1;
+alter table cozinha auto_increment = 1;
+alter table estado auto_increment = 1;
+alter table forma_pagamento auto_increment = 1;
+alter table grupo auto_increment = 1;
+alter table produto auto_increment = 1;
+alter table restaurante auto_increment = 1;
+alter table usuario auto_increment = 1;
+
 -- TAB COZINHA
 insert into cozinha (id, nome) values (1, 'Tailandesa');
 insert into cozinha (id, nome) values (2, 'Indiana');
@@ -69,7 +94,7 @@ insert into permissao (nome, descricao) values ('CLIENTE','Cliente-Acesso aos pe
 
 insert into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (2, 1), (2, 2);
 
--- TAB USUARIO
+-- TAB USUÁRIO
 insert into usuario (id, nome, email, senha, data_cadastro)
     values (1, 'Alex de Carvalho','email@email.com', '123456',utc_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
@@ -79,4 +104,5 @@ insert into usuario (id, nome, email, senha, data_cadastro)
 insert into usuario (id, nome, email, senha, data_cadastro)
     values (4, 'Miguel dos Santos','email@email.com', '123456',utc_timestamp);
 
-insert into usuario_grupo (usuario_id, grupo_id) values (1, 1), (1, 2), (2, 1), (3,2), (4,2);
+insert into usuario_grupo (usuario_id, grupo_id)
+    values (1, 1), (1, 2), (2, 1), (3,2), (4,2);
