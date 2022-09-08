@@ -255,6 +255,21 @@ Para criar o database "nomebanco" a partir do dump, execute o comando:
 mysql --host localhost --user root --password < dump-nomebanco.sql
 ```
 
+### Como reparar Flyway via linha de comando
+Primeiro deve ser criado um arquivo flyway.properties e dentro dele conforme exemplo abaixo
+```editorconfig
+flyway.url=jdbc:mysql://localhost:3306/nomedobanco?createDatabaseIfNotExist=true&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
+flyway.user=root
+flyway.password=123456
+```
+
+Executar comando
+
+````shell
+./mvnw flyway:repair -Dflyway.configFiles=src/main/resources/flyway.properties
+````
+
+
 
 ## Links de documentações
 
