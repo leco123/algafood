@@ -66,7 +66,6 @@ create table usuario_grupo (
     grupo_id bigint not null
 ) engine = InnoDB default charset=utf8;
 
-alter table permissao add constraint UK_permissao_nome unique (nome)
 alter table cidade add constraint FK_cidade_estado foreign key (estado_id) references estado (id)
 alter table grupo_permissao add constraint FK_grupo_permisao foreign key (permissao_id) references permissao (id)
 alter table grupo_permissao add constraint FK_grupo_grupo foreign key (grupo_id) references grupo (id)
