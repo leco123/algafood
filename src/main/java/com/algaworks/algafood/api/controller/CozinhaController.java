@@ -6,11 +6,9 @@ import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/cozinhas")
@@ -28,12 +26,8 @@ public class CozinhaController {
 	}
 
 	@GetMapping("/{cozinhaid}")
-	public ResponseEntity<Cozinha> buscar(@PathVariable("cozinhaid") Long cozinhaid) {
-		Optional<Cozinha> cozinha =  cozinhaRepository.findById(cozinhaid);
-		if(cozinha.isPresent()) {
-			return ResponseEntity.ok(cozinha.get());
-		}
-		return ResponseEntity.notFound().build();
+	public Cozinha buscar(@PathVariable("cozinhaid") Long cozinhaid) {
+		return cadastroCozinhaService.buscarCozinhaOuFalha(cozinhaid);
 	}
 	
 	@PostMapping
@@ -43,31 +37,11 @@ public class CozinhaController {
 	}
 	
 	@PutMapping("/{cozinhaid}")
-	public ResponseEntity<Optional<Cozinha>> atualizar(@PathVariable("cozinhaid") Long id, @RequestBody Cozinha cozinha) {
-		Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(id);
-		
-		if(!cozinhaAtual.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		cozinhaAtual.get().setNome(cozinha.getNome());
-		BeanUtils.copyProperties(cozinha, cozinhaAtual.get(),"id");
-		cozinhaRepository.save(cozinhaAtual.get());
-		return ResponseEntity.ok(cozinhaAtual);
+	public Cozinha atualizar(@PathVariable("cozinhaid") Long id, @RequestBody Cozinha cozinha) {
+		Cozinha cozinhaAtual = cadastroCozinhaService.buscarCozinhaOuFalha(id);
+		BeanUtils.copyProperties(cozinha, cozinhaAtual,"id");
+		return cozinhaRepository.save(cozinhaAtual);
 	}
-	
-	/*
-	@DeleteMapping("/{cozinhaId}")
-	public ResponseEntity<?> remover(@PathVariable Long cozinhaId) {
-		try {
-			cadastroCozinhaService.excluir(cozinhaId);
-			return ResponseEntity.notFound().build();
-		} catch (EntidadeNaoEncontradaException e) { // Entidade não foi encontrada retorna um 404 notfound
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não encontrado!");
-		} catch (DataIntegrityViolationException e) { // Entidade esta em uso retorna 409 Em conflito
-			return ResponseEntity.status(HttpStatus.CONFLICT).build();
-		}
-	}
-	*/
 
 	@DeleteMapping("/{cozinhaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
