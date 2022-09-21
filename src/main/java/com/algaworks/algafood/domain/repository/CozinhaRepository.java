@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface CozinhaRepository extends CustomJpaRepository<Cozinha, Long> {
-	// Containing adiciona o like antes e depois
+
 	List<Cozinha> findTodasByNomeContaining(String nome);
 
 	Optional<Cozinha> findByNome(String nome);
