@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "da2a94d6-2c54-4a8c-862e-9b09ab4439cf",
+		"name": "cidade",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Remove Cidade",
+			"id": "e9a82649-0d84-411c-80dc-3d214504dd83",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cidades/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cidades",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "atualizar cidade",
+			"id": "089b58ef-45f7-4c5f-9d5f-99b26a8750a3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"Atualizar dados da cidade\",\r\n        \"estado\": {\r\n            \"id\": 1\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cidades/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cidades",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adicionar cidade",
+			"id": "e0d85571-7c5d-4246-8e41-c146dc0ef2c8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nome\": \"Minha nova cidade de teste\",\r\n        \"estado\": {\r\n            \"id\": 4\r\n        }\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/cidades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cidades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar todas as cidades",
+			"id": "ebdf22d8-730c-4d5c-b273-a394bf5998b3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cidades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cidades"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

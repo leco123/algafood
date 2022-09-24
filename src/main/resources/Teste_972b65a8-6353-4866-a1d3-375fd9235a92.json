@@ -1,0 +1,331 @@
+{
+	"info": {
+		"_postman_id": "9d7671a9-ff57-4e8d-a98c-87c628bcaf85",
+		"name": "Teste",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "hello",
+			"id": "b505c63f-fd1a-4ff6-9a51-a089e7c5b837",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/hello",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste Buscar por nome cozinha",
+			"id": "3164869c-8906-4a4f-875f-10445c7f0564",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/teste/cozinhas/por-nome?nome=e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teste",
+						"cozinhas",
+						"por-nome"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "e"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste Buscar por nome cozinhas exists",
+			"id": "a1ddc955-2620-4c29-8139-6c418d78db14",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/teste/cozinhas/exists?nome=Tailandesa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teste",
+						"cozinhas",
+						"exists"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "Tailandesa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste Restaurantes por chave Between",
+			"id": "7e5c4593-ace0-4d07-a892-083c9742af4c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/teste/restaurantes/por-cozinha-id?nome=a&=13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teste",
+						"restaurantes",
+						"por-cozinha-id"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "a"
+						},
+						{
+							"key": "",
+							"value": "13"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste Restaurantes por chave Containing And Nome e Cozinha",
+			"id": "bbfa045f-c52c-419e-b7a7-2bdacec3e9ce",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/teste/restaurantes/por-cozinha-id?nome=a&=13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teste",
+						"restaurantes",
+						"por-cozinha-id"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "a"
+						},
+						{
+							"key": "",
+							"value": "13"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste Restaurantes Primeiro Resultado por Nome",
+			"id": "d29ed0d1-7136-469b-b1aa-af8d3cd1bc4a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/teste/restaurantes/primeiro-por-nome?nome=tu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teste",
+						"restaurantes",
+						"primeiro-por-nome"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "tu"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste Restaurantes Top 2 por nome",
+			"id": "12a8fdc0-c26e-4e3a-8315-bebede1727a7",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/teste/restaurantes/top-dois?nome=g",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teste",
+						"restaurantes",
+						"top-dois"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "g"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste Restaurantes por nome",
+			"id": "673d51a3-3829-494b-8d58-e2bee2e5a585",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/teste/restaurantes/por-nome?nome=a&cozinhaid=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teste",
+						"restaurantes",
+						"por-nome"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "a"
+						},
+						{
+							"key": "cozinhaid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste Restaurantes por nome e frete",
+			"id": "3ffc538c-b26f-4a20-9686-90712195a53d",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/teste/restaurantes/por-nome-e-frete?nome=a&taxaInicial=1&taxaFinal=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teste",
+						"restaurantes",
+						"por-nome-e-frete"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "a"
+						},
+						{
+							"key": "taxaInicial",
+							"value": "1"
+						},
+						{
+							"key": "taxaFinal",
+							"value": "10",
+							"type": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Teste Restaurantes conta os restauntes que tem em determinada cozinha",
+			"id": "bc4e5537-5d35-4fcc-a6a2-029b50676287",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/teste/restaurantes/count-por-cozinha?cozinhaId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teste",
+						"restaurantes",
+						"count-por-cozinha"
+					],
+					"query": [
+						{
+							"key": "cozinhaId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
