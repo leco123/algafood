@@ -1,10 +1,12 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
+import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
-import com.algaworks.algafood.domain.service.CrudRestauranteServide;
+import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class RestauranteController {
 	private RestauranteRepository restauranteRepository;
 
 	@Autowired
-	private CrudRestauranteServide cadastroRestauranteService;
+	private CadastroRestauranteService cadastroRestauranteService;
 
 	@GetMapping
 	public List<Restaurante> listar() {
@@ -44,7 +46,7 @@ public class RestauranteController {
 		try {
 			return cadastroRestauranteService.salvar(restaurante);
 		} catch (EntidadeNaoEncontradaException e) {
-			throw new NegocioException(e.getMessage());
+			throw new RestauranteNaoEncontradoException(e.getMessage());
 		}
 	}
 
@@ -55,7 +57,7 @@ public class RestauranteController {
 					"id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 		try {
 			return cadastroRestauranteService.salvar(restauranteAtual);
-		} catch(EntidadeNaoEncontradaException e) {
+		} catch(CozinhaNaoEncontradaException e) {
 			throw new NegocioException(e.getMessage());
 		}
 	}
