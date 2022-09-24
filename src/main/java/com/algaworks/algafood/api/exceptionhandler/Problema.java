@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 public class Problema {
 
     private LocalDateTime dataHora;
-    private String mensage;
+    private String mensagem;
 
 }
