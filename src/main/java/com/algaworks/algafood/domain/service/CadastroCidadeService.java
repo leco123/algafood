@@ -23,7 +23,7 @@ public class CadastroCidadeService {
     @Autowired
     private CadastroEstadoService cadastroEstado;
 
-    public Cidade adicionar(Cidade cidade) {
+    public Cidade salvar(Cidade cidade) {
         Long estadoId = cidade.getEstado().getId();
 
         Estado estado = cadastroEstado.buscarOuFalhar(estadoId);
