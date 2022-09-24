@@ -28,8 +28,8 @@ public class Restaurante {
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	//@JsonIgnore
+	@ManyToOne
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
 
