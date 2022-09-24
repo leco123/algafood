@@ -47,7 +47,7 @@ public class RestauranteController {
 		Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 		BeanUtils.copyProperties(restaurante, restauranteAtual,
 					"id", "formasPagamento", "endereco", "dataCadastro", "produtos");
-		return restauranteRepository.save(restauranteAtual);
+		return cadastroRestauranteService.salvar(restauranteAtual);
 	}
 
 	@DeleteMapping("/{restauranteId}")

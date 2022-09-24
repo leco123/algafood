@@ -44,7 +44,7 @@ public class EstadoController {
 	public Estado atualizar(@PathVariable Long estadoId, @RequestBody Estado estado) {
 		Estado estadoAtual = cadastroEstado.buscarEstadoOuFalha(estadoId);
 		BeanUtils.copyProperties(estado, estadoAtual, "id");
-		return estadoRepository.save(estadoAtual);
+		return cadastroEstado.adicionar(estadoAtual);
 	}
 
 	@DeleteMapping("/{estadoId}")

@@ -1,12 +1,6 @@
 package com.algaworks.algafood.domain.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,8 +17,8 @@ public class Cidade {
 
 	@Column(nullable = false, length = 80)
 	private String nome;
-	
-	@OneToOne
+
+	@ManyToOne
 	@JoinColumn(name = "estado_id", nullable = false)
 	private Estado estado;
 

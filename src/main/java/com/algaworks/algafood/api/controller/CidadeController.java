@@ -44,7 +44,7 @@ public class CidadeController {
 	public Cidade atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidade) {
 		Cidade cidadeAtual = cadastroCidade.BuscarCidadeOuFalha(cidadeId);
 		BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-		return cidadeRepository.save(cidadeAtual);
+		return cadastroCidade.adicionar(cidadeAtual);
 	}
 
 	@DeleteMapping("/{cidadeId}")
