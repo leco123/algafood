@@ -269,6 +269,33 @@ Executar comando
 ./mvnw flyway:repair -Dflyway.configFiles=src/main/resources/flyway.properties
 ````
 
+## Como Implementar **Exception** global para usar em todo o projeto usando Spring
+
+No Spring é muito fácil de implementar uma classe Exception global, que serve de base para todo o projeto, basta usar
+a annotattion ```@ControllerAdvice``` segue abaixo o exemplo de como implementar:
+
+````java
+@ControllerAdvice //Define que todas as exception do projeto serão tratadas por aqui
+public class ApiExceptionHandler {
+
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ResponseEntity<?> tratarEntidadeNaoEncontradaException(EntidadeNaoEncontradaException e) {
+        Problema problema = Problema.builder()
+                .dataHora(LocalDateTime.now())
+                .mensage(e.getMessage()).build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problema);
+    }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<?> tratarNegocioException(NegocioException e) {
+        Problema problema = Problema.builder()
+                .dataHora(LocalDateTime.now())
+                .mensage(e.getMessage()).build();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problema);
+    }
+}
+````
+
 
 
 ## Links de documentações
