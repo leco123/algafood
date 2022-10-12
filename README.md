@@ -159,6 +159,7 @@ public ResponseEntity<?> atualizarParcial(@PathVariable Long restaurantid,
 Criar método merge onde será aplicada toda a regra de comparação dos campos atualizados sem quebrar tipagem
 
 ```java
+
 private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
   ObjectMapper objectMapper = new ObjectMapper();
   // Estamos dizendo aqui objectMapper convert pra mim dados de Origem em um objecto do tipo Restaurante
@@ -296,7 +297,38 @@ public class ApiExceptionHandler {
 }
 ````
 
+## Como usar ExceptionUtils.getRootCause(ex) para retornar a causa da exception
 
+Para retornar a causa da exception primeiro deve ser adicionado no pom.xml a dependência do `org.apache.commons`, com ele 
+será possível capturar a causa raíz.
+
+```xml
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+```
+Como implementar
+````java
+@ControllerAdvice //Define que todas as exception do projeto serão tratadas por aqui
+public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+                                                                  HttpHeaders headers, HttpStatus status,
+                                                                  WebRequest request) {
+        Throwable rootCause = ExceptionUtils.getRootCause(ex);
+        if(rootCause instanceof InvalidFormatException) {
+            // chamar método espcialista em tratar esse tipo InvalidFormatException
+            return handleInvalidFormatException((InvalidFormatException)rootCause, headers, status, request);
+        }
+        ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
+        String detail = "O corpo da requisição está inválido. Verifique o erro de sintaxe.";
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+}
+````
 
 ## Links de documentações
 

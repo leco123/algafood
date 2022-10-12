@@ -3,6 +3,8 @@ package com.algaworks.algafood.api.exceptionhandler;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import org.flywaydb.core.internal.util.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 /**
  * ExceptionHandler Global
@@ -24,8 +26,35 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status,
                                                                   WebRequest request) {
+        // Causa raíz
+        /* descrição: O ExceptionUtils precisa ser adicionado no pom.xml org.apache.commons
+         * finalidade: coletar toda a pilha de exceção para saber a causa raíz
+         */
+        Throwable rootCause = ExceptionUtils.getRootCause(ex);
+        if(rootCause instanceof InvalidFormatException) {
+            // chamar método espcialista em tratar esse tipo InvalidFormatException
+            return handleInvalidFormatException((InvalidFormatException)rootCause, headers, status, request);
+        }
         ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
         String detail = "O corpo da requisição está inválido. Verifique o erro de sintaxe.";
+        Problem problem = createProblemBuilder(status, problemType, detail).build();
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+    }
+
+    /**
+     * Usado para detalhar de forma específica a mensagem da ocorrência
+     */
+    private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex,
+                                                                HttpHeaders headers, HttpStatus status,
+                                                                WebRequest request) {
+        ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
+        String campos = ex.getPath().stream()
+                .map(campo -> campo.getFieldName())
+                .collect(Collectors.joining("."));
+        String detail = String.format(
+                "A propriedade '%s' recebeu valor '%s', que é de um tipo inválido. " +
+                " Corriga e informe um tipo compatível com tipo '%s'",
+                campos, ex.getValue(), ex.getTargetType().getSimpleName());
         Problem problem = createProblemBuilder(status, problemType, detail).build();
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
@@ -41,11 +70,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     // Tratamento de Exception específica do projeto
     @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<?> handleNegocioException(NegocioException  ex, WebRequest request) {
+    public ResponseEntity<?> handleNegocioException(NegocioException ex, WebRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ProblemType problemType = ProblemType.ERRO_NEGOCIO;
         Problem problem = createProblemBuilder(status, problemType, ex.getMessage()).build();
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), status, request);
+        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
     @ExceptionHandler(EntidadeEmUsoException.class)
@@ -58,7 +87,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        if(body ==null) {
+        if (body == null) {
             body = Problem.builder()
                     .title(status.getReasonPhrase())
                     .status(status.value())
