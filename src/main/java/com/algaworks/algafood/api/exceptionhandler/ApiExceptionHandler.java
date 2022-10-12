@@ -4,7 +4,6 @@ import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.exc.IgnoredPropertyException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import org.flywaydb.core.internal.util.ExceptionUtils;
@@ -20,9 +19,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * ExceptionHandler Global
- */
+//ExceptionHandler Global
+
 @ControllerAdvice //Define que todas as exception do projeto serão tratadas por aqui
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -39,7 +37,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
             // chamar método espcialista em tratar esse tipo InvalidFormatException
             return handleInvalidFormatException((InvalidFormatException)rootCause, headers, status, request);
         }
-        else if(rootCause instanceof IgnoredPropertyException) {
+        else if(rootCause instanceof PropertyBindingException) {
             // chamar método espcialista em tratar esse tipo InvalidFormatException
             return handlePropertyBindingException((PropertyBindingException) rootCause, headers, status, request);
         }
@@ -68,12 +66,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, headers, status, request);
     }
 
-    private String joinPath(List<JsonMappingException.Reference> references) {
-        return references.stream()
-                .map(ref -> ref.getFieldName())
-                .collect(Collectors.joining("."));
-    }
-
     /**
      * Usado para detalhar de forma específica a mensagem da ocorrência quando
      * propriedade recebe tipagem diferente da permitida
@@ -88,7 +80,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 " Corriga e informe um tipo compatível com tipo '%s'",
                 path, ex.getValue(), ex.getTargetType().getSimpleName());
         Problem problem = createProblemBuilder(status, problemType, detail).build();
-        return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+
+        return handleExceptionInternal(ex, problem, headers, status, request);
+    }
+
+    private String joinPath(List<JsonMappingException.Reference> references) {
+        return references.stream()
+                .map(ref -> ref.getFieldName())
+                .collect(Collectors.joining("."));
     }
 
     // Tratamento de Exception específica do projeto
