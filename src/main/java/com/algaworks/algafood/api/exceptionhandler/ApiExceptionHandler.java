@@ -8,10 +8,12 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import org.flywaydb.core.internal.util.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -167,8 +169,19 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         ProblemType problemType = ProblemType.DADOS_INVALIDOS;
         String detail = "Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.";
+
+        BindingResult bindResult =  ex.getBindingResult();
+        List<Problem.Field> problemFields = bindResult.getFieldErrors()
+                .stream()
+                .map(fieldError -> Problem.Field
+                        .builder()
+                        .name(fieldError.getField())
+                        .userMessage(fieldError.getDefaultMessage())
+                        .build())
+                .collect(Collectors.toList());
         Problem problem = createProblemBuilder(status, problemType, detail)
                 .userMessage(detail)
+                .fields(problemFields)
                 .build();
 
         return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
