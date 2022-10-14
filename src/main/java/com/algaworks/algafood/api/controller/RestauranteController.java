@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.Groups;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
@@ -49,7 +50,7 @@ public class RestauranteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Restaurante adicionar(@RequestBody @Validated Restaurante restaurante) {
+    public Restaurante adicionar(@RequestBody @Valid Restaurante restaurante) {
         try {
             return cadastroRestauranteService.salvar(restaurante);
         } catch (EntidadeNaoEncontradaException e) {

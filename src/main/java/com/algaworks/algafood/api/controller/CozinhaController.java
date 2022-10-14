@@ -34,7 +34,7 @@ public class CozinhaController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cozinha salvar(@RequestBody @Validated Cozinha cozinha) {
+	public Cozinha salvar(@RequestBody @Valid Cozinha cozinha) {
 		return cadastroCozinhaService.adicionar(cozinha);
 	}
 	
