@@ -10,6 +10,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
+
 @Service
 public class CadastroCozinhaService {
 
@@ -36,7 +38,7 @@ public class CadastroCozinhaService {
 		}
 	}
 
-	public Cozinha buscarCozinhaOuFalha(Long cozinhaId) {
+	public Cozinha buscarCozinhaOuFalha(@Valid  Long cozinhaId) {
 		return cozinhaRepository.findById(cozinhaId)
 				.orElseThrow(()-> new CozinhaNaoEncontradaException(cozinhaId));
 	}
