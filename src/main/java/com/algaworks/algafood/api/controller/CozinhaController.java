@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.Groups;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
@@ -39,7 +40,7 @@ public class CozinhaController {
 	}
 	
 	@PutMapping("/{cozinhaid}")
-	public Cozinha atualizar(@PathVariable("cozinhaid") Long id, @RequestBody Cozinha cozinha) {
+	public Cozinha atualizar(@PathVariable("cozinhaid") Long id, @RequestBody @Valid Cozinha cozinha) {
 		Cozinha cozinhaAtual = cadastroCozinhaService.buscarCozinhaOuFalha(id);
 		BeanUtils.copyProperties(cozinha, cozinhaAtual,"id");
 		return cadastroCozinhaService.adicionar(cozinhaAtual);

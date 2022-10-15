@@ -26,6 +26,7 @@ public class Cozinha {
 	private Long id;
 
 	@NotBlank
+	@NotNull
 	@Column(nullable = false)
 	private String nome;
 

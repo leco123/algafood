@@ -36,8 +36,9 @@ public class Restaurante {
 	private BigDecimal taxaFrete;
 
 	@Valid
-	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 	@NotNull
+	// Dizendo para o sistema troca o Defaut.class por Groups.CozinhaId.class
+	@ConvertGroup(to = Groups.CozinhaId.class)
 	@ManyToOne
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
