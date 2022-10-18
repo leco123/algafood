@@ -330,6 +330,38 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 }
 ````
 
+## Como customizar mensagens usando o Resource Bundle do Bean Validation
+
+Erros que podem acontecer durante o desenvolvimento das mensagens. 
+-nome precisa ser messages.properties para substituir o valor padrão das mensagens.
+
+criar arquivo `messages.properties`s e adiconar a mensagen de forma global ou espefífica para cada propriedade 
+````properties
+NotBlank={0} é obrigatório
+NotNull={0} é obrigatório
+PositiveOrZero={0} deve ser um valor maior ou igual a zero
+
+# Cozinha
+cozinha.nome=Nome da cozinha
+cozinha.id=Código da cozinha
+
+# Restaurante
+NotNull.restaurante.taxaFrete={0} é obrigatória
+NotNull.restaurante.cozinha={0} é obrigatória
+restaurante.nome=Nome do restaurante
+restaurante.cozinha=Cozinha do restaurante
+restaurante.taxaFrete=Taxa de frete do restaurante
+
+# Estado
+estado.nome=Nome do estado
+estado.id=Código do estado
+
+# Cidade
+cidade.nome=Nome da cidade
+cidade.estado=Estado da cidade
+````
+
+
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
