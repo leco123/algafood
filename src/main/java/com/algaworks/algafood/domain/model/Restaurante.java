@@ -27,10 +27,11 @@ public class Restaurante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank(message = "Nome é obrigatório")
+	@NotBlank
 	@Column(length = 150, nullable = false)
 	private String nome;
 
+	@NotNull
 	@PositiveOrZero
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
