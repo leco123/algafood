@@ -1,5 +1,7 @@
 package com.algaworks.algafood.core.validation.annotation;
 
+import com.algaworks.algafood.core.validation.MultiploValidator;
+
 import javax.validation.Constraint;
 import javax.validation.OverridesAttribute;
 import javax.validation.Payload;
@@ -13,12 +15,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = { })
-@PositiveOrZero // Nome técnico anotação composta
-public @interface TaxaFrete {
+@Constraint(validatedBy = { MultiploValidator.class})
+public @interface Multiplo {
 
-    @OverridesAttribute(constraint = PositiveOrZero.class, name = "message")
-    String message() default "{TaxaFrete.invalida}"; // pega a descrição da propriedade definida messages.properties
+    int numero();
+
+    String message() default "múltiplo inválido"; // pega a descrição da propriedade definida messages.properties
 
     Class<?>[] groups() default { };
 
