@@ -258,7 +258,7 @@ mysql --host localhost --user root --password < dump-nomebanco.sql
 
 ### Como reparar Flyway via linha de comando
 Primeiro deve ser criado um arquivo flyway.properties e dentro dele conforme exemplo abaixo
-```editorconfig
+```properties
 flyway.url=jdbc:mysql://localhost:3306/nomedobanco?createDatabaseIfNotExist=true&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
 flyway.user=root
 flyway.password=123456
@@ -339,7 +339,12 @@ criar arquivo `messages.properties`s e adiconar a mensagen de forma global ou es
 ````properties
 NotBlank={0} é obrigatório
 NotNull={0} é obrigatório
-PositiveOrZero={0} deve ser um valor maior ou igual a zero
+#PositiveOrZero={0} deve ser um valor maior ou igual a zero
+
+# apenas um exemplo para costumizar mensagem com o mensagem
+# javax.validation.constraints.PositiveOrZero.message=deve ser um número positivo
+
+TaxaFrete.invalida={0} está inválida, informe um valor positivo
 
 # Cozinha
 cozinha.nome=Nome da cozinha
@@ -350,7 +355,9 @@ NotNull.restaurante.taxaFrete={0} é obrigatória
 NotNull.restaurante.cozinha={0} é obrigatória
 restaurante.nome=Nome do restaurante
 restaurante.cozinha=Cozinha do restaurante
-restaurante.taxaFrete=Taxa de frete do restaurante
+## neste caso sera pego o valo restaurante.taxaFrete + TaxaFrete.invalida
+## Resultado = Taxa de frete do restaurante está inválida, informe um valor positivo
+restaurante.taxaFrete=Taxa de frete do restaurante 
 
 # Estado
 estado.nome=Nome do estado
@@ -359,6 +366,44 @@ estado.id=Código do estado
 # Cidade
 cidade.nome=Nome da cidade
 cidade.estado=Estado da cidade
+````
+
+## Como criar uma validação específica usando annotattion
+
+vamos usa como exemplo annotattion `@TaxaFrete`
+````java
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE }) // onde pode ser usada
+@Retention(RUNTIME) // executada em tempo de execuçaõ
+@Constraint(validatedBy = { }) // precisar definir a anotação com constraint
+@PositiveOrZero // Não é obrigatório mas pode ser usado uma annotattion já existente
+public @interface TaxaFrete {
+
+    @OverridesAttribute(constraint = PositiveOrZero.class, name = "message")
+    String message() default "{TaxaFrete.invalida}"; // pega a descrição da propriedade definida messages.properties
+
+    Class<?>[] groups() default { };
+
+    Class<? extends Payload>[] payload() default { };
+}
+````
+### Informação importante, existe uma falha no sprint quando se usa uma constraint existente que estpa sendo
+resolvida até a data de hoje 22/20/2022 [issue SPR-15967](https://github.com/spring-projects/spring-framework/issues/20519), 
+para explicar a falha vou usar o exemplo da annotattion `@TaxaFrete`, perceba que existe uma annotattion `@PositiveOrZero`
+e mais abiaxo `@OverridesAttribute(constraint = PositiveOrZero.class, name = "message")`, nesta linha esta dizendo para 
+fazer um `OverridesAttribute` ou seja sobescreva o atributo `message` da classe `PositiveOrZero.class`, mas não é oque
+esta acontecendo na prática mesmo deixando de forma explícita o Spring não consegue aplicar essa regra, para testar 
+basta acessar o arquivo `messages.properties` deixar comentado a propriedade `#PositiveOrZero` e rodar aplicação e 
+depois descomentar, vai perceber que ao comentar a propriedade vai aplicar a regra  correta da taxaFrete, porém não vai 
+conseguir usar a propriedade `PositiveOrZero` de forma customizada.
+
+````properties
+# Se descomentar o comentário ele vai aplicar a descrição que está na PositiveOrZero para a taxaFrete 
+# resultado (restaurante.taxaFrete + PositiveOrZero) Taxa de frete do restaurante deve ser um valor maior ou igual a zero
+#PositiveOrZero={0} deve ser um valor maior ou igual a zero
+TaxaFrete.invalida={0} está inválida, informe um valor positivo
+## neste caso sera pego o valor restaurante.taxaFrete + TaxaFrete.invalida
+## Resultado = Taxa de frete do restaurante está inválida, informe um valor positivo
+restaurante.taxaFrete=Taxa de frete do restaurante
 ````
 
 

@@ -1,5 +1,6 @@
 package com.algaworks.algafood.domain.model;
 
+import com.algaworks.algafood.core.validation.annotation.TaxaFrete;
 import com.algaworks.algafood.domain.enums.StatusPedido;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class Pedido {
     @Column(nullable = false)
     private BigDecimal subTotal;
 
+    @TaxaFrete
     @Column(nullable = false, name = "taxa_frete")
     private BigDecimal taxaFrete;
 
