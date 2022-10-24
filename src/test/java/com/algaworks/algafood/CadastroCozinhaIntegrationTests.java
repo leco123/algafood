@@ -2,7 +2,6 @@ package com.algaworks.algafood;
 
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +21,19 @@ public class CadastroCozinhaIntegrationTests {
     private CadastroCozinhaService cadastroCozinha;
 
     @Test
-    public void deveCadastroCozinhaComSucesso(){
+    public void deveAtribuirId_QuandoCadastrarCozinhaComDadosCorretos (){
         //Cenário
         Cozinha novaCozinha = new Cozinha();
         novaCozinha.setNome("Chinesa");
-
         //Ação
         novaCozinha =cadastroCozinha.salvar(novaCozinha);
-
         //Validação
         assertThat(novaCozinha).isNotNull();
         assertThat(novaCozinha.getId()).isNotNull();
-
     }
 
     @Test(expected = ConstraintViolationException.class)
-    public void testarCadastrarCozinhaSemNome(){
+    public void deveFalhar_quandoCadastrarCozinhaSemNome(){
         Cozinha novaCozinha = new Cozinha();
         novaCozinha.setNome(null);
         cadastroCozinha.salvar(novaCozinha);
