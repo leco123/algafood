@@ -11,6 +11,10 @@ import static org.junit.Assert.assertFalse;
 @SpringBootTest
 public class AlgafoodApiApplicationTests {
 
+    @Test
+    public void contextLoads() {
 
+        assertFalse(true);
 
+    }
 }
