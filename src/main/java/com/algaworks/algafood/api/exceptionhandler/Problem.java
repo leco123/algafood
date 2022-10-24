@@ -3,10 +3,8 @@ package com.algaworks.algafood.api.exceptionhandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -20,11 +18,11 @@ public class Problem {
     private String title;
     private String detail;
     private String userMessage;
-    private List<Field> fields = new ArrayList<>();
+    private List<Object> objects;
 
     @Getter
     @Builder
-    public static class Field {
+    public static class Object {
         private String name;
         private String userMessage;
     }
