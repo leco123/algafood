@@ -406,6 +406,14 @@ TaxaFrete.invalida={0} está inválida, informe um valor positivo
 restaurante.taxaFrete=Taxa de frete do restaurante
 ````
 
+## Boas praticas de data e hora 
+* 1-Usar **ISO-8601** pra formatar data e hora é o padrão internacional exemplo: `2019-10-12T14:15:38-03:00` deixa de forma explícita
+que se trata de uma data Brasileira -03:00
+* 2-Aceite qualquer fuso horário
+* 3-Armazene em UTC
+* 4-Retorne em UTC, dexei a conversão ser implementada pelo frontend
+* 5-Não Inclua o horário se não for necessário
+
 
 ## Links de documentações
 

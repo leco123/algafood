@@ -3,12 +3,12 @@ package com.algaworks.algafood.domain.model.mixin;
 import com.algaworks.algafood.domain.model.Endereco;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 public abstract class PedidoMixin {
 
     @JsonIgnore
-    private LocalDateTime dataCriacao;
+    private OffsetDateTime dataCriacao;
 
     @JsonIgnore
     private Endereco enderecoEntrega;

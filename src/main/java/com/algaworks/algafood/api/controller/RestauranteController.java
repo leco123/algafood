@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -120,7 +121,7 @@ public class RestauranteController {
                 // getField retorna o valor da propriedade representado por field
                 Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
                 System.out.println("+------------------------- PROPRIEDADES PATH ---------------------------------+");
-                System.out.println("| Informação data/hora: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss")));
+                System.out.println("| Informação data/hora: " + OffsetDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss")));
                 System.out.println("| Nome propriedade: " + nomePropriedade + " Valor propriedade: " + valorPropriedade);
                 System.out.println("| Nome propriedade: " + nomePropriedade + " Novo Valor propriedade: " + novoValor);
                 System.out.println("+-----------------------------------------------------------------------------+");
