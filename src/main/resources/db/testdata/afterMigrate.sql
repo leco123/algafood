@@ -44,17 +44,17 @@ insert into cidade (id, nome, estado_id) values (5, 'Fortaleza', 3);
 
 -- TAB RESTAURANTE
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro)
-	 values (1, 'Thai Gourmet', 10, 1, utc_timestamp, utc_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
+	 values (1, 'Thai Gourmet', 10, 1, current_timestamp, current_timestamp, 1, '38400-999', 'Rua João Pinheiro', '1000', 'Centro');
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)
-	values (2, 'Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp);
+	values (2, 'Thai Delivery', 9.50, 1, current_timestamp, current_timestamp);
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)
-	values (3, 'Tuk Tuk Comida Indiana', 15, 2, utc_timestamp, utc_timestamp);
+	values (3, 'Tuk Tuk Comida Indiana', 15, 2, current_timestamp, current_timestamp);
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)
-	values (4, 'Java Steakhouse', 12, 3, utc_timestamp, utc_timestamp);
+	values (4, 'Java Steakhouse', 12, 3, current_timestamp, current_timestamp);
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)
-	values (5, 'Lanchonete do Tio Sam', 11, 4, utc_timestamp, utc_timestamp);
+	values (5, 'Lanchonete do Tio Sam', 11, 4, current_timestamp, current_timestamp);
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao)
-	values (6, 'Bar da Maria', 6, 4, utc_timestamp, utc_timestamp);
+	values (6, 'Bar da Maria', 6, 4, current_timestamp, current_timestamp);
 
 -- TAB FORMAS DE PAGAMENTO
 insert into forma_pagamento (id, descricao) values (1, 'Cartão de crédito');
@@ -96,13 +96,13 @@ insert into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (2, 
 
 -- TAB USUÁRIO
 insert into usuario (id, nome, email, senha, data_cadastro)
-    values (1, 'Alex de Carvalho','email@email.com', '123456',utc_timestamp);
+    values (1, 'Alex de Carvalho','email@email.com', '123456',current_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-    values (2, 'Carina Alves Barbieri','email@email.com', '123456',utc_timestamp);
+    values (2, 'Carina Alves Barbieri','email@email.com', '123456',current_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-    values (3, 'João da Silva','email@email.com', '123456',utc_timestamp);
+    values (3, 'João da Silva','email@email.com', '123456',current_timestamp);
 insert into usuario (id, nome, email, senha, data_cadastro)
-    values (4, 'Miguel dos Santos','email@email.com', '123456',utc_timestamp);
+    values (4, 'Miguel dos Santos','email@email.com', '123456',current_timestamp);
 
 insert into usuario_grupo (usuario_id, grupo_id)
     values (1, 1), (1, 2), (2, 1), (3,2), (4,2);
