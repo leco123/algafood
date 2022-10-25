@@ -1,8 +1,8 @@
 package com.algaworks.algafood;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.flywaydb.core.Flyway;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasSize;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,10 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.Matchers.hasSize;
+import com.algaworks.algafood.domain.model.Cozinha;
+import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.util.DatabaseCleaner;
 
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -24,47 +26,64 @@ import static org.hamcrest.Matchers.hasSize;
 public class CadastroCozinhaIT {
 
     @LocalServerPort
-    private  int port;
+    private int port;
 
     @Autowired
-    private Flyway flyway;
+    private DatabaseCleaner databaseCleaner;
+
+    @Autowired
+    private CozinhaRepository cozinhaRepository;
 
     @Before
-    public void setUP() {
-        // Habilita para mostrar o erro de forma mais clara
+    public void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
         RestAssured.basePath = "/cozinhas";
 
-        flyway.migrate();
+        databaseCleaner.clearTables();
+        prepararDados();
     }
+
     @Test
-    public void deveRetornarStatus200_QuandoConsultarConzinha() {
+    public void deveRetornarStatus200_QuandoConsultarCozinhas() {
         given()
-            .accept(ContentType.JSON)
-        .when() //quando
-            .get() // fizer requisição get
-        .then() //então
-            .statusCode(HttpStatus.OK.value()); // status code precisa ser 200
+                .accept(ContentType.JSON)
+                .when()
+                .get()
+                .then()
+                .statusCode(HttpStatus.OK.value());
     }
 
-    public void deveConter4Cozinhas_QuandoConsultarCozinhas() {
+    @Test
+    public void deveConter2Cozinhas_QuandoConsultarCozinhas() {
         given()
-            .accept(ContentType.JSON)
-        .when() //quando
-            .get() // fizer requisição get
-        .then() //então
-            .body("", hasSize(4));
+                .accept(ContentType.JSON)
+                .when()
+                .get()
+                .then()
+                .body("", hasSize(2));
     }
 
+    @Test
     public void deveRetornarStatus201_QuandoCadastrarCozinha() {
         given()
-                .body("{\"nome\": \"Chinesa\"}")
-                .accept(ContentType.JSON)
+                .body("{ \"nome\": \"Chinesa\" }")
                 .contentType(ContentType.JSON)
-        .when()
+                .accept(ContentType.JSON)
+                .when()
                 .post()
-        .then()
+                .then()
                 .statusCode(HttpStatus.CREATED.value());
     }
+
+    private void prepararDados() {
+        Cozinha cozinha1 = new Cozinha();
+        cozinha1.setNome("Tailandesa");
+        cozinhaRepository.save(cozinha1);
+
+        Cozinha cozinha2 = new Cozinha();
+        cozinha2.setNome("Americana");
+        cozinhaRepository.save(cozinha2);
+    }
+
 }
