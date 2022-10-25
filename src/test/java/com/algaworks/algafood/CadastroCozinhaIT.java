@@ -46,6 +46,17 @@ public class CadastroCozinhaIT {
             .get() // fizer requisição get
         .then() //então
             .body("", hasSize(4))
-            .body("nome", hasItems("Indiana","Tailandesa")); // status code precis
+            .body("nome", hasItems("Indiana","Tailandesa"));
+    }
+
+    public void deveRetornarStatus201_QuandoCadastrarCozinha() {
+        given()
+                .body("{\"nome\": \"Chinesa\"}")
+                .accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+        .when()
+                .post()
+        .then()
+                .statusCode(HttpStatus.CREATED.value());
     }
 }
