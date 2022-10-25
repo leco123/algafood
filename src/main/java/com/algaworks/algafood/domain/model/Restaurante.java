@@ -3,6 +3,8 @@ package com.algaworks.algafood.domain.model;
 import com.algaworks.algafood.core.validation.Groups;
 import com.algaworks.algafood.core.validation.annotation.TaxaFrete;
 import com.algaworks.algafood.core.validation.annotation.ValorZeroIncluirDescricao;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,11 +34,11 @@ public class Restaurante {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
+	//@NotBlank
 	@Column(length = 150, nullable = false)
 	private String nome;
 
-	@NotNull
+	//@NotNull
 	@TaxaFrete
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
