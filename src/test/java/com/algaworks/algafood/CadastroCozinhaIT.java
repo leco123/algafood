@@ -2,9 +2,11 @@ package com.algaworks.algafood;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.flywaydb.core.Flyway;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -22,12 +24,17 @@ public class CadastroCozinhaIT {
     @LocalServerPort
     private  int port;
 
+    @Autowired
+    private Flyway flyway;
+
     @Before
     public void setUP() {
         // Habilita para mostrar o erro de forma mais clara
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
         RestAssured.basePath = "/cozinhas";
+
+        flyway.migrate();
     }
     @Test
     public void deveRetornarStatus200_QuandoConsultarConzinha() {
