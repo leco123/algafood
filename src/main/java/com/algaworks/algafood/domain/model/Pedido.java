@@ -33,7 +33,6 @@ public class Pedido {
     @Column(nullable = false, name = "valor_total")
     private BigDecimal valorTotal;
 
-    @JsonIgnore
     @CreationTimestamp
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
@@ -47,7 +46,6 @@ public class Pedido {
     @Column(name = "data_entrega")
     private LocalDateTime dataEntrega;
 
-    @JsonIgnore
     @Embedded
     private Endereco enderecoEntrega;
 

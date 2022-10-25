@@ -3,6 +3,7 @@ package com.algaworks.algafood.domain.model;
 import com.algaworks.algafood.core.validation.Groups;
 import com.algaworks.algafood.core.validation.annotation.TaxaFrete;
 import com.algaworks.algafood.core.validation.annotation.ValorZeroIncluirDescricao;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;

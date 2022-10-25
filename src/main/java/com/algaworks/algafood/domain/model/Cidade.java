@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 
 import com.algaworks.algafood.core.validation.Groups;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -18,7 +18,7 @@ public abstract class RestauranteMixin {
 
     // Iginora a propriedade nome ao atualizar, salvar e editar,
     // mas mostra a propriedade ao fazer um get, resumindo ao visualizar
-    @JsonIgnoreProperties(value = "nome",allowGetters = true)
+    @JsonIgnoreProperties(value = "nome", allowGetters = true)
     private Cozinha cozinha;
 
     @JsonIgnore
