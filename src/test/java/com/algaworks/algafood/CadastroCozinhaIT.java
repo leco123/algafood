@@ -1,54 +1,34 @@
 package com.algaworks.algafood;
 
-import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
-import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.service.CadastroCozinhaService;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.validation.ConstraintViolationException;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import static io.restassured.RestAssured.given;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CadastroCozinhaIT {
-
-    @Autowired
-    private CadastroCozinhaService cadastroCozinha;
-
+    @LocalServerPort
+    private  int port;
     @Test
-    public void deveAtribuirId_QuandoCadastrarCozinhaComDadosCorretos (){
-        //Cenário
-        Cozinha novaCozinha = new Cozinha();
-        novaCozinha.setNome("Chinesa");
-        //Ação
-        novaCozinha =cadastroCozinha.salvar(novaCozinha);
-        //Validação
-        assertThat(novaCozinha).isNotNull();
-        assertThat(novaCozinha.getId()).isNotNull();
-    }
+    public void deveRetornarStatus200_QuandoConsultarConzinha() {
+        // Habilita para mostrar o erro de forma mais clara
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
-    @Test(expected = ConstraintViolationException.class)
-    public void deveFalhar_quandoCadastrarCozinhaSemNome(){
-        Cozinha novaCozinha = new Cozinha();
-        novaCozinha.setNome(null);
-        cadastroCozinha.salvar(novaCozinha);
+        given()
+            .basePath("/cozinhas")
+            .port(port)
+            .accept(ContentType.JSON)
+        .when() //quando
+            .get() // fizer requisição get
+        .then() //então
+            .statusCode(HttpStatus.OK.value()); // status code precisa ser 200
     }
-
-    @Test(expected = EntidadeEmUsoException.class)
-    public void deveFalhar_QuandoExcluirCozinhaEmUso() {
-        cadastroCozinha.excluir(1L);
-    }
-
-    @Test(expected = CozinhaNaoEncontradaException.class)
-    public void deveFalhar_QuandoExcluirCozinhaInexistente() {
-        cadastroCozinha.excluir(100L);
-    }
-
 }
