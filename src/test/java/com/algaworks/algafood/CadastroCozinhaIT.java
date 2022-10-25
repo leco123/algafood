@@ -1,6 +1,7 @@
 package com.algaworks.algafood;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
 import org.junit.Before;
@@ -48,9 +49,9 @@ public class CadastroCozinhaIT {
     public void deveRetornarStatus200_QuandoConsultarCozinhas() {
         given()
                 .accept(ContentType.JSON)
-                .when()
+            .when()
                 .get()
-                .then()
+            .then()
                 .statusCode(HttpStatus.OK.value());
     }
 
@@ -58,9 +59,9 @@ public class CadastroCozinhaIT {
     public void deveConter2Cozinhas_QuandoConsultarCozinhas() {
         given()
                 .accept(ContentType.JSON)
-                .when()
+            .when()
                 .get()
-                .then()
+            .then()
                 .body("", hasSize(2));
     }
 
@@ -70,10 +71,33 @@ public class CadastroCozinhaIT {
                 .body("{ \"nome\": \"Chinesa\" }")
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .when()
+            .when()
                 .post()
-                .then()
+            .then()
                 .statusCode(HttpStatus.CREATED.value());
+    }
+
+    @Test
+    public void deveRetornarRespostaEstatusCorretos_QuandoConsultarCozinhaExistente() {
+        given()
+                .pathParam("cozinhaId", 2)
+                .accept(ContentType.JSON)
+            .when()
+                .get("/{cozinhaId}")
+            .then()
+                .statusCode(HttpStatus.OK.value())
+                .body("nome", equalTo("Americana"));
+    }
+
+    @Test
+    public void deveRetornarRespostaEstatus404_QuandoConsultarCozinhaInexistente() {
+        given()
+                .pathParam("cozinhaId", 100)
+                .accept(ContentType.JSON)
+            .when()
+                .get("/{cozinhaId}")
+            .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     private void prepararDados() {
