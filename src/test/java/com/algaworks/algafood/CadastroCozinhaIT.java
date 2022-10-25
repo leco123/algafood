@@ -54,8 +54,7 @@ public class CadastroCozinhaIT {
         .when() //quando
             .get() // fizer requisição get
         .then() //então
-            .body("", hasSize(4))
-            .body("nome", hasItems("Indiana","Tailandesa"));
+            .body("", hasSize(4));
     }
 
     public void deveRetornarStatus201_QuandoCadastrarCozinha() {
