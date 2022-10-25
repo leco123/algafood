@@ -22,7 +22,6 @@ public class CozinhaController {
 	private CadastroCozinhaService cadastroCozinhaService;
 	
 	@GetMapping
-	@ResponseStatus(HttpStatus.CREATED)
 	public List<Cozinha> listar(){
 		return cozinhaRepository.findAll();
 	}
