@@ -39,7 +39,6 @@ public class Restaurante {
 
 	@NotNull
 	@TaxaFrete
-	@Multiplo(numero=5)
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
