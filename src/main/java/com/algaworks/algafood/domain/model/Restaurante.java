@@ -5,6 +5,7 @@ import com.algaworks.algafood.core.validation.annotation.Multiplo;
 import com.algaworks.algafood.core.validation.annotation.TaxaFrete;
 import com.algaworks.algafood.core.validation.annotation.ValorZeroIncluirDescricao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
@@ -42,6 +43,12 @@ public class Restaurante {
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 
+	// Iginora a propriedade nome ao atualizar, salvar e editar,
+	// mas mostra a propriedade ao fazer um get, resumindo ao visualizar
+	@JsonIgnoreProperties(
+			value = "nome",
+			allowGetters = true
+	)
 	@Valid
 	@NotNull
 	// Dizendo para o sistema troca o Defaut.class por Groups.CozinhaId.class
