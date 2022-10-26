@@ -20,7 +20,7 @@ public class CadastroEstadoService {
     private EstadoRepository estadoRepository;
 
     @Transactional
-    public Estado adicionar(Estado estado) {
+    public Estado salvar(Estado estado) {
         return estadoRepository.save(estado);
     }
 
