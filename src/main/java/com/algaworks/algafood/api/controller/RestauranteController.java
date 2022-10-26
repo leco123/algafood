@@ -8,14 +8,13 @@ import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Restaurante;
-import com.algaworks.algafood.domain.model.dtos.RestauranteModel;
-import com.algaworks.algafood.domain.model.dtos.input.RestauranteInput;
+import com.algaworks.algafood.api.model.RestauranteModel;
+import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.flywaydb.core.internal.util.ExceptionUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -78,10 +77,11 @@ public class RestauranteController {
     public RestauranteModel atualizar(@PathVariable Long restauranteId,
                                       @RequestBody @Valid RestauranteInput restauranteInput) {
         try {
-            Restaurante restaurante = restauranteInputModelDisassembler.toDomainObject(restauranteInput);
+            // Busca o restaurante da atual da base dados
             Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(restauranteId);
-            BeanUtils.copyProperties(restaurante, restauranteAtual,
-                    "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
+            // pega todos os atributos do restauranteInput e compara com restaurante atual e faz um build faz o processo
+            // de forma automática como se fosse uma annotattion @Builder
+            restauranteInputModelDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
             return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteAtual));
         } catch (CozinhaNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
