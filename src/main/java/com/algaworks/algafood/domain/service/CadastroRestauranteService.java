@@ -26,12 +26,29 @@ public class CadastroRestauranteService {
 
     @Autowired
     private CadastroCozinhaService cadastroCozinhaService;
+
     @Transactional
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
         Cozinha cozinha = cadastroCozinhaService.buscarCozinhaOuFalha(cozinhaId);
         restaurante.setCozinha(cozinha);
         return restauranteRepository.save(restaurante);
+    }
+
+    // Quando usa o Transacional não precisa chamar metodos para salvar as alterações
+    // na base de dados o próprio hibernate entende que houve mudanças e faz um update
+    @Transactional
+    public void ativar(Long restauranteId) {
+        Restaurante restauranteAtual = buscarOuFalhar(restauranteId);
+        restauranteAtual.ativar();
+    }
+
+    // Quando usa o Transacional não precisa chamar metodos para salvar as alterações
+    // na base de dados o próprio hibernate entende que houve mudanças e faz um update
+    @Transactional
+    public void inativar(Long restauranteId) {
+        Restaurante restauranteAtual = buscarOuFalhar(restauranteId);
+        restauranteAtual.inativar();
     }
 
     public Restaurante buscarOuFalhar(Long restauranteId) {
