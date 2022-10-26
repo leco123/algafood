@@ -22,9 +22,6 @@ public class CadastroRestauranteService {
     private RestauranteRepository restauranteRepository;
 
     @Autowired
-    private CozinhaRepository cozinhaRepository;
-
-    @Autowired
     private CadastroCozinhaService cadastroCozinhaService;
 
     @Transactional
