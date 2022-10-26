@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
 @Setter
-@Builder
 public class CozinhaModel {
     private Long id;
     private String nome;

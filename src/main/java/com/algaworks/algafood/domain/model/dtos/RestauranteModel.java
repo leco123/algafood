@@ -7,10 +7,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@AllArgsConstructor
 @Getter
 @Setter
-@Builder
 public class RestauranteModel {
 
     private Long id;
