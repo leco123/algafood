@@ -1,7 +1,10 @@
 package com.algaworks.algafood.core.jackson;
 
+import com.algaworks.algafood.api.model.mixin.CidadeMixin;
+import com.algaworks.algafood.api.model.mixin.CozinhaMixin;
+import com.algaworks.algafood.api.model.mixin.GrupoMixin;
+import com.algaworks.algafood.api.model.mixin.PedidoMixin;
 import com.algaworks.algafood.domain.model.*;
-import com.algaworks.algafood.domain.model.mixin.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.stereotype.Component;
 

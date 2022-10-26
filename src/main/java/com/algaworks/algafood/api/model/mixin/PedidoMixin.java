@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.model.mixin;
+package com.algaworks.algafood.api.model.mixin;
 
 import com.algaworks.algafood.domain.model.Endereco;
 import com.fasterxml.jackson.annotation.JsonIgnore;

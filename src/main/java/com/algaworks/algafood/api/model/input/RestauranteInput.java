@@ -1,18 +1,15 @@
-package com.algaworks.algafood.domain.model.dtos.input;
+package com.algaworks.algafood.api.model.input;
 
-import com.algaworks.algafood.core.validation.Groups;
-import com.algaworks.algafood.core.validation.annotation.TaxaFrete;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
-import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.groups.ConvertGroup;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 @AllArgsConstructor
@@ -26,7 +23,7 @@ public class RestauranteInput {
     private String nome;
 
     @NotNull
-    @TaxaFrete
+    @PositiveOrZero
     private BigDecimal taxaFrete;
 
     @Valid
