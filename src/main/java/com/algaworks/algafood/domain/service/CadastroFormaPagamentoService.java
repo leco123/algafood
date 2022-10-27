@@ -14,7 +14,8 @@ import javax.transaction.Transactional;
 @Service
 public class CadastroFormaPagamentoService {
 
-    private static final String MSG_FORMA_PAGAMENTO_EM_USO = "Forma de pagamento de código %d não pode ser removida, pois está em uso";
+    private static final String MSG_FORMA_PAGAMENTO_EM_USO
+            = "Forma de pagamento de código %d não pode ser removida, pois está em uso";
 
     @Autowired
     private FormaPagamentoRepository formaPagamentoRepository;
@@ -29,16 +30,18 @@ public class CadastroFormaPagamentoService {
         try {
             formaPagamentoRepository.deleteById(formaPagamentoId);
             formaPagamentoRepository.flush();
+
         } catch (EmptyResultDataAccessException e) {
             throw new FormaPagamentoNaoEncontradaException(formaPagamentoId);
+
         } catch (DataIntegrityViolationException e) {
-            throw new EntidadeEmUsoException(String.format(MSG_FORMA_PAGAMENTO_EM_USO, formaPagamentoId));
+            throw new EntidadeEmUsoException(
+                    String.format(MSG_FORMA_PAGAMENTO_EM_USO, formaPagamentoId));
         }
     }
 
-    public FormaPagamento BuscarFormaPagamentoOuFalha(Long formaPagamentoId) {
-        return formaPagamentoRepository
-                .findById(formaPagamentoId)
-                .orElseThrow(()-> new FormaPagamentoNaoEncontradaException(formaPagamentoId));
+    public FormaPagamento buscarOuFalhar(Long formaPagamentoId) {
+        return formaPagamentoRepository.findById(formaPagamentoId)
+                .orElseThrow(() -> new FormaPagamentoNaoEncontradaException(formaPagamentoId));
     }
 }

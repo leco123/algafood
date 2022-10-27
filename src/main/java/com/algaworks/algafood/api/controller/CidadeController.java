@@ -33,20 +33,20 @@ public class CidadeController {
 	private CidadeInputDisassembler cidadeInputDisassembler;
 
 	@GetMapping
-	public List<FormaPagamentoModel.CidadeModel> listar() {
+	public List<FormaPagamentoModel> listar() {
 		List<Cidade> todasCidades = cidadeRepository.findAll();
 		return cidadeModelAssembler.toCollectionModel(todasCidades);
 	}
 
 	@GetMapping("/{cidadeId}")
-	public FormaPagamentoModel.CidadeModel buscar(@PathVariable Long cidadeId) {
+	public FormaPagamentoModel buscar(@PathVariable Long cidadeId) {
 		Cidade cidade = cadastroCidade.BuscarCidadeOuFalha(cidadeId);
 		return cidadeModelAssembler.toModel(cidade);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public FormaPagamentoModel.CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
+	public FormaPagamentoModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
 		try {
 			Cidade cidade = cidadeInputDisassembler.toDomainObject(cidadeInput);
 			cidade = cadastroCidade.salvar(cidade);
@@ -57,7 +57,7 @@ public class CidadeController {
 	}
 
 	@PutMapping("/{cidadeId}")
-	public FormaPagamentoModel.CidadeModel atualizar(@PathVariable Long cidadeId,
+	public FormaPagamentoModel atualizar(@PathVariable Long cidadeId,
                                                      @RequestBody @Valid CidadeInput cidadeInput) {
 		try {
 			Cidade cidadeAtual = cadastroCidade.BuscarCidadeOuFalha(cidadeId);

@@ -15,11 +15,11 @@ public class CidadeModelAssembler {
     @Autowired
     private ModelMapper modelMapper;
 
-    public FormaPagamentoModel.CidadeModel toModel(Cidade cidade) {
-        return modelMapper.map(cidade, FormaPagamentoModel.CidadeModel.class);
+    public FormaPagamentoModel toModel(Cidade cidade) {
+        return modelMapper.map(cidade, FormaPagamentoModel.class);
     }
 
-    public List<FormaPagamentoModel.CidadeModel> toCollectionModel(List<Cidade> cidades) {
+    public List<FormaPagamentoModel> toCollectionModel(List<Cidade> cidades) {
         return cidades.stream()
                 .map(cidade -> toModel(cidade))
                 .collect(Collectors.toList());

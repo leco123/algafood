@@ -3,6 +3,9 @@
 
 Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_, como o curso é amplo dexei apenas informações que não conhecia ou não lembrava e até mesmo informação que conhecia, porém, de uma abordagem diferente.
 
+## API Documentação Swagger 
+[Link de documentação](http://localhost:8080/spring-security-rest/api/v2/api-docs)
+
 ## Aprendizados
 - Variável serialVersionUID
 - Mapeapento de Entidades

@@ -19,9 +19,10 @@ public class FormaPagamentoModelAssembler {
         return modelMapper.map(formaPagamento, FormaPagamentoModel.class);
     }
 
-    public List<FormaPagamentoModel> toCollectionModel(List<FormaPagamento> formasPagamento) {
-        return formasPagamento.stream()
+    public List<FormaPagamentoModel> toCollectionModel(List<FormaPagamento> formasPagamentos) {
+        return formasPagamentos.stream()
                 .map(formaPagamento -> toModel(formaPagamento))
                 .collect(Collectors.toList());
     }
+
 }

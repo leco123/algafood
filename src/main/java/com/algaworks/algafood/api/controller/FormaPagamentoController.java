@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/forma-pagamento")
+@RequestMapping("/formas-pagamento")
 public class FormaPagamentoController {
 
 	@Autowired
@@ -32,41 +32,40 @@ public class FormaPagamentoController {
 	@Autowired
 	private FormaPagamentoInputDisassembler formaPagamentoInputDisassembler;
 
-
 	@GetMapping
 	public List<FormaPagamentoModel> listar() {
-		List<FormaPagamento> todosPagementos = formaPagamentoRepository.findAll();
-		return formaPagamentoModelAssembler.toCollectionModel(todosPagementos);
+		List<FormaPagamento> todasFormasPagamentos = formaPagamentoRepository.findAll();
+
+		return formaPagamentoModelAssembler.toCollectionModel(todasFormasPagamentos);
 	}
 
 	@GetMapping("/{formaPagamentoId}")
 	public FormaPagamentoModel buscar(@PathVariable Long formaPagamentoId) {
-		FormaPagamento formaPagamento = cadastroFormaPagamento.BuscarFormaPagamentoOuFalha(formaPagamentoId);
+		FormaPagamento formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
+
 		return formaPagamentoModelAssembler.toModel(formaPagamento);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public FormaPagamentoModel adicionar(@RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
-		try {
-			FormaPagamento formaPagamento = formaPagamentoInputDisassembler.toDomainObject(formaPagamentoInput);
-			return formaPagamentoModelAssembler.toModel(formaPagamento);
-		} catch (EstadoNaoEncontradoException e) {
-			throw new NegocioException(e.getMessage(), e);
-		}
+		FormaPagamento formaPagamento = formaPagamentoInputDisassembler.toDomainObject(formaPagamentoInput);
+
+		formaPagamento = cadastroFormaPagamento.salvar(formaPagamento);
+
+		return formaPagamentoModelAssembler.toModel(formaPagamento);
 	}
 
 	@PutMapping("/{formaPagamentoId}")
 	public FormaPagamentoModel atualizar(@PathVariable Long formaPagamentoId,
-								 @RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
-		try {
-			FormaPagamento formaPagamentoAtual = cadastroFormaPagamento.BuscarFormaPagamentoOuFalha(formaPagamentoId);
-			formaPagamentoInputDisassembler.copyToDomainObject(formaPagamentoInput, formaPagamentoAtual);
-			formaPagamentoAtual = cadastroFormaPagamento.salvar(formaPagamentoAtual);
-			return formaPagamentoModelAssembler.toModel(formaPagamentoAtual);
-		} catch (EstadoNaoEncontradoException e) {
-			throw new NegocioException(e.getMessage(), e);
-		}
+										 @RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
+		FormaPagamento formaPagamentoAtual = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
+
+		formaPagamentoInputDisassembler.copyToDomainObject(formaPagamentoInput, formaPagamentoAtual);
+
+		formaPagamentoAtual = cadastroFormaPagamento.salvar(formaPagamentoAtual);
+
+		return formaPagamentoModelAssembler.toModel(formaPagamentoAtual);
 	}
 
 	@DeleteMapping("/{formaPagamentoId}")
@@ -74,5 +73,4 @@ public class FormaPagamentoController {
 	public void remover(@PathVariable Long formaPagamentoId) {
 		cadastroFormaPagamento.excluir(formaPagamentoId);
 	}
-
 }
