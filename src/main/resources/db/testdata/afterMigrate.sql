@@ -85,12 +85,13 @@ insert into produto (nome, descricao, preco, ativo, restaurante_id)
     values ('Espetinho de Cupim', 'Acompanha farinha, mandioca e vinagrete', 8, 1, 6);
 
 -- TAB GRUPOS
-insert into grupo (nome) values ('GRUPO Administrador');
-insert into grupo (nome) values ('GRUPO Cliente');
+insert into grupo (nome) values ('Gerente'), ('Vendedor'), ('Secretária'), ('Cadastrador');
 
--- TAB PERMISOES DE ACESSO OU ESCOPO
-insert into permissao (nome, descricao) values ('ADMINISTRADOR','Administrador-Acesso total ao sistema');
-insert into permissao (nome, descricao) values ('CLIENTE','Cliente-Acesso aos pedidos e itens');
+-- TAB PERMISÕES DE ACESSO OU ESCOPO
+insert into permissao (nome, descricao) values ('Administrador','Administrador-Acesso total ao sistema');
+insert into permissao (nome, descricao) values ('Cliente','Cliente-Acesso aos pedidos e itens');
+insert into permissao (nome, descricao) values ('Vendedor','Vendedor');
+insert into permissao (nome, descricao) values ('Cadastrador','Cadastrador');
 
 insert into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (2, 1), (2, 2);
 
