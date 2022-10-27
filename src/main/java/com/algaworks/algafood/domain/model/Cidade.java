@@ -21,12 +21,10 @@ public class Cidade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
 	@Column(nullable = false, length = 80)
 	private String nome;
 
 	@Valid
-	@NotNull
 	@ConvertGroup(to = Groups.EstadoId.class)
 	@ManyToOne
 	@JoinColumn(name = "estado_id", nullable = false)

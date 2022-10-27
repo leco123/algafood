@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import com.algaworks.algafood.api.model.input.CidadeModel;
+import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.domain.model.Cidade;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,11 @@ public class CidadeModelAssembler {
     @Autowired
     private ModelMapper modelMapper;
 
-    public CidadeModel toModel(Cidade cidade) {
-        return modelMapper.map(cidade, CidadeModel.class);
+    public FormaPagamentoModel.CidadeModel toModel(Cidade cidade) {
+        return modelMapper.map(cidade, FormaPagamentoModel.CidadeModel.class);
     }
 
-    public List<CidadeModel> toCollectionModel(List<Cidade> cidades) {
+    public List<FormaPagamentoModel.CidadeModel> toCollectionModel(List<Cidade> cidades) {
         return cidades.stream()
                 .map(cidade -> toModel(cidade))
                 .collect(Collectors.toList());

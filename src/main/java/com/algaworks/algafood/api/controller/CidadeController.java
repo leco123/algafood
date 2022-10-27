@@ -2,8 +2,8 @@ package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.CidadeInputDisassembler;
 import com.algaworks.algafood.api.assembler.CidadeModelAssembler;
+import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.CidadeInput;
-import com.algaworks.algafood.api.model.input.CidadeModel;
 import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cidade;
@@ -33,20 +33,20 @@ public class CidadeController {
 	private CidadeInputDisassembler cidadeInputDisassembler;
 
 	@GetMapping
-	public List<CidadeModel> listar() {
+	public List<FormaPagamentoModel.CidadeModel> listar() {
 		List<Cidade> todasCidades = cidadeRepository.findAll();
 		return cidadeModelAssembler.toCollectionModel(todasCidades);
 	}
 
 	@GetMapping("/{cidadeId}")
-	public CidadeModel buscar(@PathVariable Long cidadeId) {
+	public FormaPagamentoModel.CidadeModel buscar(@PathVariable Long cidadeId) {
 		Cidade cidade = cadastroCidade.BuscarCidadeOuFalha(cidadeId);
 		return cidadeModelAssembler.toModel(cidade);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
+	public FormaPagamentoModel.CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
 		try {
 			Cidade cidade = cidadeInputDisassembler.toDomainObject(cidadeInput);
 			cidade = cadastroCidade.salvar(cidade);
@@ -57,8 +57,8 @@ public class CidadeController {
 	}
 
 	@PutMapping("/{cidadeId}")
-	public CidadeModel atualizar(@PathVariable Long cidadeId,
-								 @RequestBody @Valid CidadeInput cidadeInput) {
+	public FormaPagamentoModel.CidadeModel atualizar(@PathVariable Long cidadeId,
+                                                     @RequestBody @Valid CidadeInput cidadeInput) {
 		try {
 			Cidade cidadeAtual = cadastroCidade.BuscarCidadeOuFalha(cidadeId);
 			cidadeInputDisassembler.copyToDomainObject(cidadeInput, cidadeAtual);
