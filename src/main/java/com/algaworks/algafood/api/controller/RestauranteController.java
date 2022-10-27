@@ -3,10 +3,7 @@ package com.algaworks.algafood.api.controller;
 import com.algaworks.algafood.api.assembler.RestauranteInputModelDisassembler;
 import com.algaworks.algafood.api.assembler.RestauranteModelAssembler;
 import com.algaworks.algafood.core.validation.ValidacaoException;
-import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.NegocioException;
-import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException;
+import com.algaworks.algafood.domain.exception.*;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
@@ -79,11 +76,13 @@ public class RestauranteController {
         try {
             // Busca o restaurante da atual da base dados
             Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(restauranteId);
+
             // pega todos os atributos do restauranteInput e compara com restaurante atual e faz um build faz o processo
             // de forma automática como se fosse uma annotattion @Builder
             restauranteInputModelDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
+
             return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteAtual));
-        } catch (CozinhaNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
