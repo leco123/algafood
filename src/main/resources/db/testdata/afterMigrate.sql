@@ -96,14 +96,11 @@ insert into permissao (nome, descricao) values ('Cadastrador','Cadastrador');
 insert into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (2, 1), (2, 2);
 
 -- TAB USUÁRIO
-insert into usuario (id, nome, email, senha, data_cadastro)
-    values (1, 'Alex de Carvalho','email@email.com', '123456',utc_timestamp);
-insert into usuario (id, nome, email, senha, data_cadastro)
-    values (2, 'Carina Alves Barbieri','email@email.com', '123456',utc_timestamp);
-insert into usuario (id, nome, email, senha, data_cadastro)
-    values (3, 'João da Silva','email@email.com', '123456',utc_timestamp);
-insert into usuario (id, nome, email, senha, data_cadastro)
-    values (4, 'Miguel dos Santos','email@email.com', '123456',utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro) values
+(1, 'João da Silva', 'joao.ger@algafood.com', '123', utc_timestamp),
+(2, 'Maria Joaquina', 'maria.vnd@algafood.com', '123', utc_timestamp),
+(3, 'José Souza', 'jose.aux@algafood.com', '123', utc_timestamp),
+(4, 'Sebastião Martins', 'sebastiao.cad@algafood.com', '123', utc_timestamp);
 
 insert into usuario_grupo (usuario_id, grupo_id)
     values (1, 1), (1, 2), (2, 1), (3,2), (4,2);
