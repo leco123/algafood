@@ -1,4 +1,6 @@
-package com.algaworks.algafood.domain.exception;
+package com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada;
+
+import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 
 public class FormaPagamentoNaoEncontradaException extends EntidadeNaoEncontradaException {
 
