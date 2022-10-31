@@ -19,7 +19,7 @@ public class RestauranteModelAssembler {
         return modelMapper.map(restaurante, RestauranteModel.class);
     }
 
-    public List<RestauranteModel> toCollectionMoldel(List<Restaurante> restaurantes) {
+    public List<RestauranteModel> toCollectionModel(List<Restaurante> restaurantes) {
         return restaurantes.stream()
                 .map(restaurante -> toModel(restaurante))
                 .collect(Collectors.toList());

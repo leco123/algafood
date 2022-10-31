@@ -40,7 +40,7 @@ public class CidadeController {
 
 	@GetMapping("/{cidadeId}")
 	public FormaPagamentoModel buscar(@PathVariable Long cidadeId) {
-		Cidade cidade = cadastroCidade.BuscarCidadeOuFalha(cidadeId);
+		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
 		return cidadeModelAssembler.toModel(cidade);
 	}
 
@@ -60,7 +60,7 @@ public class CidadeController {
 	public FormaPagamentoModel atualizar(@PathVariable Long cidadeId,
                                                      @RequestBody @Valid CidadeInput cidadeInput) {
 		try {
-			Cidade cidadeAtual = cadastroCidade.BuscarCidadeOuFalha(cidadeId);
+			Cidade cidadeAtual = cadastroCidade.buscarOuFalhar(cidadeId);
 			cidadeInputDisassembler.copyToDomainObject(cidadeInput, cidadeAtual);
 			cidadeAtual = cadastroCidade.salvar(cidadeAtual);
 			return cidadeModelAssembler.toModel(cidadeAtual);
