@@ -8,11 +8,12 @@ Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_,
 
 ## Aprendizados
 - Variável serialVersionUID
-- Mapeapento de Entidades
-- Injeção de Dependência
-- Implementar Resquisições _MediaTypes_: `Json` e `XML`;
-- Implementar Requisições onde o cliente consiga fazer escolha em qual `MediaType` vai consumir API;
+- Mapeapento de entidades
+- Injeção de dependência
+- Implementar resquisições _MediaTypes_: `Json` e `XML`;
+- Implementar requisições onde o cliente consiga fazer escolha em qual `MediaType` vai consumir API;
 - Oque é REST e RESTful;
+- Usar injeção de dependência de biblioteca externa no projeto 
 
 ### Variável _`serialVersionUID`_ e sua importância na arquitetura Java
 Para compreender sobre a váriável _`serialVersionUID`_ é nescessário comprender alguns conceitos funcionalidades.
@@ -258,6 +259,43 @@ Para criar o database "nomebanco" a partir do dump, execute o comando:
 ```sql
 mysql --host localhost --user root --password < dump-nomebanco.sql
 ```
+
+### Como usar injeção de dependência de biblioteca externa no projeto
+
+Deve ser criado um pacote para adicionar essas classes externas, em nosso exemplo foi 
+criado o package `core` e adiciona todas as bibliotecas externas como `SimpleModule` da biblioteca jackson, 
+`LocalValidatorFactoryBean` para as nossas validações de propriedades e `ModelMapper` com ele é possível mapear modelos 
+complexos, com nenhuma ou poucas configurações - sempre seguindo convenções. 
+As classe que instância essas blibliotecas e framework devem ser anotadas com `@Configuracion`.
+
+````java
+package com.algaworks.algafood.core.modelmapper;
+
+import com.algaworks.algafood.api.model.EnderecoModel;
+import com.algaworks.algafood.domain.model.Endereco;
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class ModelMapperConfig {
+
+    @Bean
+    public ModelMapper modelMapper() {
+        var modelMapper = new ModelMapper();
+        
+        var enderecoToEnderecoModelTypeMap = modelMapper.createTypeMap(
+                Endereco.class, EnderecoModel.class);
+        
+        enderecoToEnderecoModelTypeMap.<String>addMapping(
+                enderecoSrc -> enderecoSrc.getCidade().getEstado().getNome(),
+                (enderecoModelDest, value) -> enderecoModelDest.getCidade().setEstado(value));
+
+        return modelMapper;
+    }
+}
+````
+
 
 ### Como reparar Flyway via linha de comando
 Primeiro deve ser criado um arquivo flyway.properties e dentro dele conforme exemplo abaixo
