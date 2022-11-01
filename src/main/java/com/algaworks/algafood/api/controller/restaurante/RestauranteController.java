@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.controller;
+package com.algaworks.algafood.api.controller.restaurante;
 
 import java.util.List;
 

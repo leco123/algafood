@@ -8,12 +8,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
-@Getter
 @Setter
+@Getter
 public class ProdutoModel {
+
     private Long id;
-    private String nomeProduto;
-    private String descricaoProduto;
-    private BigDecimal precoProduto;
+    private String nome;
+    private String descricao;
+    private BigDecimal preco;
     private Boolean ativo;
 }

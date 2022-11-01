@@ -8,20 +8,21 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
-@Getter
 @Setter
+@Getter
 public class ProdutoInput {
 
     @NotBlank
-    private String nomeProduto;
+    private String nome;
 
     @NotBlank
-    private String descricaoProduto;
+    private String descricao;
 
     @NotNull
     @PositiveOrZero
-    private BigDecimal precoProduto;
+    private BigDecimal preco;
 
     @NotNull
     private Boolean ativo;
+
 }
