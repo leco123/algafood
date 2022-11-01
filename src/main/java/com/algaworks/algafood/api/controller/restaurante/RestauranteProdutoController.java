@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller.restaurante;
 
-import com.algaworks.algafood.api.assembler.ProdutoInputDisassembler;
-import com.algaworks.algafood.api.assembler.ProdutoModelAssembler;
+import com.algaworks.algafood.api.assembler.restaurante.produto.ProdutoInputDisassembler;
+import com.algaworks.algafood.api.assembler.restaurante.produto.ProdutoModelAssembler;
 import com.algaworks.algafood.api.model.ProdutoModel;
 import com.algaworks.algafood.api.model.input.ProdutoInput;
 import com.algaworks.algafood.domain.model.Produto;

@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller.grupo;
 
-import com.algaworks.algafood.api.assembler.GrupoInputDisassembler;
-import com.algaworks.algafood.api.assembler.GrupoModelAssembler;
+import com.algaworks.algafood.api.assembler.usuario.grupo.GrupoInputDisassembler;
+import com.algaworks.algafood.api.assembler.usuario.grupo.GrupoModelAssembler;
 import com.algaworks.algafood.api.model.GrupoModel;
 import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.domain.model.Grupo;
@@ -33,14 +33,12 @@ public class GrupoController {
     @GetMapping
     public List<GrupoModel> listar() {
         List<Grupo> todosGrupos = grupoRepository.findAll();
-
         return grupoModelAssembler.toCollectionModel(todosGrupos);
     }
 
     @GetMapping("/{grupoId}")
     public GrupoModel buscar(@PathVariable Long grupoId) {
         Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
-
         return grupoModelAssembler.toModel(grupo);
     }
 
@@ -48,9 +46,7 @@ public class GrupoController {
     @ResponseStatus(HttpStatus.CREATED)
     public GrupoModel adicionar(@RequestBody @Valid GrupoInput grupoInput) {
         Grupo grupo = grupoInputDisassembler.toDomainObject(grupoInput);
-
         grupo = cadastroGrupo.salvar(grupo);
-
         return grupoModelAssembler.toModel(grupo);
     }
 
@@ -58,11 +54,8 @@ public class GrupoController {
     public GrupoModel atualizar(@PathVariable Long grupoId,
                                 @RequestBody @Valid GrupoInput grupoInput) {
         Grupo grupoAtual = cadastroGrupo.buscarOuFalhar(grupoId);
-
         grupoInputDisassembler.copyToDomainObject(grupoInput, grupoAtual);
-
         grupoAtual = cadastroGrupo.salvar(grupoAtual);
-
         return grupoModelAssembler.toModel(grupoAtual);
     }
 

@@ -101,5 +101,5 @@ insert into usuario (id, nome, email, senha, data_cadastro) values
 (4, 'Sebastião Martins', 'sebastiao.cad@algafood.com', '123', utc_timestamp);
 
 insert into usuario_grupo (usuario_id, grupo_id)
-    values (1, 1), (1, 2), (2, 1), (3,2), (4,2);
+    values (1, 1), (1, 2), (2, 2);
 

@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.assembler;
+package com.algaworks.algafood.api.assembler.restaurante;
 
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Cozinha;

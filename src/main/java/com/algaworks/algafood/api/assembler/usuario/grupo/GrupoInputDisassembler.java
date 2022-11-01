@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.assembler;
+package com.algaworks.algafood.api.assembler.usuario.grupo;
 
 import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.domain.model.Grupo;

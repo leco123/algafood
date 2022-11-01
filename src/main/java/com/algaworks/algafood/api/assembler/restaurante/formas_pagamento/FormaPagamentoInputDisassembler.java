@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.assembler;
+package com.algaworks.algafood.api.assembler.restaurante.formas_pagamento;
 
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import com.algaworks.algafood.domain.model.FormaPagamento;

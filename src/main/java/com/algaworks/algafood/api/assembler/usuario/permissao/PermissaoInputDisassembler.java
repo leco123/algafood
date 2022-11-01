@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.assembler;
+package com.algaworks.algafood.api.assembler.usuario.permissao;
 
 import com.algaworks.algafood.api.model.input.PermissaoInput;
 import com.algaworks.algafood.domain.model.Permissao;

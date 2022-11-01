@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.assembler;
+package com.algaworks.algafood.api.assembler.usuario;
 
 import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.domain.model.Usuario;

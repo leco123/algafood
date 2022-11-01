@@ -1,7 +1,7 @@
-package com.algaworks.algafood.api.controller;
+package com.algaworks.algafood.api.controller.endereco;
 
-import com.algaworks.algafood.api.assembler.EstadoInputDisassembler;
-import com.algaworks.algafood.api.assembler.EstadoModelAssembler;
+import com.algaworks.algafood.api.assembler.endereco.EstadoInputDisassembler;
+import com.algaworks.algafood.api.assembler.endereco.EstadoModelAssembler;
 import com.algaworks.algafood.api.model.EnderecoModel;
 import com.algaworks.algafood.api.model.input.EstadoInput;
 import com.algaworks.algafood.domain.model.Estado;

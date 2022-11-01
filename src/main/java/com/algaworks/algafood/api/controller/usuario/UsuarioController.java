@@ -1,7 +1,7 @@
-package com.algaworks.algafood.api.controller;
+package com.algaworks.algafood.api.controller.usuario;
 
-import com.algaworks.algafood.api.assembler.UsuarioInputDisassembler;
-import com.algaworks.algafood.api.assembler.UsuarioModelAssembler;
+import com.algaworks.algafood.api.assembler.usuario.UsuarioInputDisassembler;
+import com.algaworks.algafood.api.assembler.usuario.UsuarioModelAssembler;
 import com.algaworks.algafood.api.model.UsuarioModel;
 import com.algaworks.algafood.api.model.input.SenhaInput;
 import com.algaworks.algafood.api.model.input.UsuarioComSenhaInput;
@@ -34,15 +34,13 @@ public class UsuarioController {
 
     @GetMapping
     public List<UsuarioModel> listar() {
-        List<Usuario> todasUsuarios = usuarioRepository.findAll();
-
-        return usuarioModelAssembler.toCollectionModel(todasUsuarios);
+        List<Usuario> todosUsuarios = usuarioRepository.findAll();
+        return usuarioModelAssembler.toCollectionModel(todosUsuarios);
     }
 
     @GetMapping("/{usuarioId}")
     public UsuarioModel buscar(@PathVariable Long usuarioId) {
         Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
-
         return usuarioModelAssembler.toModel(usuario);
     }
 
@@ -51,7 +49,6 @@ public class UsuarioController {
     public UsuarioModel adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioInput) {
         Usuario usuario = usuarioInputDisassembler.toDomainObject(usuarioInput);
         usuario = cadastroUsuario.salvar(usuario);
-
         return usuarioModelAssembler.toModel(usuario);
     }
 

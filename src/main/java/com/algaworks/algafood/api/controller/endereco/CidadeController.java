@@ -1,7 +1,7 @@
-package com.algaworks.algafood.api.controller;
+package com.algaworks.algafood.api.controller.endereco;
 
-import com.algaworks.algafood.api.assembler.CidadeInputDisassembler;
-import com.algaworks.algafood.api.assembler.CidadeModelAssembler;
+import com.algaworks.algafood.api.assembler.endereco.CidadeInputDisassembler;
+import com.algaworks.algafood.api.assembler.endereco.CidadeModelAssembler;
 import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.CidadeInput;
 import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.EstadoNaoEncontradoException;

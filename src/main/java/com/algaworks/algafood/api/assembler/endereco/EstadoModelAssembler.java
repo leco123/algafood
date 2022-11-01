@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.assembler;
+package com.algaworks.algafood.api.assembler.endereco;
 
 import com.algaworks.algafood.api.model.EnderecoModel;
 import com.algaworks.algafood.domain.model.Estado;
