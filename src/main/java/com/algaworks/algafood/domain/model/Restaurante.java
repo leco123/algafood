@@ -40,6 +40,8 @@ public class Restaurante {
 
 	private Boolean ativo = Boolean.TRUE;
 
+	private Boolean aberto = Boolean.FALSE;
+
 	@Embedded
 	private Endereco endereco;
 
@@ -66,6 +68,14 @@ public class Restaurante {
 
 	public void inativar() {
 		setAtivo(false);
+	}
+
+	public void abrir() {
+		setAberto(true);
+	}
+
+	public void fechar() {
+		setAberto(false);
 	}
 
 	public boolean removerFormaPagamento(FormaPagamento formaPagamento) {
