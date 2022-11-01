@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.controller;
+package com.algaworks.algafood.api.controller.grupo;
 
 import com.algaworks.algafood.api.assembler.GrupoInputDisassembler;
 import com.algaworks.algafood.api.assembler.GrupoModelAssembler;

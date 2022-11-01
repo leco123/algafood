@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.controller.restaurante.produto;
+package com.algaworks.algafood.api.controller.restaurante;
 
 import com.algaworks.algafood.api.assembler.ProdutoInputDisassembler;
 import com.algaworks.algafood.api.assembler.ProdutoModelAssembler;
