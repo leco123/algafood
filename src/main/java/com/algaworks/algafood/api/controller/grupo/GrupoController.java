@@ -5,7 +5,7 @@ import com.algaworks.algafood.api.assembler.usuario.grupo.GrupoModelAssembler;
 import com.algaworks.algafood.api.model.GrupoModel;
 import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.domain.model.Grupo;
-import com.algaworks.algafood.domain.repository.GrupoRepository;
+import com.algaworks.algafood.domain.exception.repository.GrupoRepository;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

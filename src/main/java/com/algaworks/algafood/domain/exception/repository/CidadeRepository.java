@@ -1,7 +1,6 @@
-package com.algaworks.algafood.domain.repository;
+package com.algaworks.algafood.domain.exception.repository;
 
 import com.algaworks.algafood.domain.model.Cidade;
-import com.algaworks.algafood.domain.model.Cozinha;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

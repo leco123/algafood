@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.repository;
+package com.algaworks.algafood.domain.exception.repository;
 
 import com.algaworks.algafood.domain.model.Estado;
 import org.springframework.stereotype.Repository;

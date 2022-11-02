@@ -1,12 +1,13 @@
 package com.algaworks.algafood.domain.model;
 
-import com.algaworks.algafood.core.validation.annotation.TaxaFrete;
 import com.algaworks.algafood.domain.enums.StatusPedido;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -22,34 +23,33 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @PositiveOrZero
+    @NotNull
     @Column(nullable = false)
-    private BigDecimal subTotal;
+    private BigDecimal subtotal;
 
-    @TaxaFrete
-    @Column(nullable = false, name = "taxa_frete")
+    @PositiveOrZero
+    @NotNull
+    @Column(nullable = false)
     private BigDecimal taxaFrete;
 
-    @Column(nullable = false, name = "valor_total")
+    @PositiveOrZero
+    @NotNull
+    @Column(nullable = false)
     private BigDecimal valorTotal;
 
     @CreationTimestamp
-    @Column(name = "data_criacao", nullable = false)
     private OffsetDateTime dataCriacao;
-
-    @Column(name = "data_confirmacao")
     private OffsetDateTime dataConfirmacao;
-
-    @Column(name = "data_cancelamento")
-    private OffsetDateTime  dataCancelamento;
-
-    @Column(name = "data_entrega")
+    private OffsetDateTime dataCancelamento;
     private OffsetDateTime dataEntrega;
 
     @Embedded
     private Endereco enderecoEntrega;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 10, name = "status", nullable = false)
-    private StatusPedido statusPedido;
+    private StatusPedido status = StatusPedido.CRIADO;
 
     @ManyToOne
     @JoinColumn(name = "restaurante_id", nullable = false)
@@ -66,4 +66,18 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens = new ArrayList<>();
 
+    public void calcularValorTotal() {
+        this.subtotal = getItens().stream()
+                .map(item -> item.getPrecoTotal())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        this.valorTotal = this.subtotal.add(this.taxaFrete);
+    }
+
+    public void definirFrete() {
+        setTaxaFrete(getRestaurante().getTaxaFrete());
+    }
+
+    public void atribuirPedidoAosItens() {
+        getItens().forEach(item -> item.setPedido(this));
+    }
 }

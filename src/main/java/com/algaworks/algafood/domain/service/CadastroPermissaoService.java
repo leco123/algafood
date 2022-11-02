@@ -2,7 +2,7 @@ package com.algaworks.algafood.domain.service;
 
 import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.PermissaoNaoEncontradoException;
 import com.algaworks.algafood.domain.model.Permissao;
-import com.algaworks.algafood.domain.repository.PermissaoRepository;
+import com.algaworks.algafood.domain.exception.repository.PermissaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
