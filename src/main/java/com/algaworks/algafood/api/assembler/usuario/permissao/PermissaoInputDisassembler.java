@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler.usuario.permissao;
 
-import com.algaworks.algafood.api.model.input.PermissaoInput;
+import com.algaworks.algafood.api.model.input.usuario.permissao.PermissaoInput;
 import com.algaworks.algafood.domain.model.Permissao;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,10 +2,10 @@ package com.algaworks.algafood.api.controller.usuario;
 
 import com.algaworks.algafood.api.assembler.usuario.UsuarioInputDisassembler;
 import com.algaworks.algafood.api.assembler.usuario.UsuarioModelAssembler;
-import com.algaworks.algafood.api.model.UsuarioModel;
-import com.algaworks.algafood.api.model.input.SenhaInput;
-import com.algaworks.algafood.api.model.input.UsuarioComSenhaInput;
-import com.algaworks.algafood.api.model.input.UsuarioInput;
+import com.algaworks.algafood.api.model.usuario.UsuarioModel;
+import com.algaworks.algafood.api.model.input.usuario.SenhaInput;
+import com.algaworks.algafood.api.model.input.usuario.UsuarioComSenhaInput;
+import com.algaworks.algafood.api.model.input.usuario.UsuarioInput;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.exception.repository.UsuarioRepository;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;

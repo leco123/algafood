@@ -2,8 +2,8 @@ package com.algaworks.algafood.api.controller.grupo;
 
 import com.algaworks.algafood.api.assembler.usuario.grupo.GrupoInputDisassembler;
 import com.algaworks.algafood.api.assembler.usuario.grupo.GrupoModelAssembler;
-import com.algaworks.algafood.api.model.GrupoModel;
-import com.algaworks.algafood.api.model.input.GrupoInput;
+import com.algaworks.algafood.api.model.usuario.grupo.GrupoModel;
+import com.algaworks.algafood.api.model.input.usuario.grupo.GrupoInput;
 import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.exception.repository.GrupoRepository;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;

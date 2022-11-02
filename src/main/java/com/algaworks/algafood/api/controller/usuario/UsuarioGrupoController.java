@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller.usuario;
 
 import com.algaworks.algafood.api.assembler.usuario.grupo.GrupoModelAssembler;
-import com.algaworks.algafood.api.model.GrupoModel;
+import com.algaworks.algafood.api.model.usuario.grupo.GrupoModel;
 import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;

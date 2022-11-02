@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler.endereco;
 
-import com.algaworks.algafood.api.model.EnderecoModel;
+import com.algaworks.algafood.api.model.endereco.EnderecoModel;
 import com.algaworks.algafood.domain.model.Estado;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

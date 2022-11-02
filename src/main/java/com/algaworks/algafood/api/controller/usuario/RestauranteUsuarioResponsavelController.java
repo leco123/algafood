@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.controller.usuario;
 
 import com.algaworks.algafood.api.assembler.usuario.UsuarioModelAssembler;
-import com.algaworks.algafood.api.model.UsuarioModel;
+import com.algaworks.algafood.api.model.usuario.UsuarioModel;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 import org.springframework.beans.factory.annotation.Autowired;

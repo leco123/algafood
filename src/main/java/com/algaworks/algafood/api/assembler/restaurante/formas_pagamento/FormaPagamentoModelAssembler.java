@@ -1,13 +1,12 @@
 package com.algaworks.algafood.api.assembler.restaurante.formas_pagamento;
 
-import com.algaworks.algafood.api.model.FormaPagamentoModel;
+import com.algaworks.algafood.api.model.restaurante.formas_pagamento.FormaPagamentoModel;
 import com.algaworks.algafood.domain.model.FormaPagamento;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

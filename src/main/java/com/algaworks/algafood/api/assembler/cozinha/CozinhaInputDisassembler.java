@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler.cozinha;
 
-import com.algaworks.algafood.api.model.input.CozinhaInput;
+import com.algaworks.algafood.api.model.input.restaurante.cozinha.CozinhaInput;
 import com.algaworks.algafood.domain.model.Cozinha;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
