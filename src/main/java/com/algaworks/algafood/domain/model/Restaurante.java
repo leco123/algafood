@@ -39,7 +39,6 @@ public class Restaurante {
 	private Cozinha cozinha;
 
 	private Boolean ativo = Boolean.TRUE;
-
 	private Boolean aberto = Boolean.FALSE;
 
 	@Embedded
