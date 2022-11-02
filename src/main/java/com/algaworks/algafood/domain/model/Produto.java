@@ -20,7 +20,7 @@ public class Produto {
     private String nome;
 
     @Column(nullable = false)
-    private String Descricao;
+    private String descricao;
 
     @Column(nullable = false)
     private BigDecimal preco;

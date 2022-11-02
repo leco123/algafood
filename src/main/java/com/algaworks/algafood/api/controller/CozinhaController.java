@@ -1,11 +1,11 @@
 package com.algaworks.algafood.api.controller;
 
-import com.algaworks.algafood.api.assembler.CozinhaInputDisassembler;
-import com.algaworks.algafood.api.assembler.CozinhaModelAssembler;
-import com.algaworks.algafood.api.model.CozinhaModel;
-import com.algaworks.algafood.api.model.input.CozinhaInput;
+import com.algaworks.algafood.api.assembler.cozinha.CozinhaInputDisassembler;
+import com.algaworks.algafood.api.assembler.cozinha.CozinhaModelAssembler;
+import com.algaworks.algafood.api.model.cozinha.CozinhaModel;
+import com.algaworks.algafood.api.model.input.restaurante.cozinha.CozinhaInput;
 import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.exception.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,7 +39,7 @@ public class CozinhaController {
 
 	@GetMapping("/{cozinhaId}")
 	public CozinhaModel buscar(@PathVariable Long cozinhaId) {
-		Cozinha cozinha = cadastroCozinha.buscarCozinhaOuFalha(cozinhaId);
+		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
 
 		return cozinhaModelAssembler.toModel(cozinha);
 	}
@@ -56,7 +56,7 @@ public class CozinhaController {
 	@PutMapping("/{cozinhaId}")
 	public CozinhaModel atualizar(@PathVariable Long cozinhaId,
 								  @RequestBody @Valid CozinhaInput cozinhaInput) {
-		Cozinha cozinhaAtual = cadastroCozinha.buscarCozinhaOuFalha(cozinhaId);
+		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
 		cozinhaInputDisassembler.copyToDomainObject(cozinhaInput, cozinhaAtual);
 		cozinhaAtual = cadastroCozinha.salvar(cozinhaAtual);
 

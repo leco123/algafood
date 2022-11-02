@@ -1,10 +1,10 @@
 package com.algaworks.algafood.domain.service;
 
-import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.exception.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -42,7 +42,7 @@ public class CadastroCozinhaService {
 		}
 	}
 
-	public Cozinha buscarCozinhaOuFalha(@Valid  Long cozinhaId) {
+	public Cozinha buscarOuFalhar(@Valid  Long cozinhaId) {
 		return cozinhaRepository.findById(cozinhaId)
 				.orElseThrow(()-> new CozinhaNaoEncontradaException(cozinhaId));
 	}
