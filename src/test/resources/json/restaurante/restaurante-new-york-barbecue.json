@@ -1,7 +1,17 @@
 {
-  "nome": "New York Barbecue",
-  "taxaFrete": 12,
+  "nome": "Alex de Carvalho ",
+  "taxaFrete": 6.00,
   "cozinha": {
     "id": 1
+  },
+  "endereco": {
+    "cep":"85504313",
+    "logradouro":"nome logradouro",
+    "numero": "0001",
+    "complemento": "complemento teste",
+    "bairro": "Centro",
+    "cidade": {
+      "id":1
+    }
   }
 }
