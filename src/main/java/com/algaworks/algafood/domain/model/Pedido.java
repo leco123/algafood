@@ -7,10 +7,12 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -21,6 +23,8 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String codigo;
 
     private BigDecimal subtotal;
     private BigDecimal taxaFrete;
@@ -82,10 +86,16 @@ public class Pedido {
     private void setStatus(StatusPedido novoStatus) {
         if (getStatus().naoPodeAlterarPara(novoStatus)) {
             throw new NegocioException(
-                    String.format("Status do pedido %d não pode ser alterado de %s para %s",
-                            getId(), getStatus().getDescricao(),
+                    String.format("Status do código do pedido '%s' não pode ser alterado de '%s' para '%s'",
+                            getCodigo(), getStatus().getDescricao(),
                             novoStatus.getDescricao()));
         }
         this.status = novoStatus;
+    }
+
+    // Método de Callback do JPA
+    @PrePersist
+    private void gerarCodigo() {
+        setCodigo(UUID.randomUUID().toString());
     }
 }
