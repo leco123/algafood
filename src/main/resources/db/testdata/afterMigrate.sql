@@ -7,11 +7,13 @@ DELETE FROM estado;
 DELETE FROM forma_pagamento;
 DELETE FROM grupo;
 DELETE FROM grupo_permissao;
+DELETE FROM permissao;
 DELETE FROM produto;
 DELETE FROM restaurante;
 DELETE FROM restaurante_forma_pagamento;
 DELETE FROM usuario;
 DELETE FROM usuario_grupo;
+DELETE FROM restaurante_usuario_responsavel;
 
 SET foreign_key_checks = 1;
 
@@ -23,6 +25,7 @@ alter table grupo auto_increment = 1;
 alter table produto auto_increment = 1;
 alter table restaurante auto_increment = 1;
 alter table usuario auto_increment = 1;
+alter table permissao auto_increment = 1;
 
 -- TAB COZINHA
 insert into cozinha (id, nome) values (1, 'Tailandesa');
@@ -63,7 +66,8 @@ insert into forma_pagamento (id, descricao) values (2, 'Cartão de débito');
 insert into forma_pagamento (id, descricao) values (3, 'Dinheiro');
 
 -- TAB Relacionamento Forma pagamento restaurante
-insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3), (4, 1), (4, 2), (5, 1), (5, 2), (6, 3);
+insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id)
+    values (1, 1), (1, 2), (1, 3), (2, 3), (3, 2), (3, 3), (4, 1), (4, 2), (5, 1), (5, 2), (6, 3);
 
 -- TAB PRODUTO
 insert into produto (nome, descricao, preco, ativo, restaurante_id)
@@ -86,20 +90,25 @@ insert into produto (nome, descricao, preco, ativo, restaurante_id)
     values ('Espetinho de Cupim', 'Acompanha farinha, mandioca e vinagrete', 8, 1, 6);
 
 -- TAB GRUPOS
-insert into grupo (id, nome)
-    values (1, 'Gerente'), (2, 'Vendedor'), (3, 'Secretária'), (4, 'Cadastrador');
+insert into grupo (id, nome) values (1, 'Gerente'), (2, 'Vendedor'), (3, 'Secretária'), (4, 'Cadastrador');
 
--- TAB PERMISÕES DE ACESSO OU ESCOPO
-insert into grupo_permissao (grupo_id, permissao_id)
-    values (1, 1), (1, 2), (2, 1), (2, 2), (3, 1);
+-- PERMISOES
+insert into permissao (id, descricao, nome) values (1, 'Permissão 1', 'PERMISSAO_1'), (2, 'Permissão 2', 'PERMISSAO_2'), (3, 'Permissão 3', 'PERMISSAO_3');
+
+-- TAB PERMISOES DE ACESSO OU ESCOPO
+insert into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (2, 1), (2, 2), (3, 1);
 
 -- TAB USUÁRIO
 insert into usuario (id, nome, email, senha, data_cadastro) values
 (1, 'João da Silva', 'joao.ger@algafood.com', '123', utc_timestamp),
 (2, 'Maria Joaquina', 'maria.vnd@algafood.com', '123', utc_timestamp),
 (3, 'José Souza', 'jose.aux@algafood.com', '123', utc_timestamp),
-(4, 'Sebastião Martins', 'sebastiao.cad@algafood.com', '123', utc_timestamp);
+(4, 'Sebastião Martins', 'sebastiao.cad@algafood.com', '123', utc_timestamp),
+(5, 'Manoel Lima', 'manoel.loja@gmail.com', '123', utc_timestamp);
 
 insert into usuario_grupo (usuario_id, grupo_id)
     values (1, 1), (1, 2), (2, 2);
+
+insert into restaurante_usuario_responsavel (restaurante_id, usuario_id)
+    values (1, 1), (1, 2), (2, 2), (3, 1), (3, 3),(1, 5), (3, 5);
 
