@@ -380,33 +380,81 @@ criar arquivo `messages.properties`s e adiconar a mensagen de forma global ou es
 ````properties
 NotBlank={0} é obrigatório
 NotNull={0} é obrigatório
-#PositiveOrZero={0} deve ser um valor maior ou igual a zero
+PositiveOrZero={0} deve ser um valor maior ou igual a zero
 
-# apenas um exemplo para costumizar mensagem com o mensagem
-# javax.validation.constraints.PositiveOrZero.message=deve ser um número positivo
-
+Multiplo={0} Deve ser um valor múltipo de {1}
 TaxaFrete.invalida={0} está inválida, informe um valor positivo
+ValorZeroIncluirDescricao={1} deve conter {2}
 
 # Cozinha
-cozinha.nome=Nome da cozinha
-cozinha.id=Código da cozinha
+cozinhaIdInput.nome=Nome da cozinha
+cozinhaIdInput.id=Código da cozinha
 
 # Restaurante
-NotNull.restaurante.taxaFrete={0} é obrigatória
-NotNull.restaurante.cozinha={0} é obrigatória
-restaurante.nome=Nome do restaurante
-restaurante.cozinha=Cozinha do restaurante
-## neste caso sera pego o valo restaurante.taxaFrete + TaxaFrete.invalida
+restaurante.id=Código do restaurante
+NotNull.restauranteInput.taxaFrete={0} é obrigatória
+NotNull.restauranteInput.cozinha={0} é obrigatória
+restauranteInput.nome=Nome do restaurante
+restauranteInput.cozinha=Cozinha do restaurante
+## neste caso sera pego o valor restaurante.taxaFrete + TaxaFrete.invalida
 ## Resultado = Taxa de frete do restaurante está inválida, informe um valor positivo
-restaurante.taxaFrete=Taxa de frete do restaurante 
+restauranteInput.taxaFrete=Taxa de frete do restaurante
 
 # Estado
-estado.nome=Nome do estado
-estado.id=Código do estado
+estadoInput.nome=Nome do estado
+estadoInput.id=Código do estado
 
 # Cidade
-cidade.nome=Nome da cidade
-cidade.estado=Estado da cidade
+cidadeInput.nome=Nome da cidade
+cidadeInput.estado=Estado da cidade
+
+# Formas de pagamento
+formaPagamento.id=Código da forma de pagamento
+NotBlank.formaPagamentoInput.descricao={0} é obrigatória
+formaPagamentoInput.id=Código da forma de pagamento
+formaPagamentoInput.descricao=Descrição da forma de pagamento
+
+# Endereço
+endereco=Endereço
+endereco.logradouro=Logradouro
+endereco.numero=Número do logradouro
+endereco.cidade=Cidade
+endereco.cidade.id=Código da cidade
+endereco.cep=CEP
+endereco.bairro=Bairro
+
+# Grupo
+grupoInput.nome=Nome do grupo
+
+# Usuário
+NotBlank.usuarioComSenhaInput.senha={0} é obrigatória
+usuarioComSenhaInput.nome=Nome do usuário
+usuarioComSenhaInput.email=E-mail do usuário
+usuarioComSenhaInput.senha=Senha do usuário
+
+usuarioInput.nome=Nome do usuário
+usuarioInput.email=E-mail do usuário
+
+NotBlank.senhaInput.senhaAtual={0} é obrigatória
+NotBlank.senhaInput.novaSenha={0} é obrigatória
+senhaInput.senhaAtual=Senha atual
+senhaInput.novaSenha=Nova senha
+
+# Pedido
+NotNull.pedidoInput.itens.produtoId=Código do produto no item é obrigatório
+NotNull.pedidoInput.itens.quantidade=Quantidade no item é obrigatório
+Size.pedidoInput.itens=O pedido deve ter pelo menos um item
+pedidoInput.restaurante=Restaurante
+pedidoInput.formaPagamento=Forma de pagamento
+pedidoInput.enderecoEntrega=Endereço de entrega
+pedidoInput.itens=Itens do pedido
+enderecoEntrega.logradouro=Logradouro do endereço de entrega
+enderecoEntrega.numero=Número do logradouro do endereço de entrega
+enderecoEntrega.cidade=Cidade do endereço de entrega
+enderecoEntrega.cidade.id=Código da cidade do endereço de entrega
+enderecoEntrega.cep=CEP do endereço de entrega
+enderecoEntrega.bairro=Bairro do endereço de entrega
+
 ````
 
 ## Como criar uma validação específica usando annotattion
@@ -455,11 +503,43 @@ que se trata de uma data Brasileira -03:00
 * 4-Retorne em UTC, dexei a conversão ser implementada pelo frontend
 * 5-Não Inclua o horário se não for necessário
 
+## Como criar filtros dinâmicos usando biblioteca Squiggly conforme propriedades do model 
+
+deve ser adicionado a dependência no pom.xml
+````xml
+<dependency>
+  <groupId>com.github.bohnman</groupId>
+  <artifactId>squiggly-filter-jackson</artifactId>
+  <version>1.3.18</version>
+</dependency>
+````
+deve ser criado um pacote e uma classe de configuração para conseguir injetar a classe nosso pacote vai ser
+`core.squigly` e nossa classe `SquigglyConfig`.
+````java
+@Configuration
+public class SquigglyConfig {
+
+    /**
+     * Cadas vez que fizer um filtro será passado por esse método antes de fazer a serealizacion das propriedades no model
+     */
+    @Bean
+    public FilterRegistrationBean<SquigglyRequestFilter> squigglyRequestFilter(ObjectMapper objectMapper) {
+        // RequestSquigglyContextProvider, já traz algumas informações sendo a propriedade {fields: ... }
+        Squiggly.init(objectMapper, new RequestSquigglyContextProvider());
+
+        var filterRegistration = new FilterRegistrationBean<SquigglyRequestFilter>();
+        filterRegistration.setFilter(new SquigglyRequestFilter());
+        filterRegistration.setOrder(1);
+
+        return filterRegistration;
+    }
+}
+````
 
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
 - [Mais informações sobre a váriavel `serialVersionUID`](https://blog.algaworks.com/serialversionuid/)  Veja o artigo completo da **AlgaWorks** sobre a váriavel `serialVersionUID` descrito por **Alexandre Afonso** 
 - [Diferença entre Inner, Left, Right, Outer/Full e Cross Join](https://pt.stackoverflow.com/questions/6441/qual-%C3%A9-a-diferen%C3%A7a-entre-inner-join-e-outer-join)
-- [Projeto da comunidade dev sobre oque deve ser adicionar no `.gitigonre`](https://github.
-com/github/gitignore)
+- [Projeto da comunidade dev sobre oque deve ser adicionar no `.gitigonre`](https://github.com/github/gitignore)
+- [Biblioteca Squiggly, usado para fazer filtros de campos dinâmicos ou limitar as propriedades de recursos](https://gist.github.com/thiagofa/ce48c08e4caae34c5dca0a7a5c252666)
