@@ -12,8 +12,12 @@ import com.algaworks.algafood.domain.exception.repository.PedidoRepository;
 import com.algaworks.algafood.domain.model.Pedido;
 import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,10 +42,32 @@ public class PedidoController {
     private PedidoInputDisassembler pedidoInputDisassembler;
 
     @GetMapping
-    public List<PedidoResumoModel> listar() {
-        List<Pedido> todosPedidos = pedidoRepository.findAll();
-        return pedidoResumoModelAssembler.toCollectionModel(todosPedidos);
+    public MappingJacksonValue listar(@RequestParam(required = false) String campos) {
+        List<Pedido> pedidos = pedidoRepository.findAll();
+        List<PedidoResumoModel> pedidosModel = pedidoResumoModelAssembler.toCollectionModel(pedidos);
+
+        // Instanciado o Envelope
+        MappingJacksonValue pedidosWrapper = new MappingJacksonValue(pedidosModel);
+
+        // tipo de filtro que será feito
+        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+        // Serealiza todas as propriedades do PedidoResumoModel usando método SimpleBeanPropertyFilter.serializeAll()
+        filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.serializeAll());
+        // valida se existe campos e passa os valores campos exemplo: campos=codigo,valorToral
+        if (StringUtils.isNotEmpty(campos)) {
+            filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.filterOutAllExcept(campos.split(",")));
+        }
+
+        pedidosWrapper.setFilters(filterProvider);
+
+        return pedidosWrapper;
     }
+
+//    @GetMapping
+//    public List<PedidoResumoModel> listar() {
+//        List<Pedido> todosPedidos = pedidoRepository.findAll();
+//        return pedidoResumoModelAssembler.toCollectionModel(todosPedidos);
+//    }
 
     @GetMapping("/{codigoPedido}")
     public PedidoModel buscar(@PathVariable String codigoPedido) {
