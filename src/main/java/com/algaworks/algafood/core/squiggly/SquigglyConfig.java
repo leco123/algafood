@@ -8,6 +8,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+
 @Configuration
 public class SquigglyConfig {
 
@@ -18,11 +20,14 @@ public class SquigglyConfig {
     @Bean
     public FilterRegistrationBean<SquigglyRequestFilter> squigglyRequestFilter(ObjectMapper objectMapper) {
         // RequestSquigglyContextProvider, já traz algumas informações sendo a propriedade {fields: ... }
-        Squiggly.init(objectMapper, new RequestSquigglyContextProvider());
+        Squiggly.init(objectMapper, new RequestSquigglyContextProvider("campos",null));
+
+        var urlPatterns = Arrays.asList("/pedido/*","/restaurantes/*");
 
         var filterRegistration = new FilterRegistrationBean<SquigglyRequestFilter>();
         filterRegistration.setFilter(new SquigglyRequestFilter());
         filterRegistration.setOrder(1);
+        filterRegistration.setUrlPatterns(urlPatterns);
 
         return filterRegistration;
     }

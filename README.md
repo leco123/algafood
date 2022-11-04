@@ -497,7 +497,7 @@ restaurante.taxaFrete=Taxa de frete do restaurante
 
 ## Boas praticas de data e hora 
 * 1-Usar **ISO-8601** pra formatar data e hora é o padrão internacional exemplo: `2019-10-12T14:15:38-03:00` deixa de forma explícita
-que se trata de uma data Brasileira -03:00
+que se trata de uma data Brasileira `-03:00`
 * 2-Aceite qualquer fuso horário
 * 3-Armazene em UTC
 * 4-Retorne em UTC, dexei a conversão ser implementada pelo frontend
@@ -505,7 +505,9 @@ que se trata de uma data Brasileira -03:00
 
 ## Como criar filtros dinâmicos usando biblioteca Squiggly conforme propriedades do model 
 
-deve ser adicionado a dependência no pom.xml
+em caso de dúvidas verificar aula _[13.2. Limitando os campos retornados pela API com @JsonFilter do Jackson](https://app.algaworks.com/aulas/2034/limitando-os-campos-retornados-pela-api-com-jsonfilter-do-jackson?pagina=0)_
+
+atenção, precisa ser adicionado a dependência no pom.xml
 ````xml
 <dependency>
   <groupId>com.github.bohnman</groupId>
@@ -514,7 +516,7 @@ deve ser adicionado a dependência no pom.xml
 </dependency>
 ````
 deve ser criado um pacote e uma classe de configuração para conseguir injetar a classe nosso pacote vai ser
-`core.squigly` e nossa classe `SquigglyConfig`.
+`core.squiggly` e nossa classe `SquigglyConfig`.
 ````java
 @Configuration
 public class SquigglyConfig {
@@ -535,6 +537,28 @@ public class SquigglyConfig {
     }
 }
 ````
+Também sera necessário criar uma classe para criar os encodes da url, já que o tomcat não aceita alguns caracteres com `[]`
+criar no pacote `core.squiggly` com nome `TomcatCustomizer`.
+````java
+// Referências:
+// - https://stackoverflow.com/a/53613678
+// - https://tomcat.apache.org/tomcat-8.5-doc/config/http.html
+// - https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-configure-webserver
+
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.stereotype.Component;
+
+@Component
+public class TomcatCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+
+    @Override
+    public void customize(TomcatServletWebServerFactory factory) {
+        factory.addConnectorCustomizers(connector -> connector.setAttribute("relaxedQueryChars", "[]"));
+    }
+}
+````
+
 
 ## Links de documentações
 
