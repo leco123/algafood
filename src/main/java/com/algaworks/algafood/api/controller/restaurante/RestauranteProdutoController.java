@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,10 +37,17 @@ public class RestauranteProdutoController {
     private ProdutoInputDisassembler produtoInputDisassembler;
 
     @GetMapping
-    public List<ProdutoModel> listar(@PathVariable Long restauranteId) {
-
+    public List<ProdutoModel> listar(@PathVariable Long restauranteId,
+                                     @RequestParam(required = false) boolean incluirInativos) {
+        List<Produto> todosProdutos = null;
         Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);
-        List<Produto> todosProdutos = produtoRepository.findByRestaurante(restaurante);
+
+        if(incluirInativos) {
+            todosProdutos = produtoRepository.findTodosByRestaurante(restaurante);
+        } else {
+            todosProdutos = produtoRepository.findAtivosByRestaurante(restaurante);
+        }
+
 
         return produtoModelAssembler.toCollectionModel(todosProdutos);
     }
