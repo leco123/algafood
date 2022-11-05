@@ -1,4 +1,4 @@
-package com.algaworks.algafood.infrastructure.repository.espc;
+package com.algaworks.algafood.domain.repository.espc;
 
 import com.algaworks.algafood.domain.model.Restaurante;
 import org.springframework.data.jpa.domain.Specification;

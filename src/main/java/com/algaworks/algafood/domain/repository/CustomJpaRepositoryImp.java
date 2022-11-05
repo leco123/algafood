@@ -1,4 +1,4 @@
-package com.algaworks.algafood.infrastructure.repository;
+package com.algaworks.algafood.domain.repository;
 
 import com.algaworks.algafood.domain.exception.repository.CustomJpaRepository;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;

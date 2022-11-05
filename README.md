@@ -1,5 +1,5 @@
 
-# Treinamento Algaworks Especialista em REST
+# Treinamento Algaworks Especialista em REST (40% do Curso concluído)
 
 Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_, como o curso é amplo dexei apenas informações que não conhecia ou não lembrava e até mesmo informação que conhecia, porém, de uma abordagem diferente.
 
@@ -57,6 +57,103 @@ $ serialver -classpath :target/artigo-java-serialVersionUID-1.0-SNAPSHOT.jar com
 // RETORNO DO CONSOLE:
 com.meudominio.serialversionuid.exemplo.NomeClasse: private static final long serialVersionUID = -3969352858203924755L;
 ````
+
+
+## Oque é Predicado?
+No Java 8, o Predicate é uma interface funcional e, portanto, pode ser usado como destino de atribuição para uma expressão lambda ou referência de método.
+
+Na matemática, um predicado é comumente entendido como uma função de valor booleano 'P: X? {true, false}' , chamada de predicado em X. Informalmente, um forte. 
+Pode ser pensado como um operador ou função que retorna um valor que é true ou false.
+
+## Como implementar consultas complexas que tem mais de uma propriedade
+
+### consulta usando `Predicate`
+1. **Criar classe PedidoFilter**
+2. **Extender o `JpaSpecificationExecutor<Pedido>` na classe `PedidoRepository`**
+3. **Implementar o conceito de especification em `PedidoSpecs`**
+4. **Implementar o a busca dos parâmetros no Controller**
+
+1-Criar class para o filtro Dto, class que representa os filtro que precisamos especificar, representa as propriedades que desejo fazer uma consulta.
+
+
+    Quando usar pesquisa por data e hora de passar a annotation @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    para evitar erro de formatação de data e hora o spring não consegue reconhecer o formato string
+    ERRO: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'pedidoController': Lookup method resolution failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.algaworks.algafood.api.controller.pedido.PedidoController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@2643d422]
+    
+
+````java
+@Getter
+@Setter
+public class PedidoFilter {
+
+    private Long clienteId;
+    private Long restauranteId;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private OffsetDateTime dataCriacaoInicio;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private OffsetDateTime dataCriacaoFim;
+}
+````
+2-Sera necessário extender o `JpaSpecificationExecutor<Pedido>` para o `PedidoRepository`
+````java
+@Repository
+public interface PedidoRepository extends CustomJpaRepository<Pedido, Long>, JpaSpecificationExecutor<Pedido> {
+
+    Optional<Pedido> findByCodigo(String codigo);
+
+    @Override
+    @Query("from Pedido p " +
+            "join fetch  p.cliente " +
+            "join fetch  p.restaurante r " +
+            "join fetch  r.cozinha")
+    List<Pedido> findAll();
+}
+````
+3-Implementar consulta
+````java
+public class PedidoSpecs {
+
+    public static Specification<Pedido> usandoFiltro(PedidoFilter filtro) {
+        return (root, query, builder) -> {
+
+            // Resolvendo problema do n+1, que nada mais é que fazer várias consultas na base de dados
+            // mas passando o root.fetch vai retornar o resultado em um único sql, usando api do Criteria
+            root.fetch("restaurante").fetch("cozinha");
+            root.fetch("cliente");
+
+            var predicates = new ArrayList<Predicate>();
+            //adicionar predicates no arraylist
+            if (filtro.getClienteId() != null) {
+                predicates.add(builder.equal(root.get("cliente"), filtro.getClienteId()));
+            }
+            if (filtro.getRestauranteId() != null) {
+                predicates.add(builder.equal(root.get("restaurante"), filtro.getRestauranteId()));
+            }
+            if (filtro.getDataCriacaoInicio() != null) {
+                // data maior ou igual a data passada no parâmetro
+                predicates.add(builder.greaterThanOrEqualTo(root.get("dataCriacao"), filtro.getDataCriacaoInicio()));
+            }
+            if (filtro.getDataCriacaoFim() != null) {
+                // data menor ou igual a data passada no parâmetro
+                predicates.add(builder.lessThanOrEqualTo(root.get("dataCriacao"), filtro.getDataCriacaoFim()));
+            }
+            return builder.and(predicates.toArray(new Predicate[0]));
+        };
+    }
+}
+````
+
+4-implemetar no controller para receber os parâmetros via url exemplo `{{URL}}/pedidos?restauranteId=10&clienteId=10`
+````java
+    //@GetMapping
+    public List<PedidoResumoModel> pesquisar(PedidoFilter filtro) {
+        List<Pedido> todosPedidos = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filtro));
+        return pedidoResumoModelAssembler.toCollectionModel(todosPedidos);
+    }
+````
+para mais informações pesquisar pelo módulo Spring data JPA, que explica os conceitos e como funciona Criteria, Especification e outros.
 
 # CONCEITOS
 
@@ -140,7 +237,7 @@ Quem criou o modelo de Maturidade foi _Richardson_ e para saber se uma API é RE
 
 ### Dícas
 
-### Como implementar Verbo PATCH de forma dinâmica
+### Como implementar Verbo PATCH de forma dinâmica porém de forma não amigável.
 
 O exemplo a seguir representa um PATCH para classe de Restaurante.
 
@@ -567,3 +664,4 @@ public class TomcatCustomizer implements WebServerFactoryCustomizer<TomcatServle
 - [Diferença entre Inner, Left, Right, Outer/Full e Cross Join](https://pt.stackoverflow.com/questions/6441/qual-%C3%A9-a-diferen%C3%A7a-entre-inner-join-e-outer-join)
 - [Projeto da comunidade dev sobre oque deve ser adicionar no `.gitigonre`](https://github.com/github/gitignore)
 - [Biblioteca Squiggly, usado para fazer filtros de campos dinâmicos ou limitar as propriedades de recursos](https://gist.github.com/thiagofa/ce48c08e4caae34c5dca0a7a5c252666)
+- [Java Predicate](https://www.linkedin.com/pulse/java-predicate-jos%C3%A9-r-f-junior/?originalSubdomain=pt)
