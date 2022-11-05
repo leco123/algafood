@@ -9,8 +9,8 @@ public enum StatusPedido {
     ENTREGUE("Entregue", CONFIRMADO),
     CANCELADO("Cancelado", CRIADO);
 
-    private String descricao;
-    private List<StatusPedido> statusAnteriores;
+    private final String descricao;
+    private final List<StatusPedido> statusAnteriores;
 
     StatusPedido(String descricao, StatusPedido... statusAnteriores) {
         this.descricao = descricao;

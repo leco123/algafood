@@ -3,7 +3,6 @@ package com.algaworks.algafood.domain.exception.repository;
 import com.algaworks.algafood.domain.model.Restaurante;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -23,7 +22,7 @@ public interface RestauranteRepository extends
     List<Restaurante> findByNomeContainingAndCozinhaId(String nome, Long cozinha);
 
     // Neste caso foi criado resourcer/META-INF/arquivo "orm.xml" e adicionado o sql dentro desse arquivo
-    List<Restaurante> consultarPorNome(String nome, @Param("id") Long cozinhaid);
+    // List<Restaurante> consultarPorNome(String nome, @Param("id") Long cozinhaid);
 
     /**
      * EXEMPLO DE COMO IMPLEMENTAR BUSCA/CONSULTA FILTRANDO SOMENTE O PRIMEIRO RESULTADO USANDO PREFIX SPRING JPA DATA

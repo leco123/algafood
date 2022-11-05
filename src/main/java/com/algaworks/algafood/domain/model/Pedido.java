@@ -2,8 +2,8 @@ package com.algaworks.algafood.domain.model;
 
 import com.algaworks.algafood.domain.enums.StatusPedido;
 import com.algaworks.algafood.domain.exception.NegocioException;
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -11,13 +11,10 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Pedido {
 
@@ -48,7 +45,6 @@ public class Pedido {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
-    @ToString.Exclude
     private FormaPagamento formaPagamento;
 
     @ManyToOne
@@ -60,7 +56,6 @@ public class Pedido {
     private Usuario cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-    @ToString.Exclude
     private List<ItemPedido> itens = new ArrayList<>();
 
     public void calcularValorTotal() {
@@ -102,18 +97,5 @@ public class Pedido {
     @PrePersist
     private void gerarCodigo() {
         setCodigo(UUID.randomUUID().toString());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Pedido pedido = (Pedido) o;
-        return id != null && Objects.equals(id, pedido.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }
