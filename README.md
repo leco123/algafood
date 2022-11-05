@@ -79,9 +79,11 @@ Pode ser pensado como um operador ou função que retorna um valor que é true o
 
 1-Criar class para o filtro Dto, class que representa os filtro que precisamos especificar, representa as propriedades que desejo fazer uma consulta.
 
-Quando usar pesquisa por data e hora de passar a annotation @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+Quando usar pesquisa por data e hora de passar a annotation `@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)`
 para evitar erro de formatação de data e hora o spring não consegue reconhecer o formato string
+````shell
 ERRO: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'pedidoController': Lookup method resolution failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.algaworks.algafood.api.controller.pedido.PedidoController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@2643d422]
+````
 
 ````java
 @Getter
@@ -119,15 +121,19 @@ public interface PedidoRepository extends CustomJpaRepository<Pedido, Long>, Jpa
 3-Implementar consulta
 
 ````java
-public class PedidoSpecs {
-
-    public static Specification<Pedido> usandoFiltro(PedidoFilter filtro) {
+public static Specification<Pedido> usandoFiltro(PedidoFilter filtro) {
         return (root, query, builder) -> {
 
-            // Resolvendo problema do n+1, que nada mais é que fazer várias consultas na base de dados
-            // mas passando o root.fetch vai retornar o resultado em um único sql, usando api do Criteria
-            root.fetch("restaurante").fetch("cozinha");
-            root.fetch("cliente");
+            // if usado para validar se é um page, para evitar erro count,
+            // o spring tenta fazer um count no fetch, porém é impossível fazer isso no sql
+            // dessa forma deve ser válidado o queryResulType, para saber o resultado da query, se for
+            // count não deixar entrar no if
+            if (Pedido.class.equals(query.getResultType())) {
+                // Resolvendo problema do n+1, que nada mais é que fazer várias consultas na base de dados,
+                // mas passando o root.fetch vai retornar o resultado em um único sql, usando api do Criteria
+                root.fetch("restaurante").fetch("cozinha");
+                root.fetch("cliente");
+            }
 
             var predicates = new ArrayList<Predicate>();
             //adicionar predicates no arraylist
