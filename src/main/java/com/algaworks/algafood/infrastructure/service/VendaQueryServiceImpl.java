@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.Predicate;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -21,14 +22,20 @@ public class VendaQueryServiceImpl implements VendaQueryService {
     private EntityManager manager;
 
     @Override
-    public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro) {
+    public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro, String timeOffset) {
 
         var builder = manager.getCriteriaBuilder();
         var query = builder.createQuery(VendaDiaria.class);
         var root = query.from(Pedido.class);
 
+        // Funão banco para converter Timezone
+        var functionConvertTzDataCriacao = builder.function(
+                "convert_tz",
+                Date.class, root.get("dataCriacao"),
+                builder.literal("+00:00"), builder.literal(timeOffset));
+
         // Função banco para converter Timestamp em data
-        var functionDateDataCriacao = builder.function("date", LocalDate.class, root.get("dataCriacao"));
+        var functionDateDataCriacao = builder.function("date", LocalDate.class, functionConvertTzDataCriacao);
 
         var selection = builder.construct(VendaDiaria.class,
                 functionDateDataCriacao,
@@ -46,7 +53,7 @@ public class VendaQueryServiceImpl implements VendaQueryService {
         }
 
         if (filtro.getDataCriacaoFim() != null) {
-            predicates.add(builder.lessThanOrEqualTo(root.get("dataFim"), filtro.getDataCriacaoFim()));
+            predicates.add(builder.lessThanOrEqualTo(root.get("dataCriacao"), filtro.getDataCriacaoFim()));
         }
 
         predicates.add(root.get("status").in(StatusPedido.CRIADO, StatusPedido.ENTREGUE));

@@ -740,6 +740,13 @@ restaurante.taxaFrete=Taxa de frete do restaurante
 * 4-Retorne em UTC, dexei a conversão ser implementada pelo frontend
 * 5-Não Inclua o horário se não for necessário
 
+Como converter data timezone usando função de banco `convert_tz`, exemplo de uso
+````sql
+select date(convert_tz('2019-11-03 02:00:30', '+00:00','-03:00'));
+--Resultado
+-- 2019-11-02 23:00:30
+````
+
 ## Como criar filtros dinâmicos usando biblioteca Squiggly conforme propriedades do model
 
 em caso de dúvidas verificar aula _[13.2. Limitando os campos retornados pela API com @JsonFilter do Jackson](https://app.algaworks.com/aulas/2034/limitando-os-campos-retornados-pela-api-com-jsonfilter-do-jackson?pagina=0)_
