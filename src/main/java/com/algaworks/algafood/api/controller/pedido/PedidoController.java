@@ -45,9 +45,14 @@ public class PedidoController {
 
     @GetMapping
     public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro,  @PageableDefault(size = 10)  Pageable pageable) {
+
         Page<Pedido> pedidoPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filtro), pageable);
-        List<PedidoResumoModel> pedidoModel = pedidoResumoModelAssembler.toCollectionModel(pedidoPage.getContent());
-        return new PageImpl<>(pedidoModel, pageable, pedidoPage.getTotalElements());
+
+        List<PedidoResumoModel> pedidoResumoModel = pedidoResumoModelAssembler.toCollectionModel(pedidoPage.getContent());
+
+        Page<PedidoResumoModel> pedidoResumoModelPage = new PageImpl<>(pedidoResumoModel, pageable, pedidoPage.getTotalElements());
+
+        return pedidoResumoModelPage;
     }
 
     @GetMapping("/{codigoPedido}")

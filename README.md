@@ -169,6 +169,50 @@ public static Specification<Pedido> usandoFiltro(PedidoFilter filtro) {
 
 para mais informações pesquisar pelo módulo Spring data JPA, que explica os conceitos e como funciona Criteria, Especification e outros.
 
+
+## Como serealizar o tipo Page do zero
+
+- Criar class `PageJsonSerializer` para representar o serialiozador de paginas para todos os recursos que usarem Page
+
+````java
+@JsonComponent
+public class PageJsonSerializer extends JsonSerializer<Page<?>> {
+
+    /**
+     * Método que pode ser chamado para solicitar a implementação
+     * para serializar valores do tipo que esse serializador manipula.
+     *
+     * @param value       Valor a ser serializado; não pode ser nulo.
+     * @param gen         Gerador usado para gerar o conteúdo Json resultante
+     * @param serializers O provedor que pode ser usado para obter serializadores para
+     *                    serializar o valor de objetos contém, se houver.
+     */
+    @Override
+    public void serialize(Page<?> page, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+
+       gen.writeStartObject();  // Iníciar objeto
+
+        // escrever pra mim uma propriedade de objeto, o nome dessa propriedade
+        // é content eo conteudo dela é page.getContent()
+        gen.writeObjectField("content", page.getContent());
+
+        // CONFIGURAR AS PROPRIEDADES DA PÁGINA
+
+        // tamanho da página, quantos elementos deve mostrar por página
+        gen.writeNumberField("size", page.getSize());
+        // total de elementos encontrado na base de dados
+        gen.writeNumberField("totalElements", page.getTotalElements());
+        // total de páginas
+        gen.writeNumberField("totalPages", page.getTotalPages());
+        // qual pagina que esta acessando atualmente
+        gen.writeNumberField("number", page.getNumber());
+        
+       gen.writeEndObject();  // Finalizar objeto
+    }
+}
+````
+
+
 # CONCEITOS
 
 ## Oque é REST e RESTful?
