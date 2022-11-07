@@ -6,6 +6,7 @@ import com.algaworks.algafood.api.assembler.pedido.PedidoResumoModelAssembler;
 import com.algaworks.algafood.api.model.input.pedido.PedidoInput;
 import com.algaworks.algafood.api.model.pedido.PedidoModel;
 import com.algaworks.algafood.api.model.pedido.PedidoResumoModel;
+import com.algaworks.algafood.core.PageableTranslator;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.repository.PedidoRepository;
@@ -14,6 +15,8 @@ import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.repository.espc.PedidoSpecs;
 import com.algaworks.algafood.domain.repository.filter.PedidoFilter;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -46,6 +49,8 @@ public class PedidoController {
     @GetMapping
     public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro,  @PageableDefault(size = 10)  Pageable pageable) {
 
+        pageable = traduzirPageable(pageable);
+
         Page<Pedido> pedidoPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filtro), pageable);
 
         List<PedidoResumoModel> pedidoResumoModel = pedidoResumoModelAssembler.toCollectionModel(pedidoPage.getContent());
@@ -53,12 +58,6 @@ public class PedidoController {
         Page<PedidoResumoModel> pedidoResumoModelPage = new PageImpl<>(pedidoResumoModel, pageable, pedidoPage.getTotalElements());
 
         return pedidoResumoModelPage;
-    }
-
-    @GetMapping("/{codigoPedido}")
-    public PedidoModel buscar(@PathVariable String codigoPedido) {
-        Pedido pedido = emissaoPedido.buscarOuFalhar(codigoPedido);
-        return pedidoModelAssembler.toModel(pedido);
     }
 
     @PostMapping
@@ -77,5 +76,22 @@ public class PedidoController {
         } catch (EntidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage(), e);
         }
+    }
+
+    @GetMapping("/{codigoPedido}")
+    public PedidoModel buscar(@PathVariable String codigoPedido) {
+        Pedido pedido = emissaoPedido.buscarOuFalhar(codigoPedido);
+        return pedidoModelAssembler.toModel(pedido);
+    }
+
+    private Pageable traduzirPageable(Pageable apiPageable) {
+        var mapeamento = ImmutableMap.of(
+                "codigo", "codigo",
+                "restaurante.nome", "restaurante.nome",
+                "nomeCliente", "cliente.nome",
+                "valorTotal", "valorTotal"
+        );
+
+        return PageableTranslator.translate(apiPageable, mapeamento);
     }
 }

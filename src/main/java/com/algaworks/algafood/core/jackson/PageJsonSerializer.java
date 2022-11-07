@@ -1,4 +1,4 @@
-package com.algaworks.algafood.core;
+package com.algaworks.algafood.core.jackson;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -23,7 +23,7 @@ public class PageJsonSerializer extends JsonSerializer<Page<?>> {
     @Override
     public void serialize(Page<?> page, JsonGenerator gen, SerializerProvider serializers) throws IOException {
 
-       gen.writeStartObject();  // Iníciar objeto
+        gen.writeStartObject();  // Iníciar objeto
 
         // escrever pra mim uma propriedade de objeto, o nome dessa propriedade
         // é content eo conteudo dela é page.getContent()
@@ -33,10 +33,13 @@ public class PageJsonSerializer extends JsonSerializer<Page<?>> {
 
         // tamanho da página, quantos elementos deve mostrar por página
         gen.writeNumberField("size", page.getSize());
+
         // total de elementos encontrado na base de dados
         gen.writeNumberField("totalElements", page.getTotalElements());
+
         // total de páginas
         gen.writeNumberField("totalPages", page.getTotalPages());
+
         // qual pagina que esta acessando atualmente
         gen.writeNumberField("number", page.getNumber());
 

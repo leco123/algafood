@@ -173,6 +173,9 @@ para mais informações pesquisar pelo módulo Spring data JPA, que explica os c
 ## Como serealizar o tipo Page do zero
 
 - Criar class `PageJsonSerializer` para representar o serialiozador de paginas para todos os recursos que usarem Page
+- Criar class `PageableTranslator` para converter os parametros personalizados
+- Criar método `traduzirPageable` dentro do `PedidoController` para fazer conversão dos parâmetros
+- Atualizar método de `pesquisar` da classe `PedidoController`
 
 ````java
 @JsonComponent
@@ -190,26 +193,79 @@ public class PageJsonSerializer extends JsonSerializer<Page<?>> {
     @Override
     public void serialize(Page<?> page, JsonGenerator gen, SerializerProvider serializers) throws IOException {
 
-       gen.writeStartObject();  // Iníciar objeto
+      gen.writeStartObject();  // Iníciar objeto
 
-        // escrever pra mim uma propriedade de objeto, o nome dessa propriedade
-        // é content eo conteudo dela é page.getContent()
-        gen.writeObjectField("content", page.getContent());
+      // escrever pra mim uma propriedade de objeto, o nome dessa propriedade
+      // é content eo conteudo dela é page.getContent()
+      gen.writeObjectField("content", page.getContent());
 
-        // CONFIGURAR AS PROPRIEDADES DA PÁGINA
+      // CONFIGURAR AS PROPRIEDADES DA PÁGINA
 
-        // tamanho da página, quantos elementos deve mostrar por página
-        gen.writeNumberField("size", page.getSize());
-        // total de elementos encontrado na base de dados
-        gen.writeNumberField("totalElements", page.getTotalElements());
-        // total de páginas
-        gen.writeNumberField("totalPages", page.getTotalPages());
-        // qual pagina que esta acessando atualmente
-        gen.writeNumberField("number", page.getNumber());
-        
-       gen.writeEndObject();  // Finalizar objeto
+      // tamanho da página, quantos elementos deve mostrar por página
+      gen.writeNumberField("size", page.getSize());
+
+      // total de elementos encontrado na base de dados
+      gen.writeNumberField("totalElements", page.getTotalElements());
+
+      // total de páginas
+      gen.writeNumberField("totalPages", page.getTotalPages());
+
+      // qual pagina que esta acessando atualmente
+      gen.writeNumberField("number", page.getNumber());
+
+      gen.writeEndObject();  // Finalizar objeto
     }
 }
+````
+
+````java
+public class PageableTranslator {
+
+    public static Pageable translate(Pageable pageable, Map<String, String> fieldsMapping) {
+
+        var ordes = pageable.getSort().stream()
+                // filter valida se a proprieadade não existe e ignora ela
+                .filter(order -> fieldsMapping.containsKey(order.getProperty()))
+                .map(order -> new Sort.Order(order.getDirection(), fieldsMapping.get(order.getProperty())))
+                .collect(Collectors.toList());
+
+        return PageRequest.of(pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(ordes));
+    }
+}
+````
+Criar método dentro do `PedidoController` para fazer conversão dos parâmetros
+````java
+    private Pageable traduzirPageable(Pageable apiPagable) {
+
+        var mapeamento = ImmutableMap.of(
+        "codigo","codigo",
+        "restaurante.nome","restaurante.nome",
+        "nomeCliente","cliente.nome",
+        "valorTotal","valorTotal",
+        "valorTotal","valorTotal"
+        );
+
+        return PageableTranslator.translate(apiPagable, mapeamento);
+        }
+````
+
+Atualizar método de `pesquisar` da classe `PedidoController`
+````java
+@GetMapping
+    public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro,  @PageableDefault(size = 10)  Pageable pageable) {
+
+        traduzirPageable(pageable);
+
+        Page<Pedido> pedidoPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filtro), pageable);
+
+        List<PedidoResumoModel> pedidoResumoModel = pedidoResumoModelAssembler.toCollectionModel(pedidoPage.getContent());
+
+        Page<PedidoResumoModel> pedidoResumoModelPage = new PageImpl<>(pedidoResumoModel, pageable, pedidoPage.getTotalElements());
+
+        return pedidoResumoModelPage;
+    }
 ````
 
 
