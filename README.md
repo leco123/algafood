@@ -2,6 +2,17 @@
 
 Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_, como o curso é amplo dexei apenas informações que não conhecia ou não lembrava e até mesmo informação que conhecia, porém, de uma abordagem diferente.
 
+### Rodar projeto via line command
+
+WINDOWS
+````shell
+./mvnw clean spring-boot:run
+````
+LINUX
+````shell
+sudo mvn clean spring-boot:run
+````
+
 ## API Documentação Swagger
 
 [Link de documentação](http://localhost:8080/spring-security-rest/api/v2/api-docs)
@@ -807,6 +818,14 @@ public class TomcatCustomizer implements WebServerFactoryCustomizer<TomcatServle
     }
 }
 ````
+
+## Como validar parâmetros de um recurso do tipo pdf, evitando erro 406
+
+Para evitar erro 406 basta passar no header no `key = Accept` e no value `application/pdf,application/json` mas é claro que deve existir as validações
+a questão aqui é apenas pra dizer para o navegador: "Se não encontrar nada no `application/pdf` tente no `application/json`".
+veja a imagem abaixo:
+![Exemplo de como validar parâmetros quando for arquivo pdf](D:\repository\spring\algafood-api\src\main\resources\images\validar_parametros_pdf.png "header parâmetros")
+
 
 ## Links de documentações
 
