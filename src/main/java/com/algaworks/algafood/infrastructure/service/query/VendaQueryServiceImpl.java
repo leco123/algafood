@@ -1,4 +1,4 @@
-package com.algaworks.algafood.infrastructure.service;
+package com.algaworks.algafood.infrastructure.service.query;
 
 import com.algaworks.algafood.domain.enums.StatusPedido;
 import com.algaworks.algafood.domain.filter.VendaDiariaFilter;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.Predicate;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 @Repository
 public class VendaQueryServiceImpl implements VendaQueryService {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager manager;
 
     @Override
@@ -34,7 +35,7 @@ public class VendaQueryServiceImpl implements VendaQueryService {
                 Date.class, root.get("dataCriacao"),
                 builder.literal("+00:00"), builder.literal(timeOffset));
 
-        // Função banco para converter Timestamp em data
+        // Função de banco para converter Timestamp em data
         var functionDateDataCriacao = builder.function("date", LocalDate.class, functionConvertTzDataCriacao);
 
         var selection = builder.construct(VendaDiaria.class,
