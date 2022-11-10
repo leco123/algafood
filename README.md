@@ -835,3 +835,6 @@ veja a imagem abaixo:
 - [Projeto da comunidade dev sobre oque deve ser adicionar no `.gitigonre`](https://github.com/github/gitignore)
 - [Biblioteca Squiggly, usado para fazer filtros de campos dinâmicos ou limitar as propriedades de recursos](https://gist.github.com/thiagofa/ce48c08e4caae34c5dca0a7a5c252666)
 - [Java Predicate](https://www.linkedin.com/pulse/java-predicate-jos%C3%A9-r-f-junior/?originalSubdomain=pt)
+- Pesquisar artefatos do respositório central do Maven https://search.maven.org
+  - [Biblioteca Jasperreports 6.20.0](https://central.sonatype.dev/artifact/net.sf.jasperreports/jasperreports/6.20.0)
+  - [Biblioteca Jasperreports-functions 6.20.0](https://central.sonatype.dev/artifact/net.sf.jasperreports/jasperreports-functions/6.20.0)
