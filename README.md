@@ -827,6 +827,74 @@ veja a imagem abaixo:
 ![Exemplo de como validar parâmetros quando for arquivo pdf](D:\repository\spring\algafood-api\src\main\resources\images\validar_parametros_pdf.png "header parâmetros")
 
 
+## Como salvar binários na base de dados, como um arquivo, existe algumas formas de fazer isso que é exemplificado abaixo.
+
+### Exemplo-1, como salvar arquivo binário usando base64
+
+Base64 é um método de codificação de dados principalmente para binários, porém existe desavantagens em usar essa codificação para salvar arquivos,
+principalmente quando se trata de vários uploads.
+
+Neste caso é usando `Content-Type: application/json`
+
+| #                                     | Vantagem | Desvantagem |
+|---------------------------------------|----------|-------------|
+| Desenvolvimento rápido                | X        |             |
+| Arquivos pequenos                     | X        |             |
+| Poucos download's/upload's            | X        |             |
+| Arquivo fica 30% maior que o original |          | X           |
+| Passado por Json                      | X        |             |
+| Ocupa muita memória (String Giagante) |          | X           |
+| Cliente Codificar                     |          | X           |
+| Service Decodificar                   |          | X           |
+
+
+````text
+PUT /restaurantes/1/produtos/10/foto
+````
+Propriedades da imagem
+`````json
+{
+  "nome":   "Nome da imagem",
+  "descricao": "Descrição da imagem",
+  "arquivo": "código da imagem base64"
+}
+`````
+
+### Exemplo-2, como salvar arquivo binário de forma nativa usando multipart/form-data
+
+Neste caso é usando `Content-Type: multipart/form-data boundary=XXX` e `Content-Disposition: form-data; name="descricao" filename="nome do arquivo.jpg"` 
+oque é boundary? Limites, fronteira... boundary aceita qualquer caracter é ele que vai limitar um campo do outro em nosso caso como esta sendo usando XXX
+será representado como limitado `--XXX` no payload
+
+| #                                                         | Vantagem | Desvantagem |
+|-----------------------------------------------------------|----------|-------------|
+| Desenvolvimento demorado                                  |          | X           |
+| Qualquer tamanho arquivo                                  | X        |             |
+| Um ou mais download's/upload's                            | X        |             |
+| Arquivo tamanho original                                  | X        |             |
+| Não oucupa memória fica em um arquivo temporário servidor | X        |             |
+
+
+````text
+PUT /restaurantes/1/produtos/10/foto
+Content-Type: multipart/form-data boundary=XXX
+````
+
+Propriedades da imagem passado no payload da requisição
+`````text
+--XXX
+Content-Disposition: form-data; name="descricao"
+Content-Type: image/jpeg
+
+aqui fica o conteúdo da imagem ou seja o binário
+
+--XXX
+Content-Disposition: form-data; name="descricao"
+
+nome do arquivo
+--XXX--
+`````
+
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
