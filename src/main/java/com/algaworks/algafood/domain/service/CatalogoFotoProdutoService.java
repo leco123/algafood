@@ -22,10 +22,8 @@ public class CatalogoFotoProdutoService {
         Optional<FotoProduto> fotoExistente = produtoRepository
                 .findFotoById(restauranteId, produtoId);
 
-        if (fotoExistente.isPresent()) {
-            // excluir a foto
-            produtoRepository.delete(fotoExistente.get());
-        }
+        // excluir a foto
+        fotoExistente.ifPresent(fotoProduto -> produtoRepository.delete(fotoProduto));
 
         return produtoRepository.save(foto);
     }
