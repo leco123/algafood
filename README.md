@@ -1,31 +1,67 @@
+# Tópicos abordados
+
+<!-- TOC -->
+* [Treinamento Algaworks Especialista em REST (40% do Curso concluído)](#treinamento-algaworks-especialista-em-rest--40-do-curso-concludo-)
+    * [Rodar projeto via line command](#rodar-projeto-via-line-command)
+      * [WINDOWS](#windows)
+      * [LINUX](#linux)
+    * [Variável _`serialVersionUID`_ e sua importância na arquitetura Java](#varivel-_serialversionuid_-e-sua-importncia-na-arquitetura-java)
+      * [O que é o serialVersionUID?](#o-que--o-serialversionuid)
+  * [Oque é Predicado?](#oque--predicado)
+  * [Como implementar consultas complexas que tem mais de uma propriedade](#como-implementar-consultas-complexas-que-tem-mais-de-uma-propriedade)
+    * [consulta usando `Predicate`](#consulta-usando-predicate)
+  * [Como serealizar o tipo Page do zero](#como-serealizar-o-tipo-page-do-zero)
+* [CONCEITOS](#conceitos)
+  * [Oque é REST e RESTful?](#oque--rest-e-restful)
+  * [Conhecendo as constraints do REST](#conhecendo-as-constraints-do-rest)
+  * [Diferença entre REST e RESTful](#diferena-entre-rest-e-restful)
+      * [REST:](#rest-)
+      * [RESTful ou REST API:](#restful-ou-rest-api-)
+  * [Medindo a maturidade de sua (API) - "Richardson Maturity Model" (RMM)](#medindo-a-maturidade-de-sua--api-----richardson-maturity-model---rmm-)
+    * [Dícas](#dcas)
+    * [Como implementar Verbo PATCH de forma dinâmica porém de forma não amigável.](#como-implementar-verbo-patch-de-forma-dinmica-porm-de-forma-no-amigvel)
+      * [Como evitar erros de NullPointerException usando o Optional lançado no Java 8](#como-evitar-erros-de-nullpointerexception-usando-o-optional-lanado-no-java-8)
+      * [Propósitos dos Optional](#propsitos-dos-optional)
+        * [Principais Métodos](#principais-mtodos)
+    * [Como Fazer backup MySQL com dump](#como-fazer-backup-mysql-com-dump)
+    * [Como usar injeção de dependência de biblioteca externa no projeto](#como-usar-injeo-de-dependncia-de-biblioteca-externa-no-projeto)
+    * [Como reparar Flyway via linha de comando](#como-reparar-flyway-via-linha-de-comando)
+  * [Como Implementar **Exception** global para usar em todo o projeto usando Spring](#como-implementar-exception-global-para-usar-em-todo-o-projeto-usando-spring)
+  * [Como usar ExceptionUtils.getRootCause(ex) para retornar a causa da exception](#como-usar-exceptionutilsgetrootcause--ex--para-retornar-a-causa-da-exception)
+  * [Como customizar mensagens usando o Resource Bundle do Bean Validation](#como-customizar-mensagens-usando-o-resource-bundle-do-bean-validation)
+  * [Como criar uma validação específica usando annotattion](#como-criar-uma-validao-especfica-usando-annotattion)
+  * [Como criar uma validação específica para FileUpload arquivos de uploads](#como-criar-uma-validao-especfica-para-fileupload-arquivos-de-uploads)
+    * [Criar controller `RestauranteProdutoFotoController`](#criar-controller-restauranteprodutofotocontroller)
+    * [Criar dto input](#criar-dto-input)
+    * [Criar annotation `FileSize`](#criar-annotation-filesize)
+    * [Criar validator `FileSizeValidator`](#criar-validator-filesizevalidator)
+    * [Criar annotattion `FileContentType`](#criar-annotattion-filecontenttype)
+    * [Criar validator `FileContentTypeValidator`](#criar-validator-filecontenttypevalidator)
+    * [Criar mensagens para os campos de upload no arquivo `messages.properties`](#criar-mensagens-para-os-campos-de-upload-no-arquivo-messagesproperties)
+    * [Informação importante, existe uma falha no sprint quando se usa uma constraint existente que estpa sendo](#informao-importante-existe-uma-falha-no-sprint-quando-se-usa-uma-constraint-existente-que-estpa-sendo)
+  * [Boas praticas de data e hora](#boas-praticas-de-data-e-hora)
+  * [Como criar filtros dinâmicos usando biblioteca Squiggly conforme propriedades do model](#como-criar-filtros-dinmicos-usando-biblioteca-squiggly-conforme-propriedades-do-model)
+  * [Como validar parâmetros de um recurso do tipo pdf, evitando erro 406](#como-validar-parmetros-de-um-recurso-do-tipo-pdf-evitando-erro-406)
+  * [Como salvar binários na base de dados, como um arquivo, existe algumas formas de fazer isso que é exemplificado abaixo.](#como-salvar-binrios-na-base-de-dados-como-um-arquivo-existe-algumas-formas-de-fazer-isso-que--exemplificado-abaixo)
+    * [Exemplo-1, como salvar arquivo binário usando base64](#exemplo-1-como-salvar-arquivo-binrio-usando-base64)
+    * [Exemplo-2, como salvar arquivo binário de forma nativa usando multipart/form-data](#exemplo-2-como-salvar-arquivo-binrio-de-forma-nativa-usando-multipartform-data)
+  * [Links de documentações](#links-de-documentaes)
+<!-- TOC -->
+
 # Treinamento Algaworks Especialista em REST (40% do Curso concluído)
 
 Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_, como o curso é amplo dexei apenas informações que não conhecia ou não lembrava e até mesmo informação que conhecia, porém, de uma abordagem diferente.
 
 ### Rodar projeto via line command
 
-WINDOWS
+#### WINDOWS
 ````shell
 ./mvnw clean spring-boot:run
 ````
-LINUX
+#### LINUX
 ````shell
 sudo mvn clean spring-boot:run
 ````
-
-## API Documentação Swagger
-
-[Link de documentação](http://localhost:8080/spring-security-rest/api/v2/api-docs)
-
-## Aprendizados
-
-- Variável serialVersionUID
-- Mapeapento de entidades
-- Injeção de dependência
-- Implementar resquisições _MediaTypes_: `Json` e `XML`;
-- Implementar requisições onde o cliente consiga fazer escolha em qual `MediaType` vai consumir API;
-- Oque é REST e RESTful;
-- Usar injeção de dependência de biblioteca externa no projeto
 
 ### Variável _`serialVersionUID`_ e sua importância na arquitetura Java
 
@@ -721,6 +757,145 @@ public @interface TaxaFrete {
 }
 ````
 
+## Como criar uma validação específica para FileUpload arquivos de uploads
+
+
+### Criar controller `RestauranteProdutoFotoController`
+
+````java
+@RestController
+@RequestMapping("/restaurantes/{restauranteId}/produtos/{produtoId}/foto")
+public class RestauranteProdutoFotoController {
+
+  @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public void atualizarFoto(@PathVariable Long restauranteId,
+                            @PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput) {
+
+    var nomeArquivo = UUID.randomUUID().toString()
+            + "_" + fotoProdutoInput.getArquivo().getOriginalFilename();
+
+    var arquivoFoto = Path.of("/Users/thiago/Desktop/catalogo", nomeArquivo);
+
+    System.out.println(fotoProdutoInput.getDescricao());
+    System.out.println(arquivoFoto);
+    System.out.println(fotoProdutoInput.getArquivo().getContentType());
+
+    try {
+      fotoProdutoInput.getArquivo().transferTo(arquivoFoto);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+
+  }
+}
+````
+
+### Criar dto input
+
+````java
+@Getter
+@Setter
+public class FotoProdutoInput {
+
+    @NotNull
+    @FileSize(max="500KB")
+    @FileContentType(allowed = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    private MultipartFile arquivo;
+
+    @NotBlank
+    private String descricao;
+}
+````
+
+### Criar annotation `FileSize`
+
+````java
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Retention(RUNTIME)
+@Constraint(validatedBy = { FileSizeValidator.class })
+public @interface FileSize {
+
+
+  String message() default "tamanho do arquivo inválido";
+
+  Class<?>[] groups() default { };
+
+  Class<? extends Payload>[] payload() default { };
+
+  // pega a descrição da propriedade definida messages.properties
+  String max();
+}
+````
+
+### Criar validator `FileSizeValidator`
+
+````java
+public class FileSizeValidator implements ConstraintValidator<FileSize, MultipartFile> {
+
+  private DataSize maxSize;
+
+  @Override
+  public void initialize(FileSize constraintAnnotation) {
+    this.maxSize = DataSize.parse(constraintAnnotation.max());
+  }
+
+  @Override
+  public boolean isValid(MultipartFile value, ConstraintValidatorContext context) {
+    return value == null || value.getSize() <= this.maxSize.toBytes();
+  }
+
+}
+````
+
+### Criar annotattion `FileContentType`
+
+````java
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Retention(RUNTIME)
+@Constraint(validatedBy = { FileContentTypeValidator.class })
+public @interface FileContentType {
+
+
+  String message() default "Tipo de arquivo inválido";
+
+  Class<?>[] groups() default { };
+
+  Class<? extends Payload>[] payload() default { };
+
+  String[] allowed();
+}
+````
+
+### Criar validator `FileContentTypeValidator`
+
+````java
+public class FileContentTypeValidator implements ConstraintValidator<FileContentType, MultipartFile> {
+
+  private List<String> allowedContentTypes;
+
+  @Override
+  public void initialize(FileContentType constraint) {
+    this.allowedContentTypes = Arrays.asList(constraint.allowed());
+  }
+
+  @Override
+  public boolean isValid(MultipartFile multipartFile, ConstraintValidatorContext context) {
+    return multipartFile == null || this.allowedContentTypes.contains(multipartFile.getContentType());
+  }
+
+}
+````
+
+### Criar mensagens para os campos de upload no arquivo `messages.properties`
+
+````properties
+# Foto produto
+fotoProdutoInput.arquivo=Arquivo da foto
+fotoProdutoInput.descricao=Descrição da foto
+FileSize.fotoProdutoInput.arquivo=A foto deve ter um tamanho máximo de {1}
+````
+
+
 ### Informação importante, existe uma falha no sprint quando se usa uma constraint existente que estpa sendo
 
 resolvida até a data de hoje 22/20/2022 [issue SPR-15967](https://github.com/spring-projects/spring-framework/issues/20519),
@@ -906,3 +1081,4 @@ nome do arquivo
 - Pesquisar artefatos do respositório central do Maven https://search.maven.org
   - [Biblioteca Jasperreports 6.20.0](https://central.sonatype.dev/artifact/net.sf.jasperreports/jasperreports/6.20.0)
   - [Biblioteca Jasperreports-functions 6.20.0](https://central.sonatype.dev/artifact/net.sf.jasperreports/jasperreports-functions/6.20.0)
+- Evitando dores de cabeça usando OneToOne de forma Bidirecional, conforme explica o artigo, Mapeamento de Entidades-Lazy loading [OneToOne](https://blog.algaworks.com/lazy-loading-com-mapeamento-onetoone)
