@@ -53,6 +53,7 @@ public class RestauranteProdutoFotoController {
 
 
     /*
+    usado como estudo salvando no ambiente local de desenvolvimento
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public void atualizarFoto(@PathVariable Long restauranteId,
                               @PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput) {

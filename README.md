@@ -1069,6 +1069,77 @@ Content-Disposition: form-data; name="descricao"
 nome do arquivo
 --XXX--
 `````
+## O problema do lazy loading com @OneToOne
+### 1º Solução, Utilizando @MapsId para fazer da FK uma PK também
+
+Existe um jeito também para não precisar inverter o owner. Basta utilizar @MapsId, como veremos a seguir e também
+implementado no treinamento.
+
+````java
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Entity
+public class FotoProduto {
+
+
+  @EqualsAndHashCode.Include
+  @Id
+  @Column(name = "produto_id")
+  private Long id;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  // usado para declarar que esta sendo usado o mesmo id do produto para fazer relacionamento precisa
+  // dessa annotation para o JPA conseguir fazer o mapeamento.
+  //    Quando usar essa abordagem só precisa mudar a lógica em vez de usar o produto para chegar na imagem, 
+  //    usa imagem para chegar no produto
+  @MapsId
+  private Produto produto;
+
+  private String nomeArquivo;
+  private String descricao;
+  private String contentType;
+  private Long tamanho;
+
+}
+````
+
+### 2º Solução é a forma comum que as pessoas implementam
+
+**Como não fazer**
+````java
+@Entity
+public class Funcionario {
+ 
+    @Id
+    private Integer id;
+ 
+    private String nome;
+ 
+    // Non-Owner da relação
+    @OneToOne(mappedBy = "funcionario", fetch = FetchType.LAZY)
+    private ContaCorrente contaCorrente;
+ 
+    // getters e setters omitidos
+ 
+}
+````
+**Como fazer** 
+Basicamente, você vai trocar o uso mappedBy pelo uso de @JoinColumn ou seja, 
+remover o `mappedBy = "funcionario"` e adicionar um `@JoinColumn(name = "conta_corrente_id")`
+
+````java
+@Entity
+public class Funcionario {
+ 
+    // Passa a ser o owner da relação
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "conta_corrente_id")
+    private ContaCorrente contaCorrente;
+ 
+    // As outras propriedades, e todos os getters e setters, foram omitidos
+ 
+}
+````
 
 ## Links de documentações
 
