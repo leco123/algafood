@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
-import com.algaworks.algafood.domain.exception.repository.CozinhaRepository;
-import com.algaworks.algafood.domain.exception.repository.RestauranteRepository;
+import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.util.DatabaseCleaner;
 import com.algaworks.algafood.util.ResourceUtils;
 

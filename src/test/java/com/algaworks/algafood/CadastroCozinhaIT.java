@@ -16,7 +16,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.algaworks.algafood.domain.model.Cozinha;
-import com.algaworks.algafood.domain.exception.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.util.DatabaseCleaner;
 
 import io.restassured.RestAssured;

@@ -1,8 +1,6 @@
 package com.algaworks.algafood.domain.repository;
 
 import com.algaworks.algafood.domain.model.Restaurante;
-import com.algaworks.algafood.domain.exception.repository.RestauranteRepository;
-import com.algaworks.algafood.domain.exception.repository.RestauranteRepositoryQueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;

@@ -7,7 +7,7 @@ import com.algaworks.algafood.api.model.input.usuario.SenhaInput;
 import com.algaworks.algafood.api.model.input.usuario.UsuarioComSenhaInput;
 import com.algaworks.algafood.api.model.input.usuario.UsuarioInput;
 import com.algaworks.algafood.domain.model.Usuario;
-import com.algaworks.algafood.domain.exception.repository.UsuarioRepository;
+import com.algaworks.algafood.domain.repository.UsuarioRepository;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

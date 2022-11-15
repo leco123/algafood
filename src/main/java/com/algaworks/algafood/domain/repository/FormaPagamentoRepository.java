@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.exception.repository;
+package com.algaworks.algafood.domain.repository;
 
 import java.util.List;
 

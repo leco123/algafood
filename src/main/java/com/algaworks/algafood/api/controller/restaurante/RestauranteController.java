@@ -10,7 +10,6 @@ import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.Restaurant
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 
 import com.algaworks.algafood.api.assembler.restaurante.RestauranteInputDisassembler;
@@ -21,7 +20,7 @@ import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.CidadeNaoE
 import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Restaurante;
-import com.algaworks.algafood.domain.exception.repository.RestauranteRepository;
+import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
 @RestController

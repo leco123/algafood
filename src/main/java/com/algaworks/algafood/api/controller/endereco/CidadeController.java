@@ -7,7 +7,7 @@ import com.algaworks.algafood.api.model.input.endereco.cidade.CidadeInput;
 import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.model.Cidade;
-import com.algaworks.algafood.domain.exception.repository.CidadeRepository;
+import com.algaworks.algafood.domain.repository.CidadeRepository;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
