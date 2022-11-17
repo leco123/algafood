@@ -1,21 +1,35 @@
 package com.algaworks.algafood.infrastructure.service.storage;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import com.algaworks.algafood.api.model.input.restaurante.produto.FotoProdutoInput;
 import com.algaworks.algafood.domain.exception.StorageException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
 import com.algaworks.algafood.domain.service.FotoStorageService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class LocalFotoStorageService implements FotoStorageService {
 
     @Value("${algafood.storage.local.diretorio-fotos}")
     private Path diretorioFotos;
+
+    @Override
+    public InputStream recuperar(String nomeArquivo) {
+        try {
+            Path arquivoPath = getArquivoPath(nomeArquivo);
+            return Files.newInputStream(arquivoPath);
+        } catch (IOException e) {
+            throw new StorageException("Não foi possível recuperar o arquuivo.", e);
+        }
+    }
 
     @Override
     public void armazenar(NovaFoto novaFoto) {
