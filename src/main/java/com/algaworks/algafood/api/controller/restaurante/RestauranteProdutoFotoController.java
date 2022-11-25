@@ -69,7 +69,7 @@ public class RestauranteProdutoFotoController {
         return  fotoProdutoModelAssembler.toModel(fotoProduto);
     }
 
-    @GetMapping(produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping
     public ResponseEntity<InputStreamResource> servir(
             @PathVariable Long restauranteId, @PathVariable Long produtoId,
             @RequestHeader(name = "accept") String acceptHeader) throws HttpMediaTypeNotAcceptableException {
@@ -94,8 +94,10 @@ public class RestauranteProdutoFotoController {
 
     }
 
-    private void verificarCompatibilidadeMediaType(MediaType mediaTypeFoto, List<MediaType> mediatypesAceitas)
+    private void verificarCompatibilidadeMediaType(MediaType mediaTypeFoto,
+                                                   List<MediaType> mediatypesAceitas)
             throws HttpMediaTypeNotAcceptableException {
+
         boolean compativel = mediatypesAceitas.stream()
                 .anyMatch(mediaTypeAceita ->mediaTypeAceita.isCompatibleWith(mediaTypeFoto));
 
