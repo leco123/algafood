@@ -11,6 +11,7 @@ import com.algaworks.algafood.domain.service.CatalogoFotoProdutoService;
 import com.algaworks.algafood.domain.service.FotoStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeException;
@@ -41,8 +42,7 @@ public class RestauranteProdutoFotoController {
 
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public FotoprodutoModel atualizarFoto(@PathVariable Long restauranteId,
-                                          @PathVariable Long produtoId,
+    public FotoprodutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
                                           @Valid FotoProdutoInput fotoProdutoInput) throws IOException {
 
         Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
@@ -63,8 +63,7 @@ public class RestauranteProdutoFotoController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public FotoprodutoModel buscar(@PathVariable Long restauranteId,
-                                   @PathVariable Long produtoId) {
+    public FotoprodutoModel buscar(@PathVariable Long restauranteId,@PathVariable Long produtoId) {
 
         FotoProduto fotoProduto = catalogoFotoProduto.buscarOuFalhar(restauranteId, produtoId);
         return  fotoProdutoModelAssembler.toModel(fotoProduto);
@@ -95,13 +94,21 @@ public class RestauranteProdutoFotoController {
 
     }
 
-    private void verificarCompatibilidadeMediaType(MediaType mediaTypeFoto, List<MediaType> mediatypesAceitas) throws HttpMediaTypeNotAcceptableException {
+    private void verificarCompatibilidadeMediaType(MediaType mediaTypeFoto, List<MediaType> mediatypesAceitas)
+            throws HttpMediaTypeNotAcceptableException {
         boolean compativel = mediatypesAceitas.stream()
                 .anyMatch(mediaTypeAceita ->mediaTypeAceita.isCompatibleWith(mediaTypeFoto));
 
         if (!compativel) {
             throw new HttpMediaTypeNotAcceptableException(mediatypesAceitas);
         }
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluir(@PathVariable Long restauranteId,
+                        @PathVariable Long produtoId) {
+        catalogoFotoProduto.excluir(restauranteId, produtoId);
     }
 
 }
