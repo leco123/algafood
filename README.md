@@ -1,6 +1,7 @@
 # Tópicos abordados
 
 <!-- TOC -->
+* [Tópicos abordados](#tpicos-abordados)
 * [Treinamento Algaworks Especialista em REST (40% do Curso concluído)](#treinamento-algaworks-especialista-em-rest--40-do-curso-concludo-)
     * [Rodar projeto via line command](#rodar-projeto-via-line-command)
       * [WINDOWS](#windows)
@@ -45,6 +46,9 @@
   * [Como salvar binários na base de dados, como um arquivo, existe algumas formas de fazer isso que é exemplificado abaixo.](#como-salvar-binrios-na-base-de-dados-como-um-arquivo-existe-algumas-formas-de-fazer-isso-que--exemplificado-abaixo)
     * [Exemplo-1, como salvar arquivo binário usando base64](#exemplo-1-como-salvar-arquivo-binrio-usando-base64)
     * [Exemplo-2, como salvar arquivo binário de forma nativa usando multipart/form-data](#exemplo-2-como-salvar-arquivo-binrio-de-forma-nativa-usando-multipartform-data)
+  * [O problema do lazy loading com @OneToOne](#o-problema-do-lazy-loading-com-onetoone)
+    * [1º Solução, Utilizando @MapsId para fazer da FK uma PK também](#1-soluo-utilizando-mapsid-para-fazer-da-fk-uma-pk-tambm)
+    * [2º Solução é a forma comum que as pessoas implementam](#2-soluo--a-forma-comum-que-as-pessoas-implementam)
   * [Links de documentações](#links-de-documentaes)
 <!-- TOC -->
 

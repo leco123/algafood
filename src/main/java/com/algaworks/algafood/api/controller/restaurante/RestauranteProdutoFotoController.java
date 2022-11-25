@@ -7,13 +7,17 @@ import com.algaworks.algafood.domain.model.FotoProduto;
 import com.algaworks.algafood.domain.model.Produto;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;
 import com.algaworks.algafood.domain.service.CatalogoFotoProdutoService;
+import com.algaworks.algafood.domain.service.FotoStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @RequestMapping("/restaurantes/{restauranteId}/produtos/{produtoId}/foto")
@@ -27,6 +31,9 @@ public class RestauranteProdutoFotoController {
 
     @Autowired
     private FotoProdutoModelAssembler fotoProdutoModelAssembler;
+
+    @Autowired
+    private FotoStorageService fotoStorage;
 
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -51,7 +58,7 @@ public class RestauranteProdutoFotoController {
         return fotoProdutoModelAssembler.toModel(fotoSalva);
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public FotoprodutoModel buscar(@PathVariable Long restauranteId,
                                    @PathVariable Long produtoId) {
 
@@ -59,27 +66,16 @@ public class RestauranteProdutoFotoController {
         return  fotoProdutoModelAssembler.toModel(fotoProduto);
     }
 
-    /*
-    usado como estudo salvando no ambiente local de desenvolvimento
-    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void atualizarFoto(@PathVariable Long restauranteId,
-                              @PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput) {
+    @GetMapping(produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    public ResponseEntity<InputStreamResource> servir(@PathVariable Long restauranteId,
+                                                      @PathVariable Long produtoId) {
 
-        var nomeArquivo = UUID.randomUUID().toString()
-                + "_" + fotoProdutoInput.getArquivo().getOriginalFilename();
+        FotoProduto fotoProduto = catalogoFotoProduto.buscarOuFalhar(restauranteId, produtoId);
 
-        var arquivoFoto = Path.of("/Users/thiago/Desktop/catalogo", nomeArquivo);
+        InputStream inputStream = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
 
-        System.out.println(fotoProdutoInput.getDescricao());
-        System.out.println(arquivoFoto);
-        System.out.println(fotoProdutoInput.getArquivo().getContentType());
-
-        try {
-            fotoProdutoInput.getArquivo().transferTo(arquivoFoto);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        return  ResponseEntity.ok()
+                .body(new InputStreamResource(inputStream));
     }
-    */
+
 }
