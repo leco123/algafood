@@ -66,7 +66,7 @@ public class RestauranteProdutoFotoController {
         return  fotoProdutoModelAssembler.toModel(fotoProduto);
     }
 
-    @GetMapping(produces = {MediaType.IMAGE_JPEG_VALUE})
+    @GetMapping(produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<InputStreamResource> servir(@PathVariable Long restauranteId,
                                                       @PathVariable Long produtoId) {
 
