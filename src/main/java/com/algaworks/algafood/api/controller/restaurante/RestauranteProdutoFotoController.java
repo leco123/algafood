@@ -75,6 +75,7 @@ public class RestauranteProdutoFotoController {
         InputStream inputStream = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
 
         return  ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
                 .body(new InputStreamResource(inputStream));
     }
 
