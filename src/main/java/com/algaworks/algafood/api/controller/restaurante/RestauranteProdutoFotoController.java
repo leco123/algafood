@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.controller.restaurante;
 import com.algaworks.algafood.api.assembler.restaurante.produto.FotoProdutoModelAssembler;
 import com.algaworks.algafood.api.model.input.restaurante.produto.FotoProdutoInput;
 import com.algaworks.algafood.api.model.restaurante.produto.FotoprodutoModel;
+import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.FotoProduto;
 import com.algaworks.algafood.domain.model.Produto;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;
@@ -70,13 +71,18 @@ public class RestauranteProdutoFotoController {
     public ResponseEntity<InputStreamResource> servir(@PathVariable Long restauranteId,
                                                       @PathVariable Long produtoId) {
 
-        FotoProduto fotoProduto = catalogoFotoProduto.buscarOuFalhar(restauranteId, produtoId);
+        try {
+            FotoProduto fotoProduto = catalogoFotoProduto.buscarOuFalhar(restauranteId, produtoId);
 
-        InputStream inputStream = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
+            InputStream inputStream = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
 
-        return  ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(new InputStreamResource(inputStream));
+            return  ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(new InputStreamResource(inputStream));
+        } catch (EntidadeNaoEncontradaException e) {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
 }
