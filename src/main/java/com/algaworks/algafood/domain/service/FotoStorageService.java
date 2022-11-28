@@ -29,8 +29,11 @@ public interface FotoStorageService {
     @Builder
     @Getter
     class NovaFoto {
+
         private String nomeArquivo;
+        private String contentType;
         // Fluxo de entrada do arquivo, ou seja, possibilita a leitura do arquivo que acabou de ser feito upload;
         private InputStream inputStream;
+
     }
 }
