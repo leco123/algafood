@@ -1239,6 +1239,19 @@ public class S3FotoStorageService implements FotoStorageService {
 }
 ````
 
+## Soluções para envio de e-mails transacionais
+
+Email, quando acontece alguma coisa no sistema.
+
+Serviços de envio de e-mail
+- Amazon SES-Simple Email Service, existe plano free e precisa cadastrar cartão de crédito;
+- MAILCHIMP, não existe plano free e precisa cadastrar cartão de crédito; 
+- Mailgun, existe plano free e precisa cadastrar cartão de crédito;
+- SendGrid, pode enviar até 100 email por dias gratuitamente e não precisa cadastrar cartão de crédito;
+
+### [Envio de e-mail] Alternativa ao Sendgrid
+ 
+
 
 ## Links de documentações
 
