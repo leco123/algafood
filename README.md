@@ -1249,7 +1249,7 @@ Serviços de envio de e-mail
 - Mailgun, existe plano free e precisa cadastrar cartão de crédito;
 - SendGrid, pode enviar até 100 email por dias gratuitamente e não precisa cadastrar cartão de crédito;
 
-### [Envio de e-mail] Alternativa ao Sendgrid
+### Template do corpo de e-mails com Apache FreeMarker
  
 
 
@@ -1265,3 +1265,4 @@ Serviços de envio de e-mail
   - [Biblioteca Jasperreports 6.20.0](https://central.sonatype.dev/artifact/net.sf.jasperreports/jasperreports/6.20.0)
   - [Biblioteca Jasperreports-functions 6.20.0](https://central.sonatype.dev/artifact/net.sf.jasperreports/jasperreports-functions/6.20.0)
 - Evitando dores de cabeça usando OneToOne de forma Bidirecional, conforme explica o artigo, Mapeamento de Entidades-Lazy loading [OneToOne](https://blog.algaworks.com/lazy-loading-com-mapeamento-onetoone)
+- Biblioteca Apache [<#FREEMARKER>](https://freemarker.apache.org/)
