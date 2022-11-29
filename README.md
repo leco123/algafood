@@ -1145,6 +1145,101 @@ public class Funcionario {
 }
 ````
 
+## Como usar API Amazon S3 para salvar objetos
+
+Adicionar propriedades no `application.properties`
+````properties
+# AMAZON S3 STORAGE
+##### as configurações da s3 ficam no profile por isso esta comentado
+algafood.storage.s3.id-chave-acesso=*********
+algafood.storage.s3.chave-acesso-secreta=********************
+algafood.storage.s3.bucket=algafood-test-carvalho
+algafood.storage.s3.regiao=us-east-1
+algafood.storage.s3.diretorio-fotos=catalogo
+````
+
+Adicionar dependências no `pom.xml`
+
+````xml
+<dependency>
+  <groupId>com.amazonaws</groupId>
+  <artifactId>aws-java-sdk-s3</artifactId>
+  <version>${aws-java-sdk-s3.version}</version>
+</dependency>
+````
+
+Criar class de configuração `AmazonS3Config`
+````java
+  @Configuration
+  public class AmazonS3Config {
+  
+      @Autowired
+      private StorageProperties storageProperties;
+  
+      @Bean
+      public AmazonS3 amazonS3() {
+          var credentials = new BasicAWSCredentials(
+                  storageProperties.getS3().getIdChaveAcesso(),
+                  storageProperties.getS3().getChaveAcessoSecreta());
+  
+          return AmazonS3ClientBuilder
+                  .standard()
+                      .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                      .withRegion(storageProperties.getS3().getRegiao())
+                  .build();
+      }
+  }
+````
+
+Adicionar Class de serviço `S3FotoStorageService` que representa crud servidor amazon 
+````java
+@Service
+public class S3FotoStorageService implements FotoStorageService {
+
+  @Autowired
+  private AmazonS3 amazonS3;
+
+  @Autowired
+  private StorageProperties storageProperties;
+
+  @Override
+  public InputStream recuperar(String nomeArquivo) {
+    return null;
+  }
+
+  @Override
+  public void armazenar(NovaFoto novaFoto) {
+    try {
+      // Preparando Payload para fazer a chamada na API da AMAZON
+      String caminhoArquivo = getCaminhoArquivo(novaFoto.getNomeArquivo());
+      var objectMetadata = new ObjectMetadata();
+      objectMetadata.setContentType(novaFoto.getContentType());
+
+      var putObjectRequest = new PutObjectRequest(
+              storageProperties.getS3().getBucket(),
+              caminhoArquivo,
+              novaFoto.getInputStream(),
+              objectMetadata
+      ).withCannedAcl(CannedAccessControlList.PublicRead);
+
+      // FAZENDO CHAMADA
+      amazonS3.putObject(putObjectRequest);
+    } catch (Exception e ){
+      throw new StorageException("Não foi possível enviar arquivo para Amazon S3.", e);
+    }
+  }
+
+  private String getCaminhoArquivo(String nomeArquivo) {
+    return String.format("%s/%s", storageProperties.getS3().getDiretorioFotos(), nomeArquivo);
+  }
+  @Override
+  public void remover(String nomeArquivo) {
+
+  }
+}
+````
+
+
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
