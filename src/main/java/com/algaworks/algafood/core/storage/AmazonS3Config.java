@@ -22,8 +22,8 @@ public class AmazonS3Config {
 
         return AmazonS3ClientBuilder
                 .standard()
-                .withCredentials(new AWSStaticCredentialsProvider(credentials))
-                .withRegion(storageProperties.getS3().getRegiao())
+                    .withCredentials(new AWSStaticCredentialsProvider(credentials))
+                    .withRegion(storageProperties.getS3().getRegiao())
                 .build();
     }
 }
