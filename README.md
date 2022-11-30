@@ -1296,7 +1296,7 @@ public class NotificacaoClientePedidoConfirmadoListener {
     @Autowired
     private EnvioEmailService envioEmailService;
 
-    @EventListener
+    @TransactionalEventListener
     public void aoConfirmarPedido(PedidoConfirmadoEvent event) {
 
         Pedido pedido = event.getPedido();
