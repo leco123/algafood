@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 public class SmtpEnvioEmailService implements EnvioEmailService {
@@ -25,18 +26,9 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
     @Override
     public void enviar(Mensagem mensagem) {
         try {
-            String corpo = processarTemplate(mensagem);
-
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
-
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
-            helper.setFrom(emailProperties.getRemetente());
-            helper.setTo(mensagem.getDestinatarios().toArray(new String[0]));
-            helper.setSubject(mensagem.getAssunto());
-            helper.setText(corpo, true);
+            MimeMessage mimeMessage = criarMimeMessage(mensagem);
 
             mailSender.send(mimeMessage);
-
         } catch (Exception e) {
             throw new EmailException("Não foi possível enviar e-mail", e);
         }
@@ -49,5 +41,19 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
         } catch (Exception e) {
             throw new EmailException("Não foi possível montar o template do e-mail",e);
         }
+    }
+
+    protected MimeMessage criarMimeMessage(Mensagem mensagem) throws MessagingException {
+        String corpo = processarTemplate(mensagem);
+
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
+        helper.setFrom(emailProperties.getRemetente());
+        helper.setTo(mensagem.getDestinatarios().toArray(new String[0]));
+        helper.setSubject(mensagem.getAssunto());
+        helper.setText(corpo, true);
+
+        return mimeMessage;
     }
 }
