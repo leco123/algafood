@@ -1266,3 +1266,4 @@ Serviços de envio de e-mail
   - [Biblioteca Jasperreports-functions 6.20.0](https://central.sonatype.dev/artifact/net.sf.jasperreports/jasperreports-functions/6.20.0)
 - Evitando dores de cabeça usando OneToOne de forma Bidirecional, conforme explica o artigo, Mapeamento de Entidades-Lazy loading [OneToOne](https://blog.algaworks.com/lazy-loading-com-mapeamento-onetoone)
 - Biblioteca Apache [<#FREEMARKER>](https://freemarker.apache.org/)
+- [Boas práticas de HTML para e-mails](https://ajuda.locaweb.com.br/wiki/boas-praticas-de-html-para-email-marketing-ajuda-locaweb)
