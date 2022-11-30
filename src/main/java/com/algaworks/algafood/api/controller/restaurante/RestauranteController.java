@@ -1,28 +1,26 @@
 package com.algaworks.algafood.api.controller.restaurante;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
-
+import com.algaworks.algafood.api.assembler.restaurante.RestauranteInputDisassembler;
+import com.algaworks.algafood.api.assembler.restaurante.RestauranteModelAssembler;
+import com.algaworks.algafood.api.model.input.restaurante.RestauranteInput;
+import com.algaworks.algafood.api.model.restaurante.RestauranteModel;
 import com.algaworks.algafood.api.model.view.RestauranteView;
+import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.CidadeNaoEncontradaException;
+import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.RestauranteNaoEncontradoException;
+import com.algaworks.algafood.domain.exception.NegocioException;
+import com.algaworks.algafood.domain.model.Restaurante;
+import com.algaworks.algafood.domain.repository.RestauranteRepository;
+import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.algaworks.algafood.api.assembler.restaurante.RestauranteInputDisassembler;
-import com.algaworks.algafood.api.assembler.restaurante.RestauranteModelAssembler;
-import com.algaworks.algafood.api.model.restaurante.RestauranteModel;
-import com.algaworks.algafood.api.model.input.restaurante.RestauranteInput;
-import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.CidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.CozinhaNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.NegocioException;
-import com.algaworks.algafood.domain.model.Restaurante;
-import com.algaworks.algafood.domain.repository.RestauranteRepository;
-import com.algaworks.algafood.domain.service.CadastroRestauranteService;
+import javax.validation.Valid;
+import java.util.List;
 
+@CrossOrigin(maxAge = 10)
 @RestController
 @RequestMapping(value = "/restaurantes")
 public class RestauranteController {
@@ -39,7 +37,6 @@ public class RestauranteController {
     @Autowired
     private RestauranteInputDisassembler restauranteInputDisassembler;
 
-    @CrossOrigin
     @JsonView({RestauranteView.Resumo.class})
     @GetMapping
     public List<RestauranteModel> listar() {
