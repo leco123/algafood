@@ -15,7 +15,7 @@ public class SquigglyConfig {
 
     /**
      * Cadas vez que fizer um filtro será passado por esse método que poderá ser manipulado antes de fazer a
-     * serealizacion do model
+     * serealização do model
      */
     @Bean
     public FilterRegistrationBean<SquigglyRequestFilter> squigglyRequestFilter(ObjectMapper objectMapper) {
