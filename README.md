@@ -1249,9 +1249,70 @@ Serviços de envio de e-mail
 - Mailgun, existe plano free e precisa cadastrar cartão de crédito;
 - SendGrid, pode enviar até 100 email por dias gratuitamente e não precisa cadastrar cartão de crédito;
 
-### Template do corpo de e-mails com Apache FreeMarker
+Para os Templates do corpo de e-mails usar o Apache FreeMarker
  
+## Como implementar eventos
 
+- `extends AbstractAggregateRoot<Pedido>`
+````java
+public class Pedido extends AbstractAggregateRoot<Pedido> {
+    // ...
+}
+````
+- Criar class que representa o evento ex: PedidoConfirmadoEvent
+````java
+package com.algaworks.algafood.domain.event;
+
+@Getter
+@AllArgsConstructor
+public class PedidoConfirmadoEvent {
+    private Pedido pedido;
+}
+````
+- Registrar o evento
+````java
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+@Entity
+public class Pedido extends AbstractAggregateRoot<Pedido> {
+  
+    // outras propriedades...
+  
+  public void confirmar() {
+    setStatus(StatusPedido.CONFIRMADO);
+    setDataConfirmacao(OffsetDateTime.now());
+    //Não esta disparando evento apenas registrando
+    registerEvent(new PedidoConfirmadoEvent(this));
+  }
+}
+````
+- Criar classe que fica escutando o evento e executa ações
+````java
+package com.algaworks.algafood.domain.listener;
+
+@Component
+public class NotificacaoClientePedidoConfirmadoListener {
+
+    @Autowired
+    private EnvioEmailService envioEmailService;
+
+    @EventListener
+    public void aoConfirmarPedido(PedidoConfirmadoEvent event) {
+
+        Pedido pedido = event.getPedido();
+
+        var mensagem = EnvioEmailService.Mensagem
+                .builder()
+                    .assunto(pedido.getRestaurante().getNome() +" - Pedido confirmado")
+                    .corpo("pedido-confirmado.html")
+                    .variavel("pedido",pedido)
+                    .destinatario(pedido.getCliente().getEmail())
+                .build();
+
+        envioEmailService.enviar(mensagem);
+    }
+}
+````
 
 ## Links de documentações
 
