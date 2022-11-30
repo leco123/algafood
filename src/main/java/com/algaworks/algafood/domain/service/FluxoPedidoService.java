@@ -21,6 +21,7 @@ public class FluxoPedidoService {
         Pedido pedido = emissaoPedido.buscarOuFalhar(codigoPedido);
         pedido.confirmar();
 
+        // usado para os eventos, caso não fosse usar eventos não precisaria implementar
         pedidoRepository.save(pedido);
     }
 
@@ -28,6 +29,9 @@ public class FluxoPedidoService {
     public void cancelar(String codigoPedido) {
         Pedido pedido = emissaoPedido.buscarOuFalhar(codigoPedido);
         pedido.cancelar();
+
+        // usado para os eventos, caso não fosse usar eventos não precisaria implementar
+        pedidoRepository.save(pedido);
     }
 
     @Transactional
