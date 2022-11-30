@@ -1314,6 +1314,10 @@ public class NotificacaoClientePedidoConfirmadoListener {
 }
 ````
 
+## Oque é CORS e como evitar bloqueio de CORS
+
+
+
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
@@ -1328,3 +1332,4 @@ public class NotificacaoClientePedidoConfirmadoListener {
 - Evitando dores de cabeça usando OneToOne de forma Bidirecional, conforme explica o artigo, Mapeamento de Entidades-Lazy loading [OneToOne](https://blog.algaworks.com/lazy-loading-com-mapeamento-onetoone)
 - Biblioteca Apache [<#FREEMARKER>](https://freemarker.apache.org/)
 - [Boas práticas de HTML para e-mails](https://ajuda.locaweb.com.br/wiki/boas-praticas-de-html-para-email-marketing-ajuda-locaweb)
+- [Definição de requisição simples, de acordo com CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests)
