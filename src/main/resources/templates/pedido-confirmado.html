@@ -6,25 +6,25 @@
 
     <h2 style="font-size:20px;">${pedido.restaurante.nome}</h2>
 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; color:#6f6f6f">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 400px; color:#6f6f6f">
         <!--produtos-->
         <#list pedido.itens as item>
         <tr>
-            <td style="padding: 10px 0;">${item.quantidade}x ${item.produto.nome}</td>
-            <td>${item.precoTotal}</td>
+            <td style="padding: 5px 0;">${item.quantidade}x ${item.produto.nome}</td>
+            <td>${item.precoTotal?string.currency}</td>
         </tr>
         </#list>
 
         <!--taxa entrega-->
         <tr>
-            <td style="padding: 10px 0;">Frete</td>
-            <td>${pedido.taxaFrete}</td>
+            <td style="padding: 5px 0;">Frete</td>
+            <td>${pedido.taxaFrete?string.currency}</td>
         </tr>
 
         <!--Total Pedido-->
         <tr style="font-weight: bold;">
-            <td style="padding: 10px 0;">Total</td>
-            <td>${pedido.valorTotal}</td>
+            <td style="padding: 5px 0;">Total</td>
+            <td>${pedido.valorTotal?string.currency}</td>
         </tr>
     </table>
 
