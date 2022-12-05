@@ -49,6 +49,11 @@
   * [O problema do lazy loading com @OneToOne](#o-problema-do-lazy-loading-com-onetoone)
     * [1º Solução, Utilizando @MapsId para fazer da FK uma PK também](#1-soluo-utilizando-mapsid-para-fazer-da-fk-uma-pk-tambm)
     * [2º Solução é a forma comum que as pessoas implementam](#2-soluo--a-forma-comum-que-as-pessoas-implementam)
+  * [Como usar API Amazon S3 para salvar objetos](#como-usar-api-amazon-s3-para-salvar-objetos)
+  * [Soluções para envio de e-mails transacionais](#solues-para-envio-de-e-mails-transacionais)
+  * [Como implementar eventos](#como-implementar-eventos)
+  * [Oque é CORS e como evitar bloqueio de CORS](#oque--cors-e-como-evitar-bloqueio-de-cors)
+  * [Tipos de caches HTTP Request](#tipos-de-caches-http-request)
   * [Links de documentações](#links-de-documentaes)
 <!-- TOC -->
 
@@ -73,11 +78,15 @@ Para compreender sobre a váriável _`serialVersionUID`_ é nescessário compren
 
 **Oque é serializar um objeto ou serialização**
 
-**Serializar** um objeto, dentro da plataforma **Java**, significa converter o estado atual dele em outro formato "**padrão**" por exemplo: imagem, json, pdf... e depois disponibilizá-lo em um stream de _bytes_ que poderá ser escrito em disco ou transmitido.
+**Serializar** um objeto, dentro da plataforma **Java**, significa converter o estado atual dele em outro formato 
+"**padrão**" por exemplo: imagem, json, pdf... e depois disponibilizá-lo em um stream de _bytes_ que poderá ser escrito
+em disco ou transmitido.
 
-**Cenários comuns para o uso do mecanismo de serialização**, dentro do ecossistema Java, são as invocações de métodos remotos (**RPC**) e também na replicação de **sessões** dos servidores web ou de aplicação.
+**Cenários comuns para o uso do mecanismo de serialização**, dentro do ecossistema Java, são as invocações de métodos 
+remotos (**RPC**) e também na replicação de **sessões** dos servidores web ou de aplicação.
 
-**Classes que fazem uso do Serializable**: _wrappers_ juntamente com os primitivos - "_esses não implementam, pois, não são classes, mas podem ser serializados_".
+**Classes que fazem uso do Serializable**: _wrappers_ juntamente com os primitivos - "_esses não implementam, pois, 
+não são classes, mas podem ser serializados_".
 
 #### O que é o serialVersionUID?
 
@@ -96,15 +105,19 @@ Caso você não informe o atributo _serialVersionUID_, o Java o fará por você 
 Imagine que foi adicionado um novo atributo a classe:
 
 > Basicamente quando não informamos de forma explícita o valor do `serialVersionUID` o Java faz isso de forma implícita,
-> porém é aqui que está o problema, quando adicionamos um novo atributo a classe esse valor é atualizado devido o Java usar os atributos da classe para gerar um
-> Hash explícito ao `serialVersionUID`, porém ele cria isso como se fosse uma nova versão do arquivo e no momento de deserializar esse arquivo com a versão antiga não vai conseguir porque esta em
+> porém é aqui que está o problema, quando adicionamos um novo atributo a classe esse valor é atualizado devido o 
+Java usar os atributos da classe para gerar um
+> Hash explícito ao `serialVersionUID`, porém ele cria isso como se fosse uma nova versão do arquivo e no momento de 
+deserializar esse arquivo com a versão antiga não vai conseguir porque esta em
 > uma versão diferente da primeira. Existe duas maneiras de resolver esse problema:
 
-**1º A mais simples foi descrito no tópico acima**: É adicionar de forma explícita o _serialVersionUID_, assim que for adicionado o implements Serializable tópico: Como evitar erro Exception por causa do _serialVersionUID_;
+**1º A mais simples foi descrito no tópico acima**: É adicionar de forma explícita o _serialVersionUID_, assim que for 
+adicionado o implements Serializable tópico: Como evitar erro Exception por causa do _serialVersionUID_;
 
 **2ª Descubir qual era o valor _serialVersionUID que o Java tinha atribuido para classe**:
 
-Descoberto o valor de serialVersionUID na versão antiga da classe, então, basta declará-lo explicitamente na nova versão para conseguir desserializar os objetos mais antigos:
+Descoberto o valor de serialVersionUID na versão antiga da classe, então, basta declará-lo explicitamente na nova 
+versão para conseguir desserializar os objetos mais antigos:
 
 ````shell
 $ serialver -classpath :target/artigo-java-serialVersionUID-1.0-SNAPSHOT.jar com.meudominio.serialversionuid.exemplo.NomeClasse
@@ -114,9 +127,11 @@ com.meudominio.serialversionuid.exemplo.NomeClasse: private static final long se
 
 ## Oque é Predicado?
 
-No Java 8, o Predicate é uma interface funcional e, portanto, pode ser usado como destino de atribuição para uma expressão lambda ou referência de método.
+No Java 8, o Predicate é uma interface funcional e, portanto, pode ser usado como destino de atribuição para uma 
+expressão lambda ou referência de método.
 
-Na matemática, um predicado é comumente entendido como uma função de valor booleano 'P: X? {true, false}' , chamada de predicado em X. Informalmente, um forte.
+Na matemática, um predicado é comumente entendido como uma função de valor booleano 'P: X? {true, false}' , 
+chamada de predicado em X. Informalmente, um forte.
 Pode ser pensado como um operador ou função que retorna um valor que é true ou false.
 
 ## Como implementar consultas complexas que tem mais de uma propriedade
@@ -331,19 +346,27 @@ Existem 2(dois) tipos de desenvolvedores que usam REST:
 
 ## Conhecendo as constraints do REST
 
-_Constraints_ é uma restrição há algo que limita ou controla o que você pode fazer, abaixo esta listado as constraints do padrão REST
+_Constraints_ é uma restrição há algo que limita ou controla o que você pode fazer, abaixo esta listado as constraints 
+do padrão REST
 
 — **Cliente-servidor:** devem poder evoluir separadamente sem qualquer dependência entre elas.
 
-— **Stateless:** Sem estador, aplicação não deve possuir estado, resumindo a requisição feita ao servidor deve conter tudo que precisa para ser processado, o servidor não pode manter sessão nele mesmo, isso significa que o servidor não manterá o histórico de uso;
+— **Stateless:** Sem estador, aplicação não deve possuir estado, resumindo a requisição feita ao servidor deve conter 
+tudo que precisa para ser processado, o servidor não pode manter sessão nele mesmo, isso significa que o servidor não 
+manterá o histórico de uso;
 
-— **Cache:** API pode fazer caches das requisições ao servidor ao fazer uma nova requisição? A requisição para o mesmo endpoint pode ser configurada para buscar no cache, melhorando a escalabilidade e desempenho, sitando alguns exemplos: nomes de cidades, endereços, enfim esses dados que dificilmente sofreram alterações.
+— **Cache:** API pode fazer caches das requisições ao servidor ao fazer uma nova requisição? A requisição para o mesmo 
+endpoint pode ser configurada para buscar no cache, melhorando a escalabilidade e desempenho, sitando alguns exemplos: 
+nomes de cidades, endereços, enfim esses dados que dificilmente sofreram alterações.
 
-— **Interface** Uniforme: Conjunto de operações bem definidas no sistema, uma vez definida deve seguir isso como verdade total;
+— **Interface** Uniforme: Conjunto de operações bem definidas no sistema, uma vez definida deve seguir isso como 
+verdade total;
 
-— **Sistema em camadas:** Entre o cliente que prove a API e o cliente que consome API existem outros servidores no meio que fornecem outras camadas como segurança, cache, balanceamento de carga, etc.
+— **Sistema em camadas:** Entre o cliente que prove a API e o cliente que consome API existem outros servidores 
+no meio que fornecem outras camadas como segurança, cache, balanceamento de carga, etc.
 
-— **Código sob demanda:** Opcional, o servidor pode enviar como resposta algum código que pode ser executado no cliente, porém é muito pouco usado.
+— **Código sob demanda:** Opcional, o servidor pode enviar como resposta algum código que pode ser executado no 
+cliente, porém é muito pouco usado.
 
 ## Diferença entre REST e RESTful
 
@@ -359,18 +382,23 @@ _Constraints_ é uma restrição há algo que limita ou controla o que você pod
 
 #### RESTful ou REST API:
 
-É uma API desenvolvida em conformidade com as constraints, resumindo é uma API que segue todas as constraints obrigatórias, caso seja violado alguma constraint não deve ser reconhecida ou trata como ``RESTful``.
+É uma API desenvolvida em conformidade com as constraints, resumindo é uma API que segue todas as constraints 
+obrigatórias, caso seja violado alguma constraint não deve ser reconhecida ou trata como ``RESTful``.
 
 ## Medindo a maturidade de sua (API) - "Richardson Maturity Model" (RMM)
 
-Quem criou o modelo de Maturidade foi _Richardson_ e para saber se uma API é REST, faça uma pergunta: **-Em qual nível de maturidade de acordo com Richardson, foi desenvolvida API?**
+Quem criou o modelo de Maturidade foi _Richardson_ e para saber se uma API é REST, faça uma pergunta: **-Em qual nível 
+de maturidade de acordo com Richardson, foi desenvolvida API?**
 
-- **Nível 3**: "Level Three Services" `HATEOAS` Último nível considerado a glória do REST, na teoria apenas o nível 3 deve ser considerado como REST de acordo com [Roy Fielding](https://roy.gbiv.com/) Cientista de computação
+- **Nível 3**: "Level Three Services" `HATEOAS` Último nível considerado a glória do REST, na teoria apenas o nível 
+3 deve ser considerado como REST de acordo com [Roy Fielding](https://roy.gbiv.com/) Cientista de computação
 
   **Explicação:** O nível 3(três) de maturidade faz o uso eficiente dos três fatores. **URIs**, **HTTP** e **HATEOAS**.
-- **Nível 2**: "Level Two Services" Verbos HTTP -> Apesar dos desenvolvedores purista não considerarem REST, porém a maioria dos desenvolvedores nomearam sendo REST
+- **Nível 2**: "Level Two Services" Verbos HTTP -> Apesar dos desenvolvedores purista não considerarem REST, porém a 
+maioria dos desenvolvedores nomearam sendo REST
 
-  **Explicação:** O nível 2(dois) de maturidade faz o uso eficiente de URIs e verbos HTTP. Nos níveis anteriores o protocolo HTTP estava sendo usado superficialmente.
+  **Explicação:** O nível 2(dois) de maturidade faz o uso eficiente de URIs e verbos HTTP. Nos níveis anteriores o 
+protocolo HTTP estava sendo usado superficialmente.
 
   Neste nível a API suporta os diversos verbos **HTTP**:
 
@@ -1318,6 +1346,30 @@ public class NotificacaoClientePedidoConfirmadoListener {
 
 
 
+## Tipos de caches HTTP Request
+O tipo de cache é definido de acordo com o local em que o conteúdo é armazenado.
+
+- **Cache de browser/local** - esse armazenamento é feito no navegador. Todos os navegadores possuem um armazenamento local, 
+que serve normalmente para resgatar recursos previamente acessados. Esse tipo de cache é privado, já que os recursos 
+armazenados não são compartilhados.
+- **Cache de proxy** - esse armazenamento, também chamado de cache intermediário, é feito no servidor proxy, entre o cliente e
+o servidor de origem. Esse é um tipo de cache compartilhado, já que é utilizado por vários clientes, e geralmente é 
+mantido por provedores.
+- **Cache de gateway** - também chamado de proxy reverso, é uma camada independente, separada, e esse armazenamento fica entre
+o cliente e a aplicação. Ele armazena em cache as requisições feitas pelo cliente e as envia para a aplicação e faz o 
+mesmo com as respostas, enviando da aplicação para o cliente. Se um recurso for solicitado novamente, o cache retorna a
+resposta, antes de chegar à aplicação. Também é um cache compartilhado, mas pelos servidores e não pelos usuários.
+- **Cache de aplicação** - esse armazenamento ocorre dentro da aplicação e permite que o desenvolvedor especifique quais 
+arquivos o navegador deve armazenar em cache e os disponibilize para usuários mesmo quando estiverem offline.
+
+<img src="D:\repository\spring\algafood-api\src\main\resources\images\img_pages\pmk-769-http-caching-diagram-1.png" title="Como funciona o caching http" width="800"/>
+
+Nos headers (cabeçalhos) das requisições e das respostas são dadas diretivas para definir características do 
+armazenamento em cache. Por exemplo:
+
+<img src="D:\repository\spring\algafood-api\src\main\resources\images\img_pages\headers.png" title="Headers" width="800"/>
+
+
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
@@ -1333,3 +1385,4 @@ public class NotificacaoClientePedidoConfirmadoListener {
 - Biblioteca Apache [<#FREEMARKER>](https://freemarker.apache.org/)
 - [Boas práticas de HTML para e-mails](https://ajuda.locaweb.com.br/wiki/boas-praticas-de-html-para-email-marketing-ajuda-locaweb)
 - [Definição de requisição simples, de acordo com CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests)
+- [Caching http request](https://www.azion.com/pt-br/blog/o-que-e-http-caching-e-como-ele-funciona/)

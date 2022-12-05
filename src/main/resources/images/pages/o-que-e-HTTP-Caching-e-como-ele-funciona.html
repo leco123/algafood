@@ -1,0 +1,310 @@
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <style>
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 30px auto 0 auto;
+    padding: 10px;
+  }
+  body[data-mode="light"] {
+    color: #2B2B2B;
+    background-color: #EBEBEB;
+  }
+  body[data-mode="dark"] {
+    color: #D8D8D8;
+    background-color: #464646;
+  }
+  body[data-mode="sepia"] {
+    color: #2B2B2B;
+    background-color: #E7E2D5;
+  }
+  body[data-mode="black"] {
+    color: #ACACAC;
+    background-color: #121212;
+  }
+  body[data-loaded=true] {
+    transition: color 0.4s, background-color 0.4s;
+    margin-top: 56px;
+  }
+  body[data-images=false] img {
+    display: none;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  body[data-links=false] #reader-domain {
+    display: none;
+  }
+  #reader-domain {
+    font-size: 0.9em;
+    line-height: 1.48em;
+    padding-bottom: 4px;
+    font-family: Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    border-bottom-color: currentcolor;
+    color: #0095dd;
+  }
+  #reader-title {
+    font-size: 1.6em;
+    line-height: 1.25em;
+    width: 100%;
+    margin: 20px 0;
+    padding: 0;
+  }
+  #reader-credits {
+    font-size: 0.9em;
+    line-height: 1.48em;
+    margin: 0 0 10px 0;
+    padding: 0;
+    font-style: italic;
+  }
+  #reader-estimated-time {
+    font-size: 0.85em;
+    line-height: 1.48em;
+    margin: 0 0 10px 0;
+    padding: 0;
+  }
+  #reader-credits:empty {
+    disply: none;
+  }
+  </style>
+</head>
+<body data-images="true" data-links="false" data-mode="black" data-font="sans-serif" data-loaded="true">
+  <span></span> <!-- for IntersectionObserver -->
+  <a id="reader-domain" href="https://www.azion.com/pt-br/blog/o-que-e-http-caching-e-como-ele-funciona/">www.azion.com</a>
+  <h1 dir="auto" id="reader-title">O que é HTTP Caching e como ele funciona? | Azion</h1>
+  <div dir="auto" id="reader-credits">Azion Technologies</div>
+  <div dir="auto" id="reader-estimated-time">12-16 minutes</div>
+  <hr>
+  <div id="readability-page-1" class="page"><div>
+                        
+
+                        <div>
+                            <p><strong>Caching</strong> é, basicamente, o armazenamento e o reuso de recursos frequentemente acessados em páginas da web. Como o armazenamento é feito em um local de rápido acesso, a navegação fica mais rápida e a performance dos sites e das aplicações também melhora. É por isso que o HTTP Caching é uma ferramenta essencial para negócios que querem otimizar a experiência do usuário e, consequentemente, ter uma receita maior.</p>
+
+<h2 id="cada-milissegundo-conta">Cada milissegundo conta</h2>
+
+<p>Se te perguntassem o que mais te irrita em um site, você provavelmente vai responder que é um site lento. E você não está sozinho: <a href="https://unbounce.com/page-speed-report/">70% dos consumidores</a> afirma que a velocidade de exibição de uma página afeta a vontade deles de fazer uma compra online. Então, junto com a paciência dos usuários, vão-se embora as oportunidades de engajamento e as vendas também.</p>
+
+<p>E por vivermos na era do imediatismo, qualquer coisa que fuja disso no mundo virtual é sinônimo de fracasso. Se nem o Google e outros mecanismos de busca perdoam sites lentos ao fazer o ranqueamento das buscas, imagina o usuário quando está navegando.</p>
+
+<p>Em tempos de alta demanda, uma forma eficaz de fazer um site ficar mais rápido é o uso de caching. Você já ouviu falar disso? Neste blog post, nós explicamos o que é caching e como ele funciona.</p>
+
+<h2 id="o-que-é-caching">O que é caching?</h2>
+
+<p>Nós vimos que o caching é o armazenamento e a reutilização de recursos de um site (imagens, texto HTML, gráficos, URLs, scripts, etc.) acessados com frequência, evitando o download dos recursos toda vez que é visitado. Para o caching acontecer, utiliza-se o <strong>cache</strong>, que é como se fosse um depósito de recursos – no caso de uma página da web, o cache pode ser no navegador, servidor proxy, edge nodes, etc. – mais próximo do usuário do que um servidor de origem. Então, quando alguém acessa um site, o sistema acessa o cache para verificar se há cópias dos recursos do site ali armazenadas e, caso haja, as resgata com muito mais rapidez, porque não precisa obter isso da origem. Caso não haja uma cópia desses recursos no cache, a requisição será continuada e eles serão ali armazenados.</p>
+
+<p><img src="https://www.azion.com/static/images/uploads/pmk-769-http-caching-diagram-1.png" alt="Caching" title="Caching"></p>
+
+<p>O uso de cache é feito por meio de informações transmitidas pelo header (cabeçalho) da <a href="https://www.azion.com/pt-br/blog/o-que-e-http-e-como-ele-funciona/">requisição e resposta</a>. Por meio do caching é possível diminuir o número de round-trips feitos em uma requisição, já que se verifica se existem cópias em cache do que foi requisitado. A diminuição na quantidade de round-trips reduz o tempo das requisições e, consequentemente, o tráfego da rede. É como se fosse um efeito cascata, mas no bom sentido, porque tudo isso em conjunto contribui para a redução da latência e a diminuição de custos com servidor.</p>
+
+<p>O uso de cache faz parte do protocolo HTTP na transmissão de dados. Então vamos ver a seguir do que isso se trata, mais especificamente.</p>
+
+<h3 id="o-que-é-http-caching">O que é HTTP Caching?</h3>
+
+<p>Para entendermos o que é <em>HTTP caching</em>, ou <em>cache HTTP</em>, vamos relembrar o que é HTTP. De forma resumida, <a href="https://www.azion.com/pt-br/blog/o-que-e-http-e-como-ele-funciona/">HTTP</a> é um protocolo de transferência de camada de aplicação baseado em texto e é considerado a base da comunicação de dados entre dispositivos em rede, entre clientes e servidores. No processo de comunicação do HTTP também podem ser dadas diretivas para se definir como as informações trocadas serão armazenadas e isso é, então, o que chamamos de <a href="https://httpwg.org/specs/rfc7234.html#caching.negotiated.responses">HTTP caching</a>. Essas informações sobre o armazenamento em cache ocorre nos headers das requisições e das respostas e elas definem o comportamento desejado pelo cliente ou pelo servidor. Podemos dizer, ainda, que o principal objetivo do armazenamento em cache é melhorar o desempenho da comunicação ao se reutilizar uma mensagem de resposta anterior para satisfazer uma requisição atual.</p>
+
+<h2 id="como-o-http-caching-funciona">Como o HTTP caching funciona?</h2>
+
+<p>Em linhas gerais, o processo de caching funciona da seguinte forma:</p>
+
+<ol>
+  <li>A página do site faz a requisição de um recurso ao servidor de origem.</li>
+  <li>O sistema verifica o cache para saber se já existe uma cópia do recurso armazenada.</li>
+  <li>Se o recurso estiver armazenado no cache, o resultado será uma resposta de acerto de cache e o recurso será entregue a partir do cache.</li>
+  <li>Se o recurso não estiver armazenado no cache, o resultado será perda de cache e o arquivo será acessado em sua fonte original.</li>
+  <li>Após o recurso ser armazenado no cache, ele continuará a ser acessado ali até que expire ou que o cache seja limpo.</li>
+</ol>
+
+<h2 id="tipos-de-caching">Tipos de caching</h2>
+
+<p>O tipo de cache é definido de acordo com o local em que o conteúdo é armazenado.</p>
+
+<ul>
+  <li><strong>Cache de browser</strong> - esse armazenamento é feito no navegador. Todos os navegadores possuem um armazenamento local, que serve normalmente para resgatar recursos previamente acessados. Esse tipo de cache é privado, já que os recursos armazenados não são compartilhados.</li>
+  <li><strong>Cache de proxy</strong> - esse armazenamento, também chamado de cache intermediário, é feito no servidor proxy, entre o cliente e o servidor de origem. Esse é um tipo de cache compartilhado, já que é utilizado por vários clientes, e geralmente é mantido por provedores.</li>
+  <li><strong>Cache de gateway</strong> - também chamado de proxy reverso, é uma camada independente, separada, e esse armazenamento fica entre o cliente e a aplicação. Ele armazena em cache as requisições feitas pelo cliente e as envia para a aplicação e faz o mesmo com as respostas, enviando da aplicação para o cliente. Se um recurso for solicitado novamente, o cache retorna a resposta, antes de chegar à aplicação. Também é um cache compartilhado, mas pelos servidores e não pelos usuários.</li>
+  <li><strong>Cache de aplicação</strong> - esse armazenamento ocorre dentro da aplicação e permite que o desenvolvedor especifique quais arquivos o navegador deve armazenar em cache e os disponibilize para usuários mesmo quando estiverem offline.</li>
+</ul>
+
+
+
+<p>Nos headers (cabeçalhos) das requisições e das respostas são dadas diretivas para definir características do armazenamento em cache. Por exemplo:</p>
+
+<p><img src="https://www.azion.com/static/images/uploads/headers.png" alt="caching headers" title="caching headers"></p>
+
+<h3 id="cache-control">Cache-Control</h3>
+
+<p>No <em>header Cache-Control</em>, as seguintes diretivas padrão podem ser dadas para o armazenamento em cache:</p>
+
+<ul>
+  <li><strong>private</strong></li>
+</ul>
+
+<p>O conteúdo é considerado privado, pois somente um usuário tem acesso. Nesse caso, o conteúdo privado pode ser armazenado pelo navegador do usuário, mas não em caches intermediários.</p>
+
+<ul>
+  <li><strong>public</strong></li>
+</ul>
+
+<p>O conteúdo é considerado público, pois mais de um usuário pode ter acesso. O conteúdo pode ser armazenado pelo navegador ou em outros caches entre o cliente e o servidor.</p>
+
+<ul>
+  <li><strong>no-store</strong></li>
+</ul>
+
+<p>O conteúdo não pode ser armazenado em cache, assim a requisição é sempre enviada ao servidor de origem. Esse formato é indicado quando se transmite dados confidenciais.</p>
+
+<ul>
+  <li><strong>no-cache</strong></li>
+</ul>
+
+<p>O conteúdo armazenado deve ser revalidado a cada nova requisição, e isso torna o conteúdo imediatamente obsoleto. Nesse caso, o cache envia a requisição ao servidor de origem para validação antes de liberar uma cópia armazenada.</p>
+
+<ul>
+  <li><strong>max-age</strong></li>
+</ul>
+
+<p>Define o tempo máximo que o conteúdo pode ficar no cache sem ser revalidado no servidor de origem. O tempo é definido em segundos e o máximo que chega é um ano (31.536.000 segundos).</p>
+
+<ul>
+  <li><strong>s-maxage</strong></li>
+</ul>
+
+<p>Indica a quantidade de tempo que o conteúdo pode ser armazenado em cache e por isso é muito parecido com o max-age, mas a diferença é que esta opção é aplicada apenas a caches intermediários e não ao navegador.</p>
+
+<ul>
+  <li><strong>max-stale</strong></li>
+</ul>
+
+<p>Indica que será aceita uma resposta que excedeu seu tempo de vida de atualização. Se nenhum valor (dado em segundos) for atribuído a max-stale, será aceita uma resposta obsoleta de qualquer idade, mas se for atribuído um valor, será aceita uma resposta que excedeu sua vida útil de atualização conforme o tempo especificado para o limite.</p>
+
+<ul>
+  <li><strong>must-revalidate</strong></li>
+</ul>
+
+<p>Indica que o tempo de expiração, indicado por max-age, s-maxage ou por Expires, deve ser obrigatoriamente obedecido. Nesse caso, o conteúdo obsoleto obrigatoriamente não pode ser entregue ao cliente, e o navegador pode usar um conteúdo obsoleto somente se ocorrer uma falha na rede.</p>
+
+<ul>
+  <li><strong>proxy-revalidate</strong></li>
+</ul>
+
+<p>Essa diretiva é parecida com o must-revalidate, mas é apenas configurada para servidores intermediários, proxies ou CDNs. Nesse caso, serviços de cache intermediários devem necessariamente revalidar o conteúdo se ele ficar obsoleto.</p>
+
+<ul>
+  <li><strong>no-transform</strong></li>
+</ul>
+
+<p>Define que o cache não pode alterar o conteúdo recebido. Por exemplo, o cache não pode escolher entre enviar uma versão compacta de conteúdo não compactado que recebeu do servidor de origem.</p>
+
+<ul>
+  <li><strong>min-fresh</strong></li>
+</ul>
+
+<p>Define que o conteúdo deverá ser mantido atualizado por pelo menos o tempo de vida que foi especificado (em segundos).</p>
+
+<ul>
+  <li><strong>only-if-cached</strong></li>
+</ul>
+
+<p>Indica que o cliente deseja obter somente conteúdo que tenha cópia no cache. O cache deve utilizar na resposta o conteúdo em cache, se estiver de acordo com as restrições, caso contrário responde com um código de status 504 (tempo limite de gateway), que indica que o servidor intermediário não obteve resposta do servidor de origem para completar a requisição.</p>
+
+<p>É possível combinar diferentes comportamentos de cache nos headers, mas há dois casos em que somente uma opção é possível, pelo fato de serem opostas: 1) no-cache ou no-store e 2) private ou public.</p>
+
+<h3 id="expires">Expires</h3>
+
+<p>O <em>header Expires</em> define o momento em que um conteúdo vai expirar. Após essa data, o conteúdo em cache é considerado obsoleto, então a requisição terá acesso ao conteúdo mais recente no servidor de origem.</p>
+
+<h3 id="etag">ETag</h3>
+
+<p>O <em>header Etag</em> (Entity tag ou tag de entidade) é utilizado para verificar se o recurso em cache do navegador é o mesmo que está no servidor de origem, ou seja, ele valida se o cliente está recebendo a versão mais recente do conteúdo cacheado. Esse header funciona como um identificador único associado a cada recurso de um site. Para a identificação, os servidores de página da web utilizam um valor Etag, que é modificado a cada vez que o recurso é alterado. E o valor de ETag é a data e hora da última atualização do recurso.</p>
+
+<h3 id="last-modified">Last-Modified</h3>
+
+<p>O <em>header Last-Modified</em> indica ao navegador quando o recurso foi modificado pela última vez e se ele deve usar a cópia em cache ou baixar a versão mais recente. Por exemplo, quando um usuário visita seu site, o navegador armazena os recursos da página, então na próxima vez que ele acessar o site, o servidor verifica se houve modificação nos arquivos desde a última vez que foram acessados. Se não houver nenhuma modificação, o servidor envia uma resposta “304 not modified” ao navegador e é utilizada a cópia contida no cache.</p>
+
+<h3 id="vary">Vary</h3>
+
+<p>O <em>header Vary</em> possibilita o armazenamento de diferentes versões do mesmo conteúdo, então ele é utilizado para solicitar ao cache a verificação de cabeçalhos adicionais antes de decidir para qual conteúdo é uma requisição. Por exemplo, ao se usar com o header Accept-Encoding, a configuração permite diferenciar conteúdo comprimido e não comprimido, ou quando usado com o header User-Agent, diferencia a versão de um site para celular ou para desktop.</p>
+
+<h2 id="benefícios-do-caching">Benefícios do caching</h2>
+
+<p>Para resumir, listamos a seguir os principais <em>benefícios do caching</em>:</p>
+
+<ul>
+  <li><strong>redução da latência;</strong></li>
+  <li><strong>redução de consumo de banda;</strong></li>
+  <li><strong>redução do tráfego na rede;</strong></li>
+  <li><strong>aumento da velocidade e do desempenho do site.</strong></li>
+</ul>
+
+<h2 id="a-solução-da-azion">A solução da Azion</h2>
+
+<p>Os usuários têm altíssimas expectativas quanto à velocidade de um site, e uma resposta mais lenta do que a que eles desejam é sinônimo de perda de clientes. Um relatório feito em 2020 pela Deloitte, <a href="https://www2.deloitte.com/ie/en/pages/consulting/articles/milliseconds-make-millions.html">Milliseconds Make Millions</a>, comprova isso ao mostrar que uma velocidade 0,1s mais rápida traz vários benefícios aos negócios, como maior engajamento do usuário, melhores taxas de conversão e, consequentemente, crescimento nas vendas.</p>
+
+<p>E como nós mostramos nesse texto, o HTTP caching é extremamente relevante para otimizar a velocidade de um site e crucial para melhorar a percepção da marca de uma empresa, principalmente se você quer aumentar o número de clientes ou mantê-los fiéis à sua marca. E como você pode alcançar isso? É simples: com a <a href="https://www.azion.com/pt-br/">Azion</a>.</p>
+
+<h3 id="edge-caching-da-azion-muita-velocidade-e-altíssimo-desempenho">Edge Caching da Azion: muita velocidade e altíssimo desempenho</h3>
+
+<p>O nosso <a href="https://www.azion.com/pt-br/documentacao/produtos/edge-application/edge-caching/">Edge Caching</a> é a melhor solução para quem quer um site super rápido e com altíssimo desempenho. E como isso é possível? Um dos principais motivos é porque o cache é feito no edge, mais próximo dos usuários. Outro é porque ele suporta milhares de requisições simultâneas sem comprometer a infraestrutura.</p>
+
+<p>Além disso, nosso serviço de caching entrega todos os tipos de conteúdos baseados em HTTP e HTTPS, incluindo arquivos estáticos e dinâmicos ou vídeos sob demanda, mesmo se o servidor de origem estiver indisponível. Isso aprimora a performance e a confiabilidade na entrega de conteúdo, com qualquer tamanho de audiência, reduzindo falhas e latência enquanto aumenta a taxa de transferência.</p>
+
+<p>O nosso Edge Caching possui uma arquitetura de proxy reverso, pela qual os usuários se conectam nos edge nodes de nossa rede global altamente distribuída. Nela, é possível realizar o caching do seu conteúdo e ainda ampliar sua versatilidade com o add-on L2 Caching, uma camada adicional de cache entre o edge da Azion e sua origem que ajuda a reduzir ainda mais a carga em sua infraestrutura.</p>
+
+<p>Então, se você quer garantir altíssima velocidade para o seu site e a melhor experiência online para os seus usuários, fale <a href="https://www.azion.com/pt-br/contate-vendas/">aqui</a> com o nosso time de vendas.</p>
+
+                        </div>
+                    </div></div>
+  <span></span> <!-- for IntersectionObserver -->
+
+</body><style>@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=IBM+Plex+Serif:wght@400;500;700&family=Montserrat:wght@400;700&family=Zilla+Slab:wght@400;500&display=swap'); body {
+      font-size:  21px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      line-height: 33px;
+      width: 1150px;
+    }</style><style>body {
+  padding-bottom: 64px;
+}
+a:link, a:link:hover, a:link:active {
+  color: #0095dd;
+}
+a:visited {
+  color: #d33bf0;
+}
+a:link {
+  text-decoration: none;
+  font-weight: normal;
+}
+pre {
+  white-space: pre-wrap;
+}
+pre code {
+  background-color: #eff0f1;
+  color: #393318;
+  font-family: monospace;
+  display: block;
+  padding: 5px 10px;
+}
+body[data-mode="dark"] pre code {
+  background-color: #585858;
+  color: #e8e8e8;
+}
+
+/* CSS for sans-serif fonts */
+body[data-font=sans-serif] {}
+/* CSS for serif fonts */
+body[data-font=serif] {}
+
+/* CSS for "sepia" theme */
+body[data-mode=sepia] {
+}
+/* CSS for "light" theme */
+body[data-mode=light] {}
+/* CSS for "dark" theme */
+body[data-mode=dark] {}</style></html>
