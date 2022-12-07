@@ -1369,6 +1369,188 @@ armazenamento em cache. Por exemplo:
 
 <img src="D:\repository\spring\algafood-api\src\main\resources\images\img_pages\headers.png" title="Headers" width="800"/>
 
+## ETags
+
+Em etag é basicamente um identificador para uma resposta a uma negociação de conteúdo. Se o conteúdo varia, a Etag 
+varia, não necessariamente o endereço do recurso solicitado varia. Quando você faz uma requisição, ela pode variar a 
+resposta de acordo com o contexto.
+
+Levando em conta que a etag de um determinado arquivo (que você não especificou o tipo) pode variar, você não vai 
+encontrar uma etag para um arquivo, vai encontrar uma etag para um determinado contexto de requisição a um arquivo.
+
+### Status da requisição
+O Etag fica no cabeçalho de uma requisição, é usando quando trabalhamos com caches ajudando identificar se um recurso
+houve mudança, existe 2(duas) condições ou estados que **FRESH** e **STALE**.
+
+
+- **Fresh**: Quando a representação pode usar recursos do cache e não houve mudança no cabeçalho, com isso evita fazer
+requisições desnecessárias.
+- **Stale**: Quando a representação está velha, vencida isso siginifica que vai precisar ser executada uma nova 
+requisição para o servidor.
+
+Exemplo de uso real:
+
+Imagine que temos um cabeçalho `.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))` que foi definido um cache de 
+10(dez) segundos, na primeira requisição para um determinado recurso o próprio navegador já identifica o cabeçalho da requisição
+e deixa o recurso em cache por 10(dez) segundos com status de `Fresh`, se houver novas requisição dentro desse período
+o navegador não vai buscar uma nova requisição, vai pegar aquela que está em cache.
+
+#### Como implementar cache no Spring
+
+Criar arquivo de configuração
+````java
+
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+
+  /**
+   * Método usado para habilitar o CORS globalmente
+   * @param registry
+   */
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    // DEFININDO QUALQUER CAMINHO E QUALQUER ORIGIN
+    registry.addMapping("/**")
+            .allowedOrigins("*")
+            .allowedMethods("*");
+
+    // PADRÃO DO SPRING
+    // .allowedMethods("GET","HEAD","POST")
+    // .allowedMethods("*")
+    // .maxAge(30); // 30 PADRÃO
+  }
+
+  /**
+   * Para funcionar o shallowEtag Basta adicionar essa configuração
+   */
+  @Bean
+  public Filter shallowEtagHeaderFilter() {
+    return new ShallowEtagHeaderFilter();
+  }
+}
+````
+Setar o método de cache `cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))`
+````java
+
+    @GetMapping("/{formaPagamentoId}")
+	public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId) {
+		FormaPagamento formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
+
+		FormaPagamentoModel formaPagamentoModel =  formaPagamentoModelAssembler.toModel(formaPagamento);
+
+		return ResponseEntity.ok()
+				.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+				.body(formaPagamentoModel);
+	}
+````
+
+Depois de entendido como funciona os estados do cache, agora pode ser explicado como funciona as propriedades 
+**Etag** e **If-None-Match**.
+
+- **Etag**: Propriedade do cabeçalho que carrega algo que chamo de chave ou hash, basicamente é o código que representa o 
+estado do cabeçalho, pra identificar se houve mudanças no recurso, também existe 2(duas) condições ou status para
+fazer a indentificação dessas mudanças, `ETag: "05932f1679e6502d1feb68a7e7b24eb80"` e 
+`If-None-Match: "05932f1679e6502d1feb68a7e7b24eb80"`
+
+- **If-None-Match**: Propriedade do cabeçalho que carrega o mesmo valor da Etag, porém ele só é mostrado no cabeçalho 
+quando é encontrado alguma mudança, por isso que o navegador retorna a chave pra identificar que existe uma mudança do
+cabeçalho pra aquele recurso, basicamente é como se fosse feito uma pergunta para o servidor, -- Servidor esse cabeçalho
+do recurso com a chave If-None-Match: "05932f1679e6502d1feb68a7e7b24eb80" sofreu alterações deseja continuar usando os
+recursos em caches, abaixo tem 2(dois) exemplos de cabelhado explicando:
+
+1º Primeira solicitação representa uma requisição usando recurso de cache, isso siginifica que não esta sendo feito
+uma nova requisição para o servidor apenas usando os recurso que em cache ou seja em estado de Fresh, no caso abaixo
+siginifica que a requisição foi feita no intervalo dos 10(dez) segundos.
+
+
+````text
+
+-----> GERAL
+HTTP/1.1 200
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Access-Control-Allow-Origin: *
+Cache-Control: max-age=10
+ETag: "05932f1679e6502d1feb68a7e7b24eb80"
+Content-Type: application/json;charset=UTF-8
+Content-Length: 118
+Date: Wed, 07 Dec 2022 18:48:53 GMT
+
+-----> Cabeçalho de resposta
+Access-Control-Allow-Origin: *
+Cache-Control: max-age=10
+Content-Length: 118
+Content-Type: application/json;charset=UTF-8
+Date: Wed, 07 Dec 2022 18:48:53 GMT
+ETag: "05932f1679e6502d1feb68a7e7b24eb80"
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+
+````
+
+2º Segunda solicitação representa uma requisição feita para o servidor, siginifica que houve alteração no cabeçalho, 
+onde o navegador identificou ter passado dos 10(dez) segundos e precisou ser feita uma nova requisição para o servidor e
+agora existe uma nova propriedade com **If-None-Match** `If-None-Match: "05932f1679e6502d1feb68a7e7b24eb80"`, com o valor
+da chave do **Etag**.
+
+If-None-Match: Deve ser interpretado como uma pergunta para o servidor, **Posso usar o rescurso em cache ou devo fazer 
+uma nova requisição para o servidor pra trazer o recurso atualizado?**
+
+````text
+
+-----> GERAL
+Solicitar URL: http://localhost:8080/formas-pagamento
+Método da solicitação: GET
+Código de status: 200 
+Endereço remoto: [::1]:8080
+Política do referenciador: strict-origin-when-cross-origin
+
+-----> Cabeçalho de resposta
+Access-Control-Allow-Origin: *
+Cache-Control: max-age=10
+Content-Length: 118
+Content-Type: application/json;charset=UTF-8
+Date: Wed, 07 Dec 2022 18:52:24 GMT
+ETag: "05932f1679e6502d1feb68a7e7b24eb80"
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+
+-----> Cabeçalho de solicitação
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Accept-Language: pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7,ru;q=0.6
+Connection: keep-alive
+DNT: 1
+Host: localhost:8080
+If-None-Match: "05932f1679e6502d1feb68a7e7b24eb80"
+Origin: http://127.0.0.1:8000
+Referer: http://127.0.0.1:8000/
+sec-ch-ua: "Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Sec-Fetch-Dest: empty
+Sec-Fetch-Mode: cors
+Sec-Fetch-Site: cross-site
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36
+
+````
+
+Imagens representando processo do **Etag** e **If-None-Match**
+Resumindo é feito uma requisição para o servidor e no meio do caminho é verificado que esta tudo igual e retorna o status
+304 dizendo pra usar oque esta em cache.
+
+por isso deve tomar cuidado que alguns navegadores camuflão o status 304 nestes casos e retornam apenas o status 200, 
+lembrando que não vai interferir no sistema porém é algo que precisa ter o conhecimento consiguir enteder o porque é 
+usado dessa forma, para ter certeza que o código é o correto, basta usar o programa  para oegar a requisição correta.
+[Wireshark - software para análise de tráfego de rede](https://www.wireshark.org/) 
+
+Status 304 é um status que representa usa oque esta em cache por que não foi nada modificado.
+![304 modified](D:\repository\spring\algafood-api\src\main\resources\images\readme\304-modified.png)
+
+![if none match](D:\repository\spring\algafood-api\src\main\resources\images\readme\if-none-match.png)
 
 ## Links de documentações
 
@@ -1386,3 +1568,5 @@ armazenamento em cache. Por exemplo:
 - [Boas práticas de HTML para e-mails](https://ajuda.locaweb.com.br/wiki/boas-praticas-de-html-para-email-marketing-ajuda-locaweb)
 - [Definição de requisição simples, de acordo com CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests)
 - [Caching http request](https://www.azion.com/pt-br/blog/o-que-e-http-caching-e-como-ele-funciona/)
+- [Wireshark - software para análise de tráfego de rede](https://www.wireshark.org/)
+- [Etag, If-None-Match](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers/If-None-Match)
