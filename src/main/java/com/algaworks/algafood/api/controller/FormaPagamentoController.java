@@ -38,6 +38,11 @@ public class FormaPagamentoController {
 
 	@GetMapping
 	public ResponseEntity<List<FormaPagamentoModel>> listar(ServletWebRequest request) {
+	//public ResponseEntity<List<FormaPagamentoModel>> listar(ServletWebRequest request) {
+		/*
+		 * Exemplo de uso de Otimização de DeepETag
+		 * USAR O DeepEtag só quando precisar fazer uma otimização complexa
+
 		// Desabilitar as configurações do ContentCaching passado na classe WebConfig metodo shallowEtagHeaderFilter
 		ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
 
@@ -57,7 +62,7 @@ public class FormaPagamentoController {
 		if (request.checkNotModified(eTag)) {
 			return null;
 		}
-
+		*/
 
 		List<FormaPagamento> todasFormasPagamentos = formaPagamentoRepository.findAll();
 
@@ -65,7 +70,7 @@ public class FormaPagamentoController {
 
 		return ResponseEntity.ok()
 				.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePublic())
-				.eTag(eTag)
+				//.eTag(eTag)
 				.body(formaPagamentoModel);
 	}
 
