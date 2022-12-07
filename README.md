@@ -1346,7 +1346,8 @@ public class NotificacaoClientePedidoConfirmadoListener {
 
 
 
-## Tipos de caches HTTP Request
+
+## Caches HTTP Request
 O tipo de cache é definido de acordo com o local em que o conteúdo é armazenado.
 
 - **Cache de browser/local** - esse armazenamento é feito no navegador. Todos os navegadores possuem um armazenamento local, 
@@ -1551,6 +1552,34 @@ Status 304 é um status que representa usa oque esta em cache por que não foi n
 ![304 modified](D:\repository\spring\algafood-api\src\main\resources\images\readme\304-modified.png)
 
 ![if none match](D:\repository\spring\algafood-api\src\main\resources\images\readme\if-none-match.png)
+
+
+#### Diretivas de Cache-Control na resposta HTTP
+- **cachePrivate**: Resposta pode ser armazenada em apenas caches locais ou seja navegador, deve ser usado quando os 
+dados do usuário é útil apenas para um único usuário.
+- **cachePublic**: Resposta pode ser armazenada em todos os locais, proxy, local..., lembrando que o padrão já é public, 
+mas caso precise deixar explícito
+- **max-age**: Tempo do cache
+- **noCache()**: Esta diretiva causa muita confusão devido o seu nome noCache, fazendo intender que não é pra fazer cache, 
+porém sua funcionalidade correta é obrigar todas as requisições de determinado recurso fazer uma nova requisição para o 
+servidor, resumindo é uma requisição que sempre vai estar em Stale.
+- **noStore**: Esta diretiva, seginifica que ninguém pode armazenar a resposta em nenhum tipo de cache.
+
+````java
+@GetMapping("/{formaPagamentoId}")
+	public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId) {
+		FormaPagamento formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
+
+		FormaPagamentoModel formaPagamentoModel =  formaPagamentoModelAssembler.toModel(formaPagamento);
+
+		return ResponseEntity.ok()
+                .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePublic())
+                //.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePrivate())
+                //.cacheControl(CacheControl.noCache())
+				.body(formaPagamentoModel);
+	}
+````
+
 
 ## Links de documentações
 
