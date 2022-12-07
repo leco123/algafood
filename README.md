@@ -1565,21 +1565,25 @@ porém sua funcionalidade correta é obrigar todas as requisições de determina
 servidor, resumindo é uma requisição que sempre vai estar em Stale.
 - **noStore**: Esta diretiva, seginifica que ninguém pode armazenar a resposta em nenhum tipo de cache.
 
+#### Deep Etags
+
+É implementado para evitar que todo processamento seja feito do lado do servidor
+
 ````java
-@GetMapping("/{formaPagamentoId}")
-	public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId) {
-		FormaPagamento formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
+    @GetMapping("/{formaPagamentoId}")
+    public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId) {
+        FormaPagamento formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
 
-		FormaPagamentoModel formaPagamentoModel =  formaPagamentoModelAssembler.toModel(formaPagamento);
+        FormaPagamentoModel formaPagamentoModel =  formaPagamentoModelAssembler.toModel(formaPagamento);
 
-		return ResponseEntity.ok()
-                .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePublic())
-                //.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePrivate())
-                //.cacheControl(CacheControl.noCache())
-				.body(formaPagamentoModel);
-	}
+        return ResponseEntity.ok()
+        .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePublic())
+        //.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePrivate())
+        //.cacheControl(CacheControl.noCache())
+        //.cacheControl(CacheControl.noStore())
+        .body(formaPagamentoModel);
+    }
 ````
-
 
 ## Links de documentações
 

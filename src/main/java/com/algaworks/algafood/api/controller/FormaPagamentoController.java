@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -35,6 +36,9 @@ public class FormaPagamentoController {
 
 	@GetMapping
 	public ResponseEntity<List<FormaPagamentoModel>> listar() {
+
+
+
 		List<FormaPagamento> todasFormasPagamentos = formaPagamentoRepository.findAll();
 
 		List<FormaPagamentoModel> formaPagamentoModel =  formaPagamentoModelAssembler.toCollectionModel(todasFormasPagamentos);
