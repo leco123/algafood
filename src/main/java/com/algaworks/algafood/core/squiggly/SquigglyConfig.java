@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class SquigglyConfig {
 
     /**
-     * Cadas vez que fizer um filtro será passado por esse método que poderá ser manipulado antes de fazer a
+     * Cada vez que fizer um filtro será passado por esse método que poderá ser manipulado antes de fazer a
      * serealização do model
      */
     @Bean
