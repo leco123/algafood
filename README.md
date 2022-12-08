@@ -1585,6 +1585,23 @@ servidor, resumindo é uma requisição que sempre vai estar em Stale.
     }
 ````
 
+## Como fazer documentação usando a especificação OpenApi
+
+**OpenApi**: É um padrão ou especificação para criação documentação de uma API.
+
+Uma API aberta é uma API disponível para desenvolvedores externos. Isto não significa que seja uma API livre sem 
+autenticação, sem controle ou sem custos. Uma determinada organização pode criar uma API aberta gratuita ou uma API 
+aberta que seja paga. O conceito do “Open” tem a ver com o fato da API estar disponível para outras empresas e 
+desenvolvedores. Do contrário, caso um sistema tenha uma API disponível, mas que seja acessível apenas a sistemas da 
+própria empresa, então é uma API fechada.
+
+- **Swagger Editor**:
+- **SpringFox**: Usado para criar configuração da documentação, gerando json da definição, baseado nas configurações da 
+`SpringFoxConfig`.
+- **Swagger UI**: Renderizar documentação em html, usando Json com especificação OpenApi.
+- **Swagger Codegen**:
+
+
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
