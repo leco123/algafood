@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -23,8 +24,13 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 // CONFIGURANDO
                 // quais endicadores que deseja especificar para criar o json
                 .select()
+                    // Selecionar os andPoint que encontrar pode selecionar
+                    .apis(RequestHandlerSelectors.basePackage("com.algaworks.algafood.api"))
                     // Tudo que encontrar pode selecionar
                     .apis(RequestHandlerSelectors.any())
+
+                    // selecionar os caminhos
+                    //.paths(PathSelectors.ant("/restaurantes/*"))
                 .build();
     }
 
