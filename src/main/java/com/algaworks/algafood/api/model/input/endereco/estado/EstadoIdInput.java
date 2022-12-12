@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class EstadoIdInput {
 
-    @ApiModelProperty(example = "1")
+    @ApiModelProperty(example = "1", required = true)
     @NotNull
     private Long id;
 }
