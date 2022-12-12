@@ -50,12 +50,16 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .useDefaultResponseMessages(false)
                 // Definir resposta padrão para os métodos usando globalResponseMessage
                 .globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
+                .globalResponseMessage(RequestMethod.POST, globalPostPutResponseMessages())
+                .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
                 .apiInfo(apiInfo())
                 .tags(new Tag("Cidades", "Gerencia as cidades"));
     }
 
     /**
-     * Status GLOBAIS CODE´S 406, 500 apenas Status de erros
+     * STATUS GLOBAIS CODE´S PARA VERBO GET
+     * 406 (Not Acceptable)
+     * 500 (Internal Server Error)
      * @return List<ResponseMessage>
      */
     private List<ResponseMessage> globalGetResponseMessages() {
@@ -69,6 +73,60 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                         // STATUS 406
                         .code(HttpStatus.NOT_ACCEPTABLE.value())
                         .message("Recurso não possui representação que poderia ser aceita pelo consumidor")
+                        .build()
+        );
+    }
+
+    /**
+     * STATUS GLOBAIS CODE´S PARA VERBO POST
+     * 400 (Bad Request)
+     * 406 (Not Acceptable)
+     * 415 (Unsupported Media Type)
+     * 500 (Internal Server Error)
+     * @return List<ResponseMessage>
+     */
+    private List<ResponseMessage> globalPostPutResponseMessages() {
+        return Arrays.asList(
+                new ResponseMessageBuilder()
+                        // STATUS 400
+                        .code(HttpStatus.BAD_REQUEST.value())
+                        .message("Recurso não encontrado")
+                        .build(),
+                new ResponseMessageBuilder()
+                        // STATUS 406
+                        .code(HttpStatus.NOT_ACCEPTABLE.value())
+                        .message("Recurso não possui representação que poderia ser aceita pelo consumidor")
+                        .build(),
+                new ResponseMessageBuilder()
+                        // STATUS 415
+                        .code(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
+                        .message("Midía não suportada")
+                        .build(),
+                new ResponseMessageBuilder()
+                        // STATUS 500
+                        .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                        .message("Erro interno do servidor")
+                        .build()
+        );
+    }
+
+    /**
+     * STATUS GLOBAIS CODE´S PARA VERBO DELETE
+     * 400 (Bad Request)
+     * 500 (Internal Server Error)
+     * @return List<ResponseMessage>
+     */
+    private List<ResponseMessage> globalDeleteResponseMessages() {
+        return Arrays.asList(
+                new ResponseMessageBuilder()
+                        // STATUS 400
+                        .code(HttpStatus.BAD_REQUEST.value())
+                        .message("Recurso não encontrado")
+                        .build(),
+                new ResponseMessageBuilder()
+                        // STATUS 500
+                        .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                        .message("Erro interno do servidor")
                         .build()
         );
     }
