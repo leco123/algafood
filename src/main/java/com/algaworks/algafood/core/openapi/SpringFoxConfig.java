@@ -3,17 +3,24 @@ package com.algaworks.algafood.core.openapi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.ResponseMessage;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableSwagger2
@@ -39,8 +46,31 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                     // selecionar os caminhos
                     //.paths(PathSelectors.ant("/restaurantes/*"))
                     .build()
+                //useDefaultResponseMessages, desabilitar códigos de status 406, 500... gerados de forma padrão pelo Swegger UI
+                .useDefaultResponseMessages(false)
+                // Definir resposta padrão para os métodos usando globalResponseMessage
+                .globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
                 .apiInfo(apiInfo())
                 .tags(new Tag("Cidades", "Gerencia as cidades"));
+    }
+
+    /**
+     * Status GLOBAIS CODE´S 406, 500 apenas Status de erros
+     * @return List<ResponseMessage>
+     */
+    private List<ResponseMessage> globalGetResponseMessages() {
+        return Arrays.asList(
+                new ResponseMessageBuilder()
+                        // STATUS 500
+                        .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                        .message("Erro interno do servidor")
+                        .build(),
+                new ResponseMessageBuilder()
+                        // STATUS 406
+                        .code(HttpStatus.NOT_ACCEPTABLE.value())
+                        .message("Recurso não possui representação que poderia ser aceita pelo consumidor")
+                        .build()
+        );
     }
 
     public ApiInfo apiInfo() {
