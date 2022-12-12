@@ -1602,6 +1602,97 @@ própria empresa, então é uma API fechada.
 - **Swagger Codegen**:
 
 
+
+# ATUALIZAÇÕES
+
+### 18.15. Referenciando modelo de representação de problema com códigos de status de erro
+
+Atualizando para o SpringFox 3.0 e Open API 3
+Este documento irá te auxiliar a fazer esta aula com a versão 3.0.0 do Spring Fox e suas dependências.
+
+Observação: Este documento é apenas para os que querem usar as versões mais recentes das dependências contidas nesta aula.
+
+Configurando o model de erro Global
+O método responseModel não existe na classe ResponseBuilder do SpringFox 3, assim como o ModelRef que foi depreciado. Vamos utilizar os métodos representation e apply para realizar a mesma configuração.
+
+Primeiramente na classe SpringFoxConfig precisamos criar um método que ira gerar a referência para classe Problem:
+
+````java
+  private Consumer<RepresentationBuilder> getProblemaModelReference() {
+    return r -> r.model(m -> m.name("Problema")
+    .referenceModel(ref -> ref.key(k -> k.qualifiedModelName(
+    q -> q.name("Problema").namespace("com.algaworks.algafood.api.exceptionhandler")))));
+  }
+````
+
+Em seguida aplicar essa configuração nas respostas globais, além de utilizar o método representation com o parametro MediaType.APPLICATION_JSON:
+
+````java
+  private List<Response> globalGetResponseMessages() {
+    return Arrays.asList(
+    new ResponseBuilder()
+    .code(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+    .description("Erro interno do Servidor")
+    .representation( MediaType.APPLICATION_JSON )
+    .apply(getProblemaModelReference())
+    .build(),
+    new ResponseBuilder()
+    .code(String.valueOf(HttpStatus.NOT_ACCEPTABLE.value()))
+    .description("Recurso não possui representação que pode ser aceita pelo consumidor")
+    .build()
+    );
+  }
+````
+
+````java
+    private List<Response> globalPostPutResponseMessages() {
+      return Arrays.asList(
+        new ResponseBuilder()
+        .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+        .description("Requisição inválida (erro do cliente)")
+        .representation( MediaType.APPLICATION_JSON )
+        .apply(getProblemaModelReference())
+        .build(),
+        new ResponseBuilder()
+        .code(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+        .description("Erro interno no servidor")
+        .representation( MediaType.APPLICATION_JSON )
+        .apply(getProblemaModelReference())
+        .build(),
+        new ResponseBuilder()
+        .code(String.valueOf(HttpStatus.NOT_ACCEPTABLE.value()))
+        .description("Recurso não possui representação que poderia ser aceita pelo consumidor")
+        .build(),
+        new ResponseBuilder()
+        .code(String.valueOf(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value()))
+        .description("Requisição recusada porque o corpo está em um formato não suportado")
+        .representation( MediaType.APPLICATION_JSON )
+        .apply(getProblemaModelReference())
+        .build()
+      );
+    }
+````
+
+````java
+  private List<Response> globalDeleteResponseMessages() {
+    return Arrays.asList(
+      new ResponseBuilder()
+      .code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+      .description("Requisição inválida (erro do cliente)")
+      .representation( MediaType.APPLICATION_JSON )
+      .apply(getProblemaModelReference())
+      .build(),
+      new ResponseBuilder()
+      .code(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+      .description("Erro interno no servidor")
+      .representation( MediaType.APPLICATION_JSON )
+      .apply(getProblemaModelReference())
+      .build()
+    );
+  }
+````
+
+
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco

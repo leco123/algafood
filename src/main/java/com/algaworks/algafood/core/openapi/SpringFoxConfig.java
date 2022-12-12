@@ -13,6 +13,7 @@ import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.ResponseMessage;
@@ -75,6 +76,8 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                         // STATUS 500
                         .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                         .message("Erro interno do servidor")
+                        // referenciando o modelo da resposta com a class Probrlem
+                        .responseModel(new ModelRef("Problema"))
                         .build(),
                 new ResponseMessageBuilder()
                         // STATUS 406
@@ -85,7 +88,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
     }
 
     /**
-     * STATUS GLOBAIS CODE´S PARA VERBO POST
+     * STATUS GLOBAIS CODE´S PARA VERBO POST e PUT
      * 400 (Bad Request)
      * 406 (Not Acceptable)
      * 415 (Unsupported Media Type)
@@ -98,6 +101,8 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                         // STATUS 400
                         .code(HttpStatus.BAD_REQUEST.value())
                         .message("Recurso não encontrado")
+                        // referenciando o modelo da resposta com a class Probrlem
+                        .responseModel(new ModelRef("Problema"))
                         .build(),
                 new ResponseMessageBuilder()
                         // STATUS 406
@@ -107,12 +112,16 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 new ResponseMessageBuilder()
                         // STATUS 415
                         .code(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
-                        .message("Midía não suportada")
+                        .message("Requisição recusada porque corpo está em um formato não suportado")
+                        // referenciando o modelo da resposta com a class Probrlem
+                        .responseModel(new ModelRef("Problema"))
                         .build(),
                 new ResponseMessageBuilder()
                         // STATUS 500
                         .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                         .message("Erro interno do servidor")
+                        // referenciando o modelo da resposta com a class Probrlem
+                        .responseModel(new ModelRef("Problema"))
                         .build()
         );
     }
