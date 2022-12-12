@@ -2,7 +2,7 @@ package com.algaworks.algafood.api.controller.endereco;
 
 import com.algaworks.algafood.api.assembler.endereco.CidadeInputDisassembler;
 import com.algaworks.algafood.api.assembler.endereco.CidadeModelAssembler;
-import com.algaworks.algafood.api.controller.openapi.CidadeControllerOpenApi;
+import com.algaworks.algafood.api.openapi.controller.CidadeControllerOpenApi;
 import com.algaworks.algafood.api.model.endereco.cidade.CidadeModel;
 import com.algaworks.algafood.api.model.input.endereco.cidade.CidadeInput;
 import com.algaworks.algafood.domain.exception.EntidadesNaoEncontrada.EstadoNaoEncontradoException;
