@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.model.usuario.grupo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,10 @@ import lombok.Setter;
 @Getter
 public class GrupoModel {
 
+    @ApiModelProperty(example = "1")
     private Long id;
+
+    @ApiModelProperty(example = "Gerente")
     private String nome;
 
 }
