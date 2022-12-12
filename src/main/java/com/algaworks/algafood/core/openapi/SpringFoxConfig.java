@@ -68,14 +68,14 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
                 // Parametros Globais usado no SquigglyConfig, usado para fazer filtros da requisição
                 // e também está sendo adicionando parâmetros de forma implícita
-                .globalOperationParameters(Arrays.asList(
+                /*.globalOperationParameters(Arrays.asList(
                         new ParameterBuilder()
                                 .name("campos")
                                 .description("Nomes das propriedades separadas por vírgula")
                                 .parameterType("query")
                                 .modelRef(new ModelRef("string"))
                                 .build()
-                ))
+                ))*/
                 // Adicionar modelo de problem
                 .additionalModels(typeResolver.resolve(Problem.class))
                 // Ignorar Argumento ou propriedade no ParameterTypes que não deve ser mostrado na documentação
