@@ -1779,6 +1779,84 @@ public class CozinhaController implements CozinhaControllerOpenApi {
 }
 ````
 
+### 18.24. Desafio: descrevendo documentação de endpoints de formas de pagamento
+
+Atualizando para o SpringFox 3.0 e Open API 3
+Este documento irá te auxiliar a fazer esta aula com a versão 3.0.0 do Spring Fox e suas dependências.
+
+Observação: Este documento é apenas para os que querem usar as versões mais recentes das dependências contidas nesta aula.
+
+Evitando um NullPointerException
+Ao adicionar o produces = MediaType.APPLICATION_JSON_VALUE na Annotation @RequestMapping nos Controllers de Grupo ou Cidade, o SpringFox 3 nos apresentará um NullPointerException. Isso é um problema conhecido que ainda não foi corrigido nessa biblioteca. Acontece devido a alguns métodos das Controllers terem o retorno void, como os de DELETE, que somado ao produces = MediaType.APPLICATION_JSON_VALUE gera um NullPointerException.
+
+Sendo assim, é necessário adicionar o produces em cada um dos métodos, com exceção daqueles que retornam void, ao invés de adicioná-los na Controller.
+
+Deixando as implementações da seguinte forma:
+
+````java
+package com.algaworks.algafood.api.controller;
+
+@RestController
+@RequestMapping(path = "/grupos")
+public class GrupoController implements GrupoControllerOpenApi {
+
+	@Autowired
+	private GrupoRepository grupoRepository;
+
+	@Autowired
+	private CadastroGrupoService cadastroGrupo;
+
+	@Autowired
+	private GrupoModelAssembler grupoModelAssembler;
+
+	@Autowired
+	private GrupoInputDisassembler grupoInputDisassembler;
+
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<GrupoModel> listar() {
+		List<Grupo> todosGrupos = grupoRepository.findAll();
+
+		return grupoModelAssembler.toCollectionModel(todosGrupos);
+	}
+
+	@GetMapping(path = "/{grupoId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public GrupoModel buscar(@PathVariable Long grupoId) {
+		Grupo grupo = cadastroGrupo.buscarOuFalhar(grupoId);
+
+		return grupoModelAssembler.toModel(grupo);
+	}
+
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	public GrupoModel adicionar(@RequestBody @Valid GrupoInput grupoInput) {
+		Grupo grupo = grupoInputDisassembler.toDomainObject(grupoInput);
+
+		grupo = cadastroGrupo.salvar(grupo);
+
+		return grupoModelAssembler.toModel(grupo);
+	}
+
+	@PutMapping(path = "/{grupoId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public GrupoModel atualizar(@PathVariable Long grupoId,
+	                            @RequestBody @Valid GrupoInput grupoInput) {
+		Grupo grupoAtual = cadastroGrupo.buscarOuFalhar(grupoId);
+
+		grupoInputDisassembler.copyToDomainObject(grupoInput, grupoAtual);
+
+		grupoAtual = cadastroGrupo.salvar(grupoAtual);
+
+		return grupoModelAssembler.toModel(grupoAtual);
+	}
+
+	@DeleteMapping("/{grupoId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void remover(@PathVariable Long grupoId) {
+		cadastroGrupo.excluir(grupoId);
+	}
+
+}
+````
+
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco

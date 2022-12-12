@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
@@ -66,6 +67,8 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
                 // Adicionar modelo de problem
                 .additionalModels(typeResolver.resolve(Problem.class))
+                // Ignorar Argumento ou propriedade no ParameterTypes que não deve ser mostrado na documentação
+                .ignoredParameterTypes(ServletWebRequest.class)
                 // Quando recurso faz uso de paginação Pageable, deve ser criado uma classe para subistituir essa
                 // paginação PageableModelOpenApi.class, é apenas para fim de documentação
                 .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
@@ -76,7 +79,8 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .apiInfo(apiInfo())
                 .tags(new Tag("Cidades", "Gerencia as cidades"),
                         new Tag("Grupos","Gerencia os grupos de usuários"),
-                        new Tag("Cozinhas", "Gerencia as cozinhas"));
+                        new Tag("Cozinhas", "Gerencia as cozinhas"),
+                        new Tag("Formas de pagamento", "Gerencia as formas de pagamento"));
     }
 
     /**
