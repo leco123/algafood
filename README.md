@@ -1692,6 +1692,92 @@ Em seguida aplicar essa configuração nas respostas globais, além de utilizar 
   }
 ````
 
+### 18.22. Desafio: descrevendo documentação de endpoints de cozinhas
+
+Atualizando para o SpringFox 3.0 e Open API 3
+
+Atualizando para o SpringFox 3.0 e Open API 3
+Este documento irá te auxiliar a fazer esta aula com a versão 3.0.0 do Spring Fox e suas dependências.
+
+Observação: Este documento é apenas para os que querem usar as versões mais recentes das dependências contidas nesta aula.
+
+Evitando um NullPointerException
+Ao adicionar o `produces = MediaType.APPLICATION_JSON_VALUE` na Annotation `@RequestMapping` nos Controllers de Grupo ou 
+Cidade, o SpringFox 3 nos apresentará um NullPointerException. Isso é um problema conhecido que ainda não foi corrigido 
+nessa biblioteca. Acontece devido a alguns métodos das Controllers terem o retorno void, como os de DELETE, que somado 
+ao `produces = MediaType.APPLICATION_JSON_VALUE` gera um NullPointerException.
+
+Sendo assim, é necessário adicionar o produces em cada um dos métodos, com exceção daqueles que retornam void, ao 
+invés de adicioná-los na Controller.
+
+Deixando as implementações da seguinte forma:
+
+````java
+package com.algaworks.algafood.api.controller;
+
+@RestController
+@RequestMapping(value = "/cozinhas")
+public class CozinhaController implements CozinhaControllerOpenApi {
+
+	@Autowired
+	private CozinhaRepository cozinhaRepository;
+
+	@Autowired
+	private CadastroCozinhaService cadastroCozinha;
+
+	@Autowired
+	private CozinhaModelAssembler cozinhaModelAssembler;
+
+	@Autowired
+	private CozinhaInputDisassembler cozinhaInputDisassembler;
+
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public Page<CozinhaModel> listar(@PageableDefault(size = 10) Pageable pageable) {
+		Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
+
+		List<CozinhaModel> cozinhasModel = cozinhaModelAssembler
+				.toCollectionModel(cozinhasPage.getContent());
+
+		Page<CozinhaModel> cozinhasModelPage = new PageImpl<>(cozinhasModel, pageable,
+				cozinhasPage.getTotalElements());
+
+		return cozinhasModelPage;
+	}
+
+	@GetMapping(value = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public CozinhaModel buscar(@PathVariable Long cozinhaId) {
+		Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
+
+		return cozinhaModelAssembler.toModel(cozinha);
+	}
+
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
+		Cozinha cozinha = cozinhaInputDisassembler.toDomainObject(cozinhaInput);
+		cozinha = cadastroCozinha.salvar(cozinha);
+
+		return cozinhaModelAssembler.toModel(cozinha);
+	}
+
+	@PutMapping(value = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public CozinhaModel atualizar(@PathVariable Long cozinhaId,
+	                              @RequestBody @Valid CozinhaInput cozinhaInput) {
+		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
+		cozinhaInputDisassembler.copyToDomainObject(cozinhaInput, cozinhaAtual);
+		cozinhaAtual = cadastroCozinha.salvar(cozinhaAtual);
+
+		return cozinhaModelAssembler.toModel(cozinhaAtual);
+	}
+
+	@DeleteMapping(value = "/{cozinhaId}", produces = {})
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void remover(@PathVariable Long cozinhaId) {
+		cadastroCozinha.excluir(cozinhaId);
+	}
+
+}
+````
 
 ## Links de documentações
 

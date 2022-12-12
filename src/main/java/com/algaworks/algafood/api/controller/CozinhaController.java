@@ -4,6 +4,7 @@ import com.algaworks.algafood.api.assembler.cozinha.CozinhaInputDisassembler;
 import com.algaworks.algafood.api.assembler.cozinha.CozinhaModelAssembler;
 import com.algaworks.algafood.api.model.cozinha.CozinhaModel;
 import com.algaworks.algafood.api.model.input.restaurante.cozinha.CozinhaInput;
+import com.algaworks.algafood.api.openapi.controller.CozinhaControllerOpenApi;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
@@ -20,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/cozinhas", produces = MediaType.APPLICATION_JSON_VALUE)
-public class CozinhaController {
+public class CozinhaController implements CozinhaControllerOpenApi {
 	
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
