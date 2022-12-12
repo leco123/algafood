@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
@@ -65,6 +66,16 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
                 .globalResponseMessage(RequestMethod.POST, globalPostPutResponseMessages())
                 .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
+                // Parametros Globais usado no SquigglyConfig, usado para fazer filtros da requisição
+                // e também está sendo adicionando parâmetros de forma implícita
+                .globalOperationParameters(Arrays.asList(
+                        new ParameterBuilder()
+                                .name("campos")
+                                .description("Nomes das propriedades separadas por vírgula")
+                                .parameterType("query")
+                                .modelRef(new ModelRef("string"))
+                                .build()
+                ))
                 // Adicionar modelo de problem
                 .additionalModels(typeResolver.resolve(Problem.class))
                 // Ignorar Argumento ou propriedade no ParameterTypes que não deve ser mostrado na documentação

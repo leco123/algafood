@@ -1857,6 +1857,29 @@ public class GrupoController implements GrupoControllerOpenApi {
 }
 ````
 
+### 18.25. Descrevendo parâmetros globais em operações
+Atualizando para o SpringFox 3.0 e Open API 3
+Este documento irá te auxiliar a fazer esta aula com a versão 3.0.0 do Spring Fox e suas dependências.
+
+Nenhuma mudança que já não tenha sido mencionada anteriormente é necessária para essa atualização.
+
+Substituindo componente depreciado
+O método globalRequestParameters foi depreciado (assim como a classe ParameterBuilder), no seu lugar vamos utilizar o método globalRequestParameters e o seu respectivo builder o RequestParameterBuilder.
+
+Na classe SpringFoxConfig deixe a implementação da seguinte forma:
+
+````java
+	.globalRequestParameters(Collections.singletonList(
+            new RequestParameterBuilder()
+                    .name("campos")
+                    .description("Nomes das propriedades para filtrar na resposta, separados por vírgula")
+                    .in(ParameterType.QUERY)
+                    .required(true)
+                    .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
+                    .build())
+    )
+````
+
 ## Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
