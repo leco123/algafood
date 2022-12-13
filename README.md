@@ -1910,6 +1910,9 @@ descobrirá as URLs conforme navega entre seus recursos.
 
 aplicação consumidora terá um link inicial e a partir dele terá acesso a outros recursos caso necessário.
 
+Exemplo de Hateoas
+![Conhecendo especificações para formatos Hypermedia](D:\repository\spring\algafood-api\src\main\resources\images\readme\conhecendo-especificacoes-para-formatos-hypermedia.png "Conhecendo especificações para formatos Hypermedia")
+
 # Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
@@ -1928,3 +1931,10 @@ aplicação consumidora terá um link inicial e a partir dele terá acesso a out
 - [Caching http request](https://www.azion.com/pt-br/blog/o-que-e-http-caching-e-como-ele-funciona/)
 - [Wireshark - software para análise de tráfego de rede](https://www.wireshark.org/)
 - [Etag, If-None-Match](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers/If-None-Match)
+- [Hateoas, principais HyperMídias]
+  - Principal e mais usado, [HyperMídias -> HAL - Hypertext Application Language](http://stateless.co/hal_specification.html)
+  - [HyperMídias -> UBER - Uniform Basis for Exchanging Representations](https://rawgit.com/uber-hypermedia/specification/master/uber-hypermedia.html)
+  - [HyperMídias -> JSON:API](https://jsonapi.org/)
+  - [HyperMídias -> JSON-LD - JSON for Linking Data](https://json-ld.org/)
+  - [HyperMídias -> Collection+JSON](http://amundsen.com/media-types/collection/format/)
+  - [HyperMídias -> Siren](https://github.com/kevinswiber/siren)
