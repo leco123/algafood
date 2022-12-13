@@ -1,13 +1,14 @@
 package com.algaworks.algafood.api.model.endereco;
 
 import com.algaworks.algafood.api.model.endereco.cidade.CidadeResumoModel;
+import com.algaworks.algafood.api.model.endereco.estado.EstadoModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class EnderecoModel {
+public class EnderecoModel extends EstadoModel {
 
     @ApiModelProperty(example = "38400-000")
     private String cep;
