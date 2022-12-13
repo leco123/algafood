@@ -1932,7 +1932,7 @@ Exemplo de Hateoas
 - [Wireshark - software para análise de tráfego de rede](https://www.wireshark.org/)
 - [Etag, If-None-Match](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers/If-None-Match)
 - [Hateoas, principais HyperMídias]
-  - Principal e mais usado, [HyperMídias -> HAL - Hypertext Application Language](http://stateless.co/hal_specification.html)
+  - Principal e mais usado, [HyperMídias -> HAL - Hypertext Application Language](https://stateless.group/hal_specification.html)
   - [HyperMídias -> UBER - Uniform Basis for Exchanging Representations](https://rawgit.com/uber-hypermedia/specification/master/uber-hypermedia.html)
   - [HyperMídias -> JSON:API](https://jsonapi.org/)
   - [HyperMídias -> JSON-LD - JSON for Linking Data](https://json-ld.org/)
