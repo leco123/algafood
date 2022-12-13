@@ -65,7 +65,7 @@
     * [18.22. Desafio: descrevendo documentação de endpoints de cozinhas](#1822-desafio--descrevendo-documentao-de-endpoints-de-cozinhas)
     * [18.24. Desafio: descrevendo documentação de endpoints de formas de pagamento](#1824-desafio--descrevendo-documentao-de-endpoints-de-formas-de-pagamento)
     * [18.25. Descrevendo parâmetros globais em operações](#1825-descrevendo-parmetros-globais-em-operaes)
-  * [Links de documentações](#links-de-documentaes)
+* [Links de documentações](#links-de-documentaes)
 <!-- TOC -->
 
 # Treinamento Algaworks Especialista em REST (40% do Curso concluído)
