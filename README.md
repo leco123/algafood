@@ -1,7 +1,6 @@
 # Tópicos abordados
 
 <!-- TOC -->
-* [Tópicos abordados](#tpicos-abordados)
 * [Treinamento Algaworks Especialista em REST (40% do Curso concluído)](#treinamento-algaworks-especialista-em-rest--40-do-curso-concludo-)
     * [Rodar projeto via line command](#rodar-projeto-via-line-command)
       * [WINDOWS](#windows)
@@ -65,6 +64,9 @@
     * [18.22. Desafio: descrevendo documentação de endpoints de cozinhas](#1822-desafio--descrevendo-documentao-de-endpoints-de-cozinhas)
     * [18.24. Desafio: descrevendo documentação de endpoints de formas de pagamento](#1824-desafio--descrevendo-documentao-de-endpoints-de-formas-de-pagamento)
     * [18.25. Descrevendo parâmetros globais em operações](#1825-descrevendo-parmetros-globais-em-operaes)
+* [Srping Hateoas](#srping-hateoas)
+  * [O que é Spring HATEOAS?](#o-que--spring-hateoas)
+  * [Hypermedias com Spring HETEOAS](#hypermedias-com-spring-heteoas)
 * [Links de documentações](#links-de-documentaes)
 <!-- TOC -->
 
@@ -1891,6 +1893,22 @@ Na classe SpringFoxConfig deixe a implementação da seguinte forma:
     )
 ````
 
+
+# Srping Hateoas
+
+## O que é Spring HATEOAS?
+
+Spring-HATEOAS é uma biblioteca de APIs que podemos usar para criar representações REST que seguem o padrão HATEOAS.
+
+## Hypermedias com Spring HETEOAS
+
+HATEOAS ou (Hypertext as the Engine of Application State) é um modelo que permite que você navegue entre seus endpoints 
+de forma dinâmica através de links e URLs e sem precisar do conhecimento prévio sobre a API. Nesse caso o cliente 
+descobrirá as URLs conforme navega entre seus recursos.
+
+**Resumo, Hateoas:**
+
+aplicação consumidora terá um link inicial e a partir dele terá acesso a outros recursos caso necessário.
 
 # Links de documentações
 
