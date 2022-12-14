@@ -13,6 +13,7 @@ import com.algaworks.algafood.domain.repository.CidadeRepository;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -41,10 +42,43 @@ public class CidadeController implements CidadeControllerOpenApi {
 
 	@ApiOperation("Lista as cidades")
 	@GetMapping
-	public List<CidadeModel> listar() {
+	public CollectionModel<CidadeModel> listar() {
 		List<Cidade> todasCidades = cidadeRepository.findAll();
+		List<CidadeModel> cidadesModel = cidadeModelAssembler.toCollectionModel(todasCidades);
 
-		return cidadeModelAssembler.toCollectionModel(todasCidades);
+		CollectionModel<CidadeModel> cidadesCollectionModel = new CollectionModel<>(cidadesModel);
+
+		cidadesModel.forEach(cidadeModel -> {
+			// http://localhost:8080/cidades/1
+			// [antes como estava implementado]
+			// cidadeModel.add(WebMvcLinkBuilder.linkTo(CidadeController.class).slash(cidadeModel.getId()).withSelfRel());
+			cidadeModel.add(WebMvcLinkBuilder
+					.linkTo(methodOn(CidadeController.class)
+							.buscar(cidadeModel.getId()))
+					.withSelfRel());
+
+			// http://localhost:8080/cidades
+			// [antes como estava implementado]
+			// cidadeModel.add(WebMvcLinkBuilder.linkTo(CidadeController.class).withRel("cidades"));
+			cidadeModel.add(WebMvcLinkBuilder
+					.linkTo(methodOn(CidadeController.class)
+							.listar())
+					.withRel("cidades"));
+
+			// http://localhost:8080/estados/1
+			// [antes como estava implementado]
+			//cidadeModel.add(WebMvcLinkBuilder.linkTo(EstadoController.class).slash(cidadeModel.getEstado().getId()).withSelfRel());
+			cidadeModel.add(WebMvcLinkBuilder
+					.linkTo(methodOn(EstadoController.class)
+							.buscar(cidadeModel.getId()))
+					.withSelfRel());
+		});
+
+		cidadesCollectionModel.add(WebMvcLinkBuilder
+				.linkTo(CidadeController.class)
+				.withSelfRel());
+
+		return cidadesCollectionModel;
 	}
 
 	@GetMapping("/{cidadeId}")

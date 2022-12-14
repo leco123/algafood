@@ -33,3 +33,4 @@ build/
 .vscode/
 .metadata/
 /src/main/resources/rebel.xml
+/.jpb/jpb-settings.xml
