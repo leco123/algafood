@@ -1915,7 +1915,54 @@ Exemplo de Hateoas
 
 # Conhecimentos Diversos
 
-## Oque é e como funciona Proxy
+## PROXY
+
+![Oque é e como funciona Proxy](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\Topologia-proxy-1024x343.png)
+
+### Oque é e como funciona Proxy
+Os servidores proxy são normalmente utilizados como ponte entre origem e destino de uma requisição.
+
+**Para que serve?**
+
+- **Controle de acesso** – É possivel para os adminsitradores do servidor proxy permitir que determinados usuários tenham ou 
+não acesso a Internet através de restrições aplicadas ao login do próprio usuário ou ao endereços IP, provendo ao 
+ambiente uma camada a mais de proteção.
+
+- **Filtro de conteúdo** – Estando no meio do caminho, o servidor também permite que determinados sites sejam ou não acessados. 
+Dentre as regras que podem ser aplicadas estão as destinadas ao bloqueio de sites específicos, podendo chegar ao 
+bloqueio de categorias inteiras.
+
+- **Cache** – Outro uso muito comum para Web Proxies é fazer com que eles exerçam a função de cache. Isso faz com que, após 
+- um acesso a uma página, o proxy armazene o conteúdo da página em seu sistema. Após isso, as demais requisições à esta 
+- mesma página não precisarão sair para a Internet, pois o conteúdo já está armazenado na memória do proxy.
+
+
+### Proxy reverso
+
+![Proxy reverso](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\proxy_reverso.png)
+
+Um outro uso bem comum são os servidores de Proxy Reverso. Nos exemplos citados acima, a origem da conexão era sempre 
+dentro da rede, passava pelo proxy até a Internet. No caso do proxy reverso, a origem das requisições estão na Internet 
+e buscam acessar um servidor dentro do ambiente, conforme imagem abaixo:
+
+Proxies reversos são normalmente usados para tratar requisições destinadas à servidores que hospedam páginas de Internet, 
+alguns dos benefícios de sua utilização são:
+
+- **Balanceamento de carga** – Como a estrutura do servidor de proxy reverso permite que ele tenha conexão com vários 
+servidores de destino, ele pode direcionar as requisições para cada um deles sem sobrecarregar nenhum. Como uma 
+outra característica de segurança, as requisições de Internet conhecerão apenas o endereço IP do proxy e não de 
+todos os servidores e páginas que a empresa tem.
+
+- **Cache** – Como no exemplo de cache de web, proxies também são utilizados para optimizar as requisições entre origem e 
+destino. O servidor de proxy reverso armazena elementos da página armazenada nos servidores internos, buscando de 
+tempos em tempos por atualizações do conteúdo, isso faz com que os servidores de página recebam ainda menos requisições 
+de rede, permitindo que trabalhem ainda melhor.
+
+### Proxy para todos
+
+![Proxy reverso](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\proxy_reverso.png)
+
+
 
 # Links de documentações
 
