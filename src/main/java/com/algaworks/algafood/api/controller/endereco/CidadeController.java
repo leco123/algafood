@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping(path = "/cidades", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CidadeController implements CidadeControllerOpenApi {
@@ -52,20 +54,43 @@ public class CidadeController implements CidadeControllerOpenApi {
 
 		CidadeModel cidadeModel = cidadeModelAssembler.toModel(cidade);
 
+		/**
+		 * methodOn, tem a finalidade de criar um proxy que intercepta as chamadas, entenda como:
+		 *
+		 * Quando é feito a chamada ao método buscar esta sendo chamado o buscar do proxy e não do CidadeController real.
+		 * o proxy é como se fosse um clone da classe que estamos usando CidadeController.class, porém usado apenas
+		 * para pegar os metadados vamos dizer assim.
+		 *
+		 * isso evita que faça/execute chamadas desnecessárias como em nosso caso precisamos apenas pegar a url isso ajuda
+		 * o sistema não ficar usando ou executando recursos desnecessários, de forma resumida o proxy vai
+		 * a chamada e não vai passar para a frente para CidadeController, mas vai registra um histórico... sendo assim
+		 * o proxy está apenas registrando a chamada em um histórico para registra o link
+		 *
+		 * Veja explicação aqui: 19.9. Construindo links que apontam para métodos
+		 */
+
 		// http://localhost:8080/cidades/1
+		// [antes como estava implementado]
+		// cidadeModel.add(WebMvcLinkBuilder.linkTo(CidadeController.class).slash(cidadeModel.getId()).withSelfRel());
 		cidadeModel.add(WebMvcLinkBuilder
-					.linkTo(CidadeController.class)
-					.slash(cidadeModel.getId()).withSelfRel());
+				.linkTo(methodOn(CidadeController.class)
+						.buscar(cidadeModel.getId()))
+				.withSelfRel());
 
 		// http://localhost:8080/cidades
+		// [antes como estava implementado]
+		// cidadeModel.add(WebMvcLinkBuilder.linkTo(CidadeController.class).withRel("cidades"));
 		cidadeModel.add(WebMvcLinkBuilder
-				.linkTo(CidadeController.class)
+				.linkTo(methodOn(CidadeController.class)
+						.listar())
 				.withRel("cidades"));
 
 		// http://localhost:8080/estados/1
+		// [antes como estava implementado]
+		//cidadeModel.add(WebMvcLinkBuilder.linkTo(EstadoController.class).slash(cidadeModel.getEstado().getId()).withSelfRel());
 		cidadeModel.add(WebMvcLinkBuilder
-				.linkTo(EstadoController.class)
-				.slash(cidadeModel.getEstado().getId())
+				.linkTo(methodOn(EstadoController.class)
+						.buscar(cidadeModel.getId()))
 				.withSelfRel());
 
 		return cidadeModel;
