@@ -1960,8 +1960,10 @@ de rede, permitindo que trabalhem ainda melhor.
 
 ### Proxy para todos
 
-![Proxy reverso](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\proxy_reverso.png)
-
+Não podemos falar de proxy sem falar dos free proxies. Eles são páginas de Internet, como por exemplo 
+o https://free-proxy-list.net/ , que fornecem endereços de servidores proxy ao redor do mundo “totalmente de graça”. 
+Qualquer pessoa na Internet pode fazer as devidas configurações em seu navegador e usar o servidor oferecido 
+para navegar na web.
 
 
 # Links de documentações
