@@ -1913,6 +1913,10 @@ aplicação consumidora terá um link inicial e a partir dele terá acesso a out
 Exemplo de Hateoas
 ![Conhecendo especificações para formatos Hypermedia](D:\repository\spring\algafood-api\src\main\resources\images\readme\conhecendo-especificacoes-para-formatos-hypermedia.png "Conhecendo especificações para formatos Hypermedia")
 
+# Conhecimentos Diversos
+
+## Oque é e como funciona Proxy
+
 # Links de documentações
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
@@ -1938,3 +1942,5 @@ Exemplo de Hateoas
   - [HyperMídias -> JSON-LD - JSON for Linking Data](https://json-ld.org/)
   - [HyperMídias -> Collection+JSON](http://amundsen.com/media-types/collection/format/)
   - [HyperMídias -> Siren](https://github.com/kevinswiber/siren)
+- **CONHECIMENTOS DIVERSOS**
+- [Proxy](https://www.welivesecurity.com/br/2019/12/20/o-que-e-um-proxy-e-para-que-serve/)
