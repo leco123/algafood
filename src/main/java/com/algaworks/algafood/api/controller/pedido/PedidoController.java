@@ -19,15 +19,15 @@ import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 @RestController
 @RequestMapping(path = "/pedidos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PedidoController implements PedidoControllerOpenApi {
@@ -47,18 +47,19 @@ public class PedidoController implements PedidoControllerOpenApi {
     @Autowired
     private PedidoInputDisassembler pedidoInputDisassembler;
 
-    @GetMapping
-    public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro,  @PageableDefault(size = 10)  Pageable pageable) {
+    @Autowired
+    private PagedResourcesAssembler<Pedido> pagedResourcesAssembler;
 
+    @Override
+    @GetMapping
+    public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro,
+                                                   @PageableDefault(size = 10) Pageable pageable) {
         pageable = traduzirPageable(pageable);
 
-        Page<Pedido> pedidoPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filtro), pageable);
+        Page<Pedido> pedidosPage = pedidoRepository.findAll(
+                PedidoSpecs.usandoFiltro(filtro), pageable);
 
-        List<PedidoResumoModel> pedidoResumoModel = pedidoResumoModelAssembler.toCollectionModel(pedidoPage.getContent());
-
-        Page<PedidoResumoModel> pedidoResumoModelPage = new PageImpl<>(pedidoResumoModel, pageable, pedidoPage.getTotalElements());
-
-        return pedidoResumoModelPage;
+        return pagedResourcesAssembler.toModel(pedidosPage, pedidoResumoModelAssembler);
     }
 
     @PostMapping
