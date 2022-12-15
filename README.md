@@ -1913,6 +1913,10 @@ aplicação consumidora terá um link inicial e a partir dele terá acesso a out
 Exemplo de Hateoas
 ![Conhecendo especificações para formatos Hypermedia](D:\repository\spring\algafood-api\src\main\resources\images\readme\conhecendo-especificacoes-para-formatos-hypermedia.png "Conhecendo especificações para formatos Hypermedia")
 
+
+## Paginação com Spring HATEOAS
+![Paginação com Spring HATEOAS](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\diagrama-hypermedia-em-recurso-com-paginacao.drawio.png)
+
 # Conhecimentos Diversos
 
 ## PROXY
@@ -1964,7 +1968,6 @@ Não podemos falar de proxy sem falar dos free proxies. Eles são páginas de In
 o https://free-proxy-list.net/ , que fornecem endereços de servidores proxy ao redor do mundo “totalmente de graça”. 
 Qualquer pessoa na Internet pode fazer as devidas configurações em seu navegador e usar o servidor oferecido 
 para navegar na web.
-
 
 # Links de documentações
 
