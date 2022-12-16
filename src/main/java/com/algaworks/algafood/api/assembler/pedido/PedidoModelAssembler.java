@@ -34,11 +34,19 @@ public class PedidoModelAssembler
         PedidoModel pedidoModel = createModelWithId(pedido.getCodigo(), pedido);
         modelMapper.map(pedido, pedidoModel);
 
+//      Variáveis de páginas
         TemplateVariables pageVariables = new TemplateVariables(
                 new TemplateVariable("page", TemplateVariable.VariableType.REQUEST_PARAM),
                 new TemplateVariable("size", TemplateVariable.VariableType.REQUEST_PARAM),
                 new TemplateVariable("sort", TemplateVariable.VariableType.REQUEST_PARAM)
         );
+
+//      Variáveis de filtros
+        TemplateVariables filtroVariables = new TemplateVariables(
+                new TemplateVariable("clienteId", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("restauranteId", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("dataCriacaoInicio", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("dataCriacaoFim", TemplateVariable.VariableType.REQUEST_PARAM));
 
         String pedidoUrl = WebMvcLinkBuilder.linkTo(PedidoController.class).toUri().toString();
 
@@ -46,7 +54,7 @@ public class PedidoModelAssembler
 //       UriTemplate, recebe 2(dois) parâmetros
 //       1º urlString exemplo "http://localhost:8080/pedidos"
 //       2º TemplateVariables variaveis da página ex: {"page","sort","size"... outros}
-        pedidoModel.add(new Link(UriTemplate.of(pedidoUrl, pageVariables), "pedidos"));
+        pedidoModel.add(new Link(UriTemplate.of(pedidoUrl, pageVariables.concat(filtroVariables)), "pedidos"));
 
         pedidoModel.getRestaurante().add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RestauranteController.class)
                 .buscar(pedido.getRestaurante().getId())).withSelfRel());
