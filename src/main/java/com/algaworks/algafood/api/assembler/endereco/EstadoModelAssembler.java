@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.assembler.endereco;
 
+import com.algaworks.algafood.api.AlgaLinks;
 import com.algaworks.algafood.api.controller.endereco.EstadoController;
 import com.algaworks.algafood.api.model.endereco.estado.EstadoModel;
 import com.algaworks.algafood.domain.model.Estado;
@@ -17,6 +18,9 @@ public class EstadoModelAssembler
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private AlgaLinks algaLinks;
+
     public EstadoModelAssembler() {
         super(EstadoController.class, EstadoModel.class);
     }
@@ -26,7 +30,7 @@ public class EstadoModelAssembler
         EstadoModel estadoModel = createModelWithId(estado.getId(), estado);
         modelMapper.map(estado, estadoModel);
 
-        estadoModel.add(WebMvcLinkBuilder.linkTo(EstadoController.class).withRel("estados"));
+        estadoModel.add(algaLinks.linkToEstados("estados"));
 
         return estadoModel;
     }

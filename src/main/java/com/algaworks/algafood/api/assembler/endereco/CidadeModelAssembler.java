@@ -1,7 +1,7 @@
 package com.algaworks.algafood.api.assembler.endereco;
 
+import com.algaworks.algafood.api.AlgaLinks;
 import com.algaworks.algafood.api.controller.endereco.CidadeController;
-import com.algaworks.algafood.api.controller.endereco.EstadoController;
 import com.algaworks.algafood.api.model.endereco.cidade.CidadeModel;
 import com.algaworks.algafood.domain.model.Cidade;
 import org.modelmapper.ModelMapper;
@@ -11,13 +11,14 @@ import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSuppor
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
-
 @Component
 public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Cidade, CidadeModel> {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private AlgaLinks algaLinks;
 
     public CidadeModelAssembler() {
         super(CidadeController.class, CidadeModel.class);
@@ -25,37 +26,13 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
 
     @Override
     public CidadeModel toModel(Cidade cidade) {
-
         CidadeModel cidadeModel = createModelWithId(cidade.getId(), cidade);
 
         modelMapper.map(cidade, cidadeModel);
 
-//      CidadeModel cidadeModel = modelMapper.map(cidade, CidadeModel.class);
+        cidadeModel.add(algaLinks.linkToCidades("cidades"));
 
-//      http://localhost:8080/cidades/1
-//      [antes como estava implementado]
-//      cidadeModel.add(WebMvcLinkBuilder.linkTo(CidadeController.class).slash(cidadeModel.getId()).withSelfRel());
-
-//      cidadeModel.add(WebMvcLinkBuilder
-//           .linkTo(methodOn(CidadeController.class)
-//              .buscar(cidadeModel.getId()))
-//           .withSelfRel());
-
-//      http://localhost:8080/cidades
-//      [antes como estava implementado]
-//      cidadeModel.add(WebMvcLinkBuilder.linkTo(CidadeController.class).withRel("cidades"));
-        cidadeModel.add(WebMvcLinkBuilder
-                .linkTo(methodOn(CidadeController.class)
-                        .listar())
-                .withRel("cidades"));
-
-//      http://localhost:8080/estados/1
-//      [antes como estava implementado]
-//      cidadeModel.add(WebMvcLinkBuilder.linkTo(EstadoController.class).slash(cidadeModel.getEstado().getId()).withSelfRel());
-        cidadeModel.add(WebMvcLinkBuilder
-                .linkTo(methodOn(EstadoController.class)
-                        .buscar(cidadeModel.getId()))
-                .withSelfRel());
+        cidadeModel.getEstado().add(algaLinks.linkToEstado(cidadeModel.getEstado().getId()));
 
         return cidadeModel;
     }
