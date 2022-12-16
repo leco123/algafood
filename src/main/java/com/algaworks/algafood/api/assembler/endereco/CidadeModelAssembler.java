@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,8 +39,7 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
     @Override
     public CollectionModel<CidadeModel> toCollectionModel(Iterable<? extends Cidade> entities) {
         return super.toCollectionModel(entities)
-                .add(WebMvcLinkBuilder.linkTo(CidadeController.class)
-                        .withSelfRel());
+                .add(algaLinks.linkToCidades());
     }
 
 

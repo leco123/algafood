@@ -1,9 +1,9 @@
 package com.algaworks.algafood.api.model.pedido;
 
-import com.algaworks.algafood.api.model.restaurante.formas_pagamento.FormaPagamentoModel;
-import com.algaworks.algafood.api.model.restaurante.RestauranteResumoModel;
 import com.algaworks.algafood.api.model.endereco.EnderecoModel;
+import com.algaworks.algafood.api.model.restaurante.formas_pagamento.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.usuario.UsuarioModel;
+import com.algaworks.algafood.api.openapi.model.RestauranteApenasNomeModel;
 import com.algaworks.algafood.domain.enums.StatusPedido;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -47,9 +47,11 @@ public class PedidoModel extends RepresentationModel<PedidoModel> {
     @ApiModelProperty(example = "2019-12-01T20:55:30Z")
     private OffsetDateTime dataEntrega;
 
-    private RestauranteResumoModel restaurante;
+    //private RestauranteResumoModel restaurante;
     private UsuarioModel cliente;
     private FormaPagamentoModel formaPagamento;
     private EnderecoModel enderecoEntrega;
     private List<ItemPedidoModel> itens;
+
+    private RestauranteApenasNomeModel restaurante;
 }

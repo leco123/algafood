@@ -1,20 +1,18 @@
 package com.algaworks.algafood.api.openapi.model;
 
 import com.algaworks.algafood.api.model.cozinha.CozinhaModel;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import java.math.BigDecimal;
 
-/**
- *  Classe apenas para fins de documentação Swagger
- */
-@ApiModel("RestauranteBasicoModel")
-@Getter
+@Relation(collectionRelation = "restaurantes")
 @Setter
-public class RestauranteBasicoModelOpenApi {
+@Getter
+public class RestauranteBasicoModel extends RepresentationModel<RestauranteBasicoModel> {
 
     @ApiModelProperty(example = "1")
     private Long id;

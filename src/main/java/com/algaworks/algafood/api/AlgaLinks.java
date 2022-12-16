@@ -7,6 +7,7 @@ import com.algaworks.algafood.api.controller.endereco.EstadoController;
 import com.algaworks.algafood.api.controller.pedido.FluxoPedidoController;
 import com.algaworks.algafood.api.controller.pedido.PedidoController;
 import com.algaworks.algafood.api.controller.restaurante.RestauranteController;
+import com.algaworks.algafood.api.controller.restaurante.RestauranteFormaPagamentoController;
 import com.algaworks.algafood.api.controller.restaurante.RestauranteProdutoController;
 import com.algaworks.algafood.api.controller.usuario.RestauranteUsuarioResponsavelController;
 import com.algaworks.algafood.api.controller.usuario.UsuarioController;
@@ -162,5 +163,32 @@ public class AlgaLinks {
     public Link LinkToCancelamentoPedido(String codigoPedido, String rel) {
         return WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(FluxoPedidoController.class)
                 .cancelar(codigoPedido)).withRel(rel);
+    }
+
+    public Link linkToRestaurantes(String rel) {
+        return WebMvcLinkBuilder.linkTo(RestauranteController.class).withRel(rel);
+    }
+
+    public Link linkToRestaurantes() {
+        return linkToRestaurantes(IanaLinkRelations.SELF.value());
+    }
+
+    public Link linkToRestauranteFormasPagamento(Long restauranteId, String rel) {
+        return WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RestauranteFormaPagamentoController.class)
+                .listar(restauranteId)).withRel(rel);
+    }
+
+    public Link linkToRestauranteResponsaveis(Long restauranteId, String rel) {
+        return WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RestauranteFormaPagamentoController.class)
+                .listar(restauranteId)).withRel(rel);
+    }
+
+    public Link linkToCozinha(Long cozinhaId, String rel) {
+        return WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CozinhaController.class)
+                .buscar(cozinhaId)).withRel(rel);
+    }
+
+    public Link linkToCozinha(Long cozinhaId) {
+        return linkToCozinha(cozinhaId, IanaLinkRelations.SELF.value());
     }
 }

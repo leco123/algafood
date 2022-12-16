@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,6 +39,6 @@ public class UsuarioModelAssembler
     @Override
     public CollectionModel<UsuarioModel> toCollectionModel(Iterable<? extends Usuario> entities) {
         return super.toCollectionModel(entities)
-                .add(WebMvcLinkBuilder.linkTo(UsuarioController.class).withSelfRel());
+                .add(algaLinks.linkToUsuarios());
     }
 }
