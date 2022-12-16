@@ -3,10 +3,13 @@ package com.algaworks.algafood.api.model.usuario.permissao;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
-@Getter
+@Relation(collectionRelation = "permissoes")
 @Setter
-public class PermissaoModel {
+@Getter
+public class PermissaoModel extends RepresentationModel<PermissaoModel> {
 
     @ApiModelProperty(example = "1")
     private Long id;
