@@ -19,7 +19,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AlgaLinks {
 
-//  Variáveis de páginas
+    public static final TemplateVariables PROJECAO_VARIABLES = new TemplateVariables(
+            new TemplateVariable("projecao", TemplateVariable.VariableType.REQUEST_PARAM));
+
+    //  Variáveis de páginas
     private static final TemplateVariables PAGINACAO_VARIABLES = new TemplateVariables(
                 new TemplateVariable("page", TemplateVariable.VariableType.REQUEST_PARAM),
                 new TemplateVariable("size", TemplateVariable.VariableType.REQUEST_PARAM),
@@ -27,7 +30,7 @@ public class AlgaLinks {
         );
 
 //  Variáveis de filtros
-    public Link linkToPedidos() {
+    public Link linkToPedidos(String rel) {
 
         TemplateVariables filtroVariables = new TemplateVariables(
                 new TemplateVariable("clienteId", TemplateVariable.VariableType.REQUEST_PARAM),
@@ -35,14 +38,14 @@ public class AlgaLinks {
                 new TemplateVariable("dataCriacaoInicio", TemplateVariable.VariableType.REQUEST_PARAM),
                 new TemplateVariable("dataCriacaoFim", TemplateVariable.VariableType.REQUEST_PARAM));
 
-        String pedidoUrl = WebMvcLinkBuilder.linkTo(PedidoController.class).toUri().toString();
+        String pedidosUrl = WebMvcLinkBuilder.linkTo(PedidoController.class).toUri().toString();
 
 //        pedidoModel.add(WebMvcLinkBuilder.linkTo(PedidoController.class).withRel("pedidos"));
 //       UriTemplate, recebe 2(dois) parâmetros
 //       1º urlString exemplo "http://localhost:8080/pedidos"
 //       2º TemplateVariables variaveis da página ex: {"page","sort","size"... outros}
 
-        return new Link(UriTemplate.of(pedidoUrl, PAGINACAO_VARIABLES.concat(filtroVariables)), "pedidos");
+        return new Link(UriTemplate.of(pedidosUrl, PAGINACAO_VARIABLES.concat(filtroVariables)), rel);
     }
 
     public Link linkToRestaurante(Long restauranteId, String rel) {
@@ -166,7 +169,9 @@ public class AlgaLinks {
     }
 
     public Link linkToRestaurantes(String rel) {
-        return WebMvcLinkBuilder.linkTo(RestauranteController.class).withRel(rel);
+        String restaurantesUrl = WebMvcLinkBuilder.linkTo(RestauranteController.class).toUri().toString();
+
+        return new Link(UriTemplate.of(restaurantesUrl, PROJECAO_VARIABLES), rel);
     }
 
     public Link linkToRestaurantes() {
