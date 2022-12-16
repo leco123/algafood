@@ -29,9 +29,18 @@ public class PedidoModelAssembler
         modelMapper.map(pedido, pedidoModel);
 
         pedidoModel.add(algaLinks.linkToPedidos());
-        pedidoModel.add(algaLinks.LinkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
-        pedidoModel.add(algaLinks.LinkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));
-        pedidoModel.add(algaLinks.LinkToEntregaPedido(pedido.getCodigo(), "entregar"));
+
+        if (pedido.podeSerConfirmado()) {
+            pedidoModel.add(algaLinks.LinkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
+        }
+
+        if (pedido.podeSerCancelado()) {
+            pedidoModel.add(algaLinks.LinkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));
+        }
+
+        if (pedido.podeSerEntregue()) {
+            pedidoModel.add(algaLinks.LinkToEntregaPedido(pedido.getCodigo(), "entregar"));
+        }
 
         pedidoModel.getRestaurante().add(
                 algaLinks.linkToRestaurante(pedido.getRestaurante().getId()));
@@ -52,4 +61,5 @@ public class PedidoModelAssembler
 
         return pedidoModel;
     }
+    
 }
