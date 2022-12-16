@@ -2,13 +2,14 @@ package com.algaworks.algafood.api.controller.grupo;
 
 import com.algaworks.algafood.api.assembler.usuario.grupo.GrupoInputDisassembler;
 import com.algaworks.algafood.api.assembler.usuario.grupo.GrupoModelAssembler;
-import com.algaworks.algafood.api.openapi.controller.GrupoControllerOpenApi;
-import com.algaworks.algafood.api.model.usuario.grupo.GrupoModel;
 import com.algaworks.algafood.api.model.input.usuario.grupo.GrupoInput;
+import com.algaworks.algafood.api.model.usuario.grupo.GrupoModel;
+import com.algaworks.algafood.api.openapi.controller.GrupoControllerOpenApi;
 import com.algaworks.algafood.domain.model.Grupo;
 import com.algaworks.algafood.domain.repository.GrupoRepository;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +33,11 @@ public class GrupoController implements GrupoControllerOpenApi {
     @Autowired
     private GrupoInputDisassembler grupoInputDisassembler;
 
+    @Override
     @GetMapping
-    public List<GrupoModel> listar() {
+    public CollectionModel<GrupoModel> listar() {
         List<Grupo> todosGrupos = grupoRepository.findAll();
+
         return grupoModelAssembler.toCollectionModel(todosGrupos);
     }
 
