@@ -1,11 +1,13 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.api.AlgaLinks;
 import com.algaworks.algafood.api.openapi.controller.EstatisticasControllerOpenApi;
 import com.algaworks.algafood.domain.filter.VendaDiariaFilter;
 import com.algaworks.algafood.domain.model.dtos.VendaDiaria;
 import com.algaworks.algafood.domain.service.VendaQueryService;
 import com.algaworks.algafood.domain.service.VendaReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,21 +28,34 @@ public class EstatisticasController implements EstatisticasControllerOpenApi {
     @Autowired
     private VendaReportService vendaReportService;
 
-    @GetMapping(path = "/vendas-diarias", produces= MediaType.APPLICATION_JSON_VALUE)
+    @Autowired
+    private AlgaLinks algaLinks;
+
+    @Override
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public EstatisticasModel estatisticas() {
+        var estatisticasModel = new EstatisticasModel();
+
+        estatisticasModel.add(algaLinks.linkToEstatisticasVendasDiarias("vendas-diarias"));
+
+        return estatisticasModel;
+    }
+
+    @Override
+    @GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro,
-               @RequestParam(required = false, defaultValue = "+00:00") String timeOffset) {
+                                                    @RequestParam(required = false, defaultValue = "+00:00") String timeOffset) {
         return vendaQueryService.consultarVendasDiarias(filtro, timeOffset);
     }
 
-    @GetMapping(path = "/vendas-diarias", produces= MediaType.APPLICATION_PDF_VALUE)
+    @Override
+    @GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<byte[]> consultarVendasDiariasPdf(VendaDiariaFilter filtro,
-              @RequestParam(required = false, defaultValue = "+00:00") String timeOffset) {
+                                                            @RequestParam(required = false, defaultValue = "+00:00") String timeOffset) {
 
         byte[] bytesPdf = vendaReportService.emitirVendasDiarias(filtro, timeOffset);
 
         var headers = new HttpHeaders();
-        // "attachment": siginifica que é para baixar o documento
-        // "filename=": especifica qual o nome do arquivo sugerido
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=vendas-diarias.pdf");
 
         return ResponseEntity.ok()
@@ -48,4 +63,8 @@ public class EstatisticasController implements EstatisticasControllerOpenApi {
                 .headers(headers)
                 .body(bytesPdf);
     }
+
+    public static class EstatisticasModel extends RepresentationModel<EstatisticasModel> {
+    }
+
 }

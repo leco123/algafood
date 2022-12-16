@@ -1,7 +1,9 @@
 package com.algaworks.algafood.api;
 
 import com.algaworks.algafood.api.controller.CozinhaController;
+import com.algaworks.algafood.api.controller.EstatisticasController;
 import com.algaworks.algafood.api.controller.FormaPagamentoController;
+import com.algaworks.algafood.api.controller.PermissaoController;
 import com.algaworks.algafood.api.controller.endereco.CidadeController;
 import com.algaworks.algafood.api.controller.endereco.EstadoController;
 import com.algaworks.algafood.api.controller.grupo.GrupoController;
@@ -294,7 +296,7 @@ public class AlgaLinks {
     }
 
     public Link linkToPermissoes(String rel) {
-        return WebMvcLinkBuilder.linkTo(GrupoPermissaoController.class).withRel(rel);
+        return WebMvcLinkBuilder.linkTo(PermissaoController.class).withRel(rel);
     }
 
     public Link linkToPermissoes() {
@@ -324,4 +326,21 @@ public class AlgaLinks {
         return WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsuarioGrupoController.class)
                 .desassociar(usuarioId, grupoId)).withRel(rel);
     }
+    public Link linkToEstatisticas(String rel) {
+        return WebMvcLinkBuilder.linkTo(EstatisticasController.class).withRel(rel);
+    }
+
+    public Link linkToEstatisticasVendasDiarias(String rel) {
+        TemplateVariables filtroVariables = new TemplateVariables(
+                new TemplateVariable("restauranteId", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("dataCriacaoInicio", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("dataCriacaoFim", TemplateVariable.VariableType.REQUEST_PARAM),
+                new TemplateVariable("timeOffset", TemplateVariable.VariableType.REQUEST_PARAM));
+
+        String pedidosUrl = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(EstatisticasController.class)
+                .consultarVendasDiarias(null, null)).toUri().toString();
+
+        return new Link(UriTemplate.of(pedidosUrl, filtroVariables), rel);
+    }
+
 }

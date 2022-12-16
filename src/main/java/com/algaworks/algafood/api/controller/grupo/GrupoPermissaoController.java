@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/grupos/{grupoId}/permissoes",
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class GrupoPermissaoController implements GrupoPermissaoControllerOpenApi {
+
     @Autowired
     private CadastroGrupoService cadastroGrupo;
 
