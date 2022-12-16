@@ -30,6 +30,10 @@ public class PedidoModelAssembler
 
         pedidoModel.add(algaLinks.linkToPedidos());
 
+        pedidoModel.add(algaLinks.LinkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
+        pedidoModel.add(algaLinks.LinkToConfirmacaoPedido(pedido.getCodigo(), "cancelar"));
+        pedidoModel.add(algaLinks.LinkToEntregaPedido(pedido.getCodigo(), "entregar"));
+
         pedidoModel.getRestaurante().add(
                 algaLinks.linkToRestaurante(pedido.getRestaurante().getId()));
 

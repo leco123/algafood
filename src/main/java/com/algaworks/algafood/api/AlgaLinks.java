@@ -4,6 +4,7 @@ import com.algaworks.algafood.api.controller.CozinhaController;
 import com.algaworks.algafood.api.controller.FormaPagamentoController;
 import com.algaworks.algafood.api.controller.endereco.CidadeController;
 import com.algaworks.algafood.api.controller.endereco.EstadoController;
+import com.algaworks.algafood.api.controller.pedido.FluxoPedidoController;
 import com.algaworks.algafood.api.controller.pedido.PedidoController;
 import com.algaworks.algafood.api.controller.restaurante.RestauranteController;
 import com.algaworks.algafood.api.controller.restaurante.RestauranteProdutoController;
@@ -146,5 +147,20 @@ public class AlgaLinks {
 
     public Link linkToCozinhas() {
         return linkToCozinhas(IanaLinkRelations.SELF.value());
+    }
+
+    public Link LinkToConfirmacaoPedido(String codigoPedido, String rel) {
+        return WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(FluxoPedidoController.class)
+                .confirmar(codigoPedido)).withRel(rel);
+    }
+
+    public Link LinkToEntregaPedido(String codigoPedido, String rel) {
+        return WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(FluxoPedidoController.class)
+                .entregar(codigoPedido)).withRel(rel);
+    }
+
+    public Link LinkToCancelamentoPedido(String codigoPedido, String rel) {
+        return WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(FluxoPedidoController.class)
+                .cancelar(codigoPedido)).withRel(rel);
     }
 }
