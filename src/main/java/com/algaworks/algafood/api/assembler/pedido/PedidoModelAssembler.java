@@ -28,7 +28,7 @@ public class PedidoModelAssembler
         PedidoModel pedidoModel = createModelWithId(pedido.getCodigo(), pedido);
         modelMapper.map(pedido, pedidoModel);
 
-        pedidoModel.add(algaLinks.linkToPedidos());
+        pedidoModel.add(algaLinks.linkToPedidos("pedidos"));
 
         if (pedido.podeSerConfirmado()) {
             pedidoModel.add(algaLinks.LinkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));

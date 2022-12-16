@@ -4,6 +4,7 @@ import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.restaurante.formas_pagamento.FormaPagamentoModel;
 import io.swagger.annotations.*;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.ResponseEntity;
 
 @Api(tags = "Restaurantes")
 public interface RestauranteFormaPagamentoControllerOpenApi {
@@ -22,7 +23,7 @@ public interface RestauranteFormaPagamentoControllerOpenApi {
             @ApiResponse(code = 404, message = "Restaurante ou forma de pagamento não encontrado",
                     response = Problem.class)
     })
-    void desassociar(
+    ResponseEntity<Void> desassociar(
             @ApiParam(value = "ID do restaurante", example = "1", required = true)
             Long restauranteId,
 
@@ -35,7 +36,7 @@ public interface RestauranteFormaPagamentoControllerOpenApi {
             @ApiResponse(code = 404, message = "Restaurante ou forma de pagamento não encontrado",
                     response = Problem.class)
     })
-    void associar(
+    ResponseEntity<Void> associar(
             @ApiParam(value = "ID do restaurante", example = "1", required = true)
             Long restauranteId,
 
