@@ -15,15 +15,8 @@ public class CozinhaModelAssembler extends RepresentationModelAssemblerSupport<C
     @Autowired
     private ModelMapper modelMapper;
 
-    /**
-     * Creates a new {@link RepresentationModelAssemblerSupport} using the given controller class and resource type.
-     *
-     * @param controllerClass must not be {@literal null}.
-     * @param resourceType    must not be {@literal null}.
-     */
-    public CozinhaModelAssembler(Class<?> controllerClass,
-                                 Class<CozinhaModel> resourceType) {
-        super(controllerClass, resourceType);
+    public CozinhaModelAssembler() {
+        super(CozinhaController.class, CozinhaModel.class);
     }
 
     public CozinhaModel toModel(Cozinha cozinha) {

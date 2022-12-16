@@ -19,31 +19,10 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
     @Autowired
     private ModelMapper modelMapper;
 
-    /**
-     * Cria um novo {@link RepresentationModelAssemblerSupport} usando a classe de controlador
-     * e o tipo de recurso fornecidos.
-     *
-     * @param controllerClass não deve ser {@literal null}.
-     * @param resourceType não deve ser {@literal null}.
-     */
-    public CidadeModelAssembler(Class<?> controllerClass, Class<CidadeModel> resourceType) {
-        super(controllerClass, resourceType);
+    public CidadeModelAssembler() {
+        super(CidadeController.class, CidadeModel.class);
     }
 
-    /**
-     * methodOn, tem a finalidade de criar um proxy que intercepta as chamadas, entenda como:
-     *
-     * Quando é feito a chamada ao método buscar esta sendo chamado o buscar do proxy e não do CidadeController real.
-     * o proxy é como se fosse um clone da classe que estamos usando CidadeController.class, porém usado apenas
-     * para pegar os metadados vamos dizer assim.
-     *
-     * isso evita que faça/execute chamadas desnecessárias como em nosso caso precisamos apenas pegar a url isso ajuda
-     * o sistema não ficar usando ou executando recursos desnecessários, de forma resumida o proxy vai
-     * a chamada e não vai passar para a frente para CidadeController, mas vai registra um histórico... sendo assim
-     * o proxy está apenas registrando a chamada em um histórico para registra o link
-     *
-     * Veja explicação aqui: 19.9. Construindo links que apontam para métodos
-     */
     @Override
     public CidadeModel toModel(Cidade cidade) {
 

@@ -8,6 +8,7 @@ import com.algaworks.algafood.api.model.pedido.PedidoModel;
 import com.algaworks.algafood.api.model.pedido.PedidoResumoModel;
 import com.algaworks.algafood.api.openapi.controller.PedidoControllerOpenApi;
 import com.algaworks.algafood.core.PageableTranslator;
+import com.algaworks.algafood.core.data.PageWrapper;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.filter.PedidoFilter;
@@ -16,7 +17,6 @@ import com.algaworks.algafood.domain.model.Usuario;
 import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.repository.espc.PedidoSpecs;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
-import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +28,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
+
 @RestController
 @RequestMapping(path = "/pedidos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PedidoController implements PedidoControllerOpenApi {
@@ -54,10 +56,12 @@ public class PedidoController implements PedidoControllerOpenApi {
     @GetMapping
     public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro,
                                                    @PageableDefault(size = 10) Pageable pageable) {
-        pageable = traduzirPageable(pageable);
+       Pageable pageableTraduzidoParaModeloDeDominio = traduzirPageable(pageable);
 
         Page<Pedido> pedidosPage = pedidoRepository.findAll(
-                PedidoSpecs.usandoFiltro(filtro), pageable);
+                PedidoSpecs.usandoFiltro(filtro), pageableTraduzidoParaModeloDeDominio);
+
+        pedidosPage = new PageWrapper<>(pedidosPage,pageable);
 
         return pagedResourcesAssembler.toModel(pedidosPage, pedidoResumoModelAssembler);
     }
@@ -87,11 +91,16 @@ public class PedidoController implements PedidoControllerOpenApi {
     }
 
     private Pageable traduzirPageable(Pageable apiPageable) {
-        var mapeamento = ImmutableMap.of(
+        var mapeamento = Map.of(
                 "codigo", "codigo",
-                "restaurante.nome", "restaurante.nome",
-                "nomeCliente", "cliente.nome",
-                "valorTotal", "valorTotal"
+                "subtotal","subtotal",
+                "taxaFrete","taxaFrete",
+                "valorTotal", "valorTotal",
+                "dataCriacao","dataCriacao",
+                "nomerestaurante","restaurante.nome",
+                "restaurante.id","restaurante.id",
+                "cliente.id","cliente.id",
+                "cliente.nome","cliente.nome"
         );
 
         return PageableTranslator.translate(apiPageable, mapeamento);
