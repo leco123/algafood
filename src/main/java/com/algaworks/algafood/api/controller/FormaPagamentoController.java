@@ -2,13 +2,14 @@ package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.assembler.restaurante.formas_pagamento.FormaPagamentoInputDisassembler;
 import com.algaworks.algafood.api.assembler.restaurante.formas_pagamento.FormaPagamentoModelAssembler;
-import com.algaworks.algafood.api.model.restaurante.formas_pagamento.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.restaurante.formas_pagamento.FormaPagamentoInput;
+import com.algaworks.algafood.api.model.restaurante.formas_pagamento.FormaPagamentoModel;
 import com.algaworks.algafood.api.openapi.controller.FormaPagamentoControllerOpenApi;
 import com.algaworks.algafood.domain.model.FormaPagamento;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.service.CadastroFormaPagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,7 +40,7 @@ public class FormaPagamentoController  implements FormaPagamentoControllerOpenAp
 	private FormaPagamentoInputDisassembler formaPagamentoInputDisassembler;
 
 	@GetMapping
-	public ResponseEntity<List<FormaPagamentoModel>> listar(ServletWebRequest request) {
+	public ResponseEntity<CollectionModel<FormaPagamentoModel>> listar(ServletWebRequest request) {
 	//public ResponseEntity<List<FormaPagamentoModel>> listar(ServletWebRequest request) {
 		/*
 		 * Exemplo de uso de Otimização de DeepETag
@@ -68,12 +69,13 @@ public class FormaPagamentoController  implements FormaPagamentoControllerOpenAp
 
 		List<FormaPagamento> todasFormasPagamentos = formaPagamentoRepository.findAll();
 
-		List<FormaPagamentoModel> formaPagamentoModel =  formaPagamentoModelAssembler.toCollectionModel(todasFormasPagamentos);
+		CollectionModel<FormaPagamentoModel> formasPagamentosModel =
+				formaPagamentoModelAssembler.toCollectionModel(todasFormasPagamentos);
 
 		return ResponseEntity.ok()
 				.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePublic())
 				//.eTag(eTag)
-				.body(formaPagamentoModel);
+				.body(formasPagamentosModel);
 	}
 
 	// Com implementação de otimização do DeepETag, forma explícita
