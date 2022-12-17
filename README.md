@@ -1931,6 +1931,10 @@ Exemplo de Hateoas
 ## Paginação com Spring HATEOAS
 ![Paginação com Spring HATEOAS](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\diagrama-hypermedia-em-recurso-com-paginacao.drawio.png)
 
+# Retrocompatibilidade vs Quebra de compatibilidade
+* **Retrocompatibilidade**: Manter compatibilidade para versões antigas
+* **Quebra de compatibilidade**: Quebrar compatibilidade para versões antigas
+
 # Conhecimentos Diversos
 
 ## PROXY
