@@ -61,9 +61,8 @@ public class SpringFoxConfig implements WebMvcConfigurer {
     public Docket apiDocket() {
 
         var typeResolver = new TypeResolver();
-
+        // CONFIGURANDO
         return new Docket(DocumentationType.SWAGGER_2)
-                // CONFIGURANDO
                 // quais endicadores que deseja especificar para criar o json
                 .select()
                     // Selecionar os andPoint que encontrar pode selecionar
@@ -132,10 +131,10 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .alternateTypeRules(AlternateTypeRules.newRule(
                         typeResolver.resolve(CollectionModel.class, RestauranteBasicoModel.class),
                         RestaurantesBasicoModelOpenApi.class))
-
                 .alternateTypeRules(AlternateTypeRules.newRule(
                         typeResolver.resolve(CollectionModel.class, UsuarioModel.class),
                         UsuariosModelOpenApi.class))
+
                 .apiInfo(apiInfo())
                 .tags(new Tag("Cidades", "Gerencia as cidades"),
                         new Tag("Grupos","Gerencia os grupos de usuários"),

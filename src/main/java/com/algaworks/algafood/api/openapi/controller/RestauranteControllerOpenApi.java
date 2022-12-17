@@ -8,12 +8,14 @@ import com.algaworks.algafood.api.openapi.model.RestauranteBasicoModel;
 import io.swagger.annotations.*;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
 @Api(tags = "Restaurantes")
 public interface RestauranteControllerOpenApi {
 
+    @ApiIgnore
     @ApiOperation(value = "Lista restaurantes")
     @ApiImplicitParams({
             @ApiImplicitParam(value = "Nome da projeção de pedidos", allowableValues = "apenas-nome",
