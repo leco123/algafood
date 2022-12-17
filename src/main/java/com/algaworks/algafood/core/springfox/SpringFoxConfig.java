@@ -5,6 +5,7 @@ import com.algaworks.algafood.api.model.cozinha.CozinhaModel;
 import com.algaworks.algafood.api.model.endereco.cidade.CidadeModel;
 import com.algaworks.algafood.api.model.endereco.estado.EstadoModel;
 import com.algaworks.algafood.api.model.pedido.PedidoResumoModel;
+import com.algaworks.algafood.api.model.restaurante.formas_pagamento.FormaPagamentoModel;
 import com.algaworks.algafood.api.openapi.model.*;
 import com.fasterxml.classmate.TypeResolver;
 import org.springframework.context.annotation.Bean;
@@ -113,6 +114,9 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                 .alternateTypeRules(AlternateTypeRules.newRule(
                         typeResolver.resolve(CollectionModel.class, EstadoModel.class),
                         EstadosModelOpenApi.class))
+                .alternateTypeRules(AlternateTypeRules.newRule(
+                        typeResolver.resolve(CollectionModel.class, FormaPagamentoModel.class),
+                        FormasPagamentoModelOpenApi.class))
                 .apiInfo(apiInfo())
                 .tags(new Tag("Cidades", "Gerencia as cidades"),
                         new Tag("Grupos","Gerencia os grupos de usuários"),
