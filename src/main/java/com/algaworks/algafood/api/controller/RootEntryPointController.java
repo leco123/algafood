@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import com.algaworks.algafood.api.AlgaLinks;
+import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.MediaType;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@ApiModel("Principais Links")
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class RootEntryPointController {
@@ -20,6 +22,9 @@ public class RootEntryPointController {
       var rootEntryPointModel = new RootEntryPointModel();
 
       rootEntryPointModel.add(algaLinks.linkToCozinhas("cozinhas"));
+//      Evitando quebrar os clientes : alteração de URL de
+//      recurso gastronomia é o mesmo link de cozinha
+      rootEntryPointModel.add(algaLinks.linkToCozinhas("gastronomias"));
       rootEntryPointModel.add(algaLinks.linkToPedidos("pedidos"));
       rootEntryPointModel.add(algaLinks.linkToRestaurantes("restaurantes"));
       rootEntryPointModel.add(algaLinks.linkToGrupos("grupos"));
