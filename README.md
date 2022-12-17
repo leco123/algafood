@@ -1614,7 +1614,14 @@ própria empresa, então é uma API fechada.
 - **Swagger UI**: Renderizar documentação em html, usando Json com especificação OpenApi.
 - **Swagger Codegen**:
 
-
+## Como Ativar a compresão de resposta http para diminuir os bytes e deixando mais rápida a requisição
+no application.properties adicionar propriedade 
+````properties
+# ativar compressão de payload
+server.compression.enabled=true
+# 2KB é o padrão
+#server.compression.min-response-size=2KB
+````
 
 # ATUALIZAÇÕES
 
