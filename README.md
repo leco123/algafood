@@ -168,7 +168,7 @@ Pode ser pensado como um operador ou função que retorna um valor que é true o
 Quando usar pesquisa por data e hora de passar a annotation `@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)`
 para evitar erro de formatação de data e hora o spring não consegue reconhecer o formato string
 ````shell
-ERRO: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'pedidoController': Lookup method resolution failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.algaworks.algafood.api.controller.pedido.PedidoController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@2643d422]
+ERRO: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'pedidoController': Lookup method resolution failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [pedido.com.algaworks.algafood.api.v1.controller.PedidoController] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@2643d422]
 ````
 
 ````java
@@ -599,7 +599,7 @@ As classe que instância essas blibliotecas e framework devem ser anotadas com `
 ````java
 package com.algaworks.algafood.core.modelmapper;
 
-import com.algaworks.algafood.api.model.endereco.EnderecoModel;
+import endereco.com.algaworks.algafood.api.v1.model.EnderecoModel;
 import com.algaworks.algafood.domain.model.Endereco;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -609,7 +609,7 @@ import org.springframework.context.annotation.Configuration;
 public class ModelMapperConfig {
 
     @Bean
-    public ModelMapper modelMapper() {
+    public ModelMapper modelMapper () {
         var modelMapper = new ModelMapper();
 
         var enderecoToEnderecoModelTypeMap = modelMapper.createTypeMap(
@@ -1908,7 +1908,7 @@ Na classe SpringFoxConfig deixe a implementação da seguinte forma:
 ````
 
 
-# Srping Hateoas
+# SPRING HATEOAS
 
 ## O que é Spring HATEOAS?
 
@@ -1931,11 +1931,15 @@ Exemplo de Hateoas
 ## Paginação com Spring HATEOAS
 ![Paginação com Spring HATEOAS](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\diagrama-hypermedia-em-recurso-com-paginacao.drawio.png)
 
-# Retrocompatibilidade vs Quebra de compatibilidade
+# RETROCOMPATIBILIDADE VS QUEBRA DE COMPATIBILIDADE
 * **Retrocompatibilidade**: Manter compatibilidade para versões antigas
 * **Quebra de compatibilidade**: Quebrar compatibilidade para versões antigas
 
-# Conhecimentos Diversos
+# VERSIONAMENTO DE API's 
+## versionamento da API por Media Type
+## versionamento da API por URI
+
+# CONHECIMENTOS DIVERSOS
 
 ## PROXY
 
@@ -1987,7 +1991,7 @@ o https://free-proxy-list.net/ , que fornecem endereços de servidores proxy ao 
 Qualquer pessoa na Internet pode fazer as devidas configurações em seu navegador e usar o servidor oferecido 
 para navegar na web.
 
-# Links de documentações
+# LINKS DE DOCUMENTAÇÕES
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco
 - [Mais informações sobre a váriavel `serialVersionUID`](https://blog.algaworks.com/serialversionuid/)  Veja o artigo completo da **AlgaWorks** sobre a váriavel `serialVersionUID` descrito por **Alexandre Afonso**

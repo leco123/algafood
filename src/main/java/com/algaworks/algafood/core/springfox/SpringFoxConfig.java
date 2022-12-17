@@ -1,16 +1,16 @@
 package com.algaworks.algafood.core.springfox;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.cozinha.CozinhaModel;
-import com.algaworks.algafood.api.model.endereco.cidade.CidadeModel;
-import com.algaworks.algafood.api.model.endereco.estado.EstadoModel;
-import com.algaworks.algafood.api.model.pedido.PedidoResumoModel;
-import com.algaworks.algafood.api.model.restaurante.formas_pagamento.FormaPagamentoModel;
-import com.algaworks.algafood.api.model.restaurante.produto.ProdutoModel;
-import com.algaworks.algafood.api.model.usuario.UsuarioModel;
-import com.algaworks.algafood.api.model.usuario.grupo.GrupoModel;
-import com.algaworks.algafood.api.model.usuario.permissao.PermissaoModel;
-import com.algaworks.algafood.api.openapi.model.*;
+import com.algaworks.algafood.api.v1.model.cozinha.CozinhaModel;
+import com.algaworks.algafood.api.v1.model.endereco.cidade.CidadeModel;
+import com.algaworks.algafood.api.v1.model.endereco.estado.EstadoModel;
+import com.algaworks.algafood.api.v1.model.pedido.PedidoResumoModel;
+import com.algaworks.algafood.api.v1.model.restaurante.formas_pagamento.FormaPagamentoModel;
+import com.algaworks.algafood.api.v1.model.restaurante.produto.ProdutoModel;
+import com.algaworks.algafood.api.v1.model.usuario.UsuarioModel;
+import com.algaworks.algafood.api.v1.model.usuario.grupo.GrupoModel;
+import com.algaworks.algafood.api.v1.model.usuario.permissao.PermissaoModel;
+import com.algaworks.algafood.api.v1.openapi.model.*;
 import com.fasterxml.classmate.TypeResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
