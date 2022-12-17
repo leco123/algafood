@@ -1937,6 +1937,14 @@ Exemplo de Hateoas
 
 # VERSIONAMENTO DE API's 
 ## versionamento da API por Media Type
+// versão 1
+````text
+Accept:application/vnd.localhost.v2+json
+````
+// versão 2
+````text
+Accept:application/vnd.localhost.v2+json
+````
 ## versionamento da API por URI
 
 # CONHECIMENTOS DIVERSOS
