@@ -52,7 +52,7 @@ public class WebConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(apiDeprecationHandler);
 
         // API desligada retorna http status 410
-        registry.addInterceptor(apiRetirementHandler);
+        //registry.addInterceptor(apiRetirementHandler);
     }
 
     /**

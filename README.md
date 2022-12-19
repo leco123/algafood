@@ -1957,6 +1957,11 @@ Classe `WebConfig` adicionar método `configureContentNegotiation`
 ````
 ## versionamento da API por URI
 
+
+# LOGBACK e SLF4J
+
+## 
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
@@ -2036,3 +2041,6 @@ para navegar na web.
   - [HyperMídias -> Siren](https://github.com/kevinswiber/siren)
 - **CONHECIMENTOS DIVERSOS**
 - [Proxy](https://www.welivesecurity.com/br/2019/12/20/o-que-e-um-proxy-e-para-que-serve/)
+- LOG´s
+  - Atual - [Logback-Framework de log para aplicações javas](https://logback.qos.ch/)
+  - Antigo - [SLF4j-Framework de log para aplicações javas](https://www.slf4j.org/)
