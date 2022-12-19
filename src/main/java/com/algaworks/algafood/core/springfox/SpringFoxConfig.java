@@ -68,6 +68,7 @@ public class SpringFoxConfig implements WebMvcConfigurer {
         var typeResolver = new TypeResolver();
         // CONFIGURANDO
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(false)
                 .groupName("V1")
                 // quais endicadores que deseja especificar para criar o json
                 .select()

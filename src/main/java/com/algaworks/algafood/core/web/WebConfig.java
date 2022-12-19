@@ -16,8 +16,11 @@ import javax.servlet.Filter;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+//    @Autowired
+//    private __ApiDeprecationHandler apiDeprecationHandler;
+
     @Autowired
-    private ApiDeprecationHandler apiDeprecationHandler;
+    private ApiRetirementHandler apiRetirementHandler;
 
     /**
      * Método usado para habilitar o CORS globalmente
@@ -45,7 +48,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors (InterceptorRegistry registry) {
-        registry.addInterceptor(apiDeprecationHandler);
+          // aviso que api está depreciada
+//        registry.addInterceptor(apiDeprecationHandler);
+
+        // API desligada retorna http status 410
+        registry.addInterceptor(apiRetirementHandler);
     }
 
     /**
