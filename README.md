@@ -2051,6 +2051,20 @@ spring.security.user.password=123456
 Implementar segurança usando OAuth2
 ![seguranca-oauth2](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-oauth2.png)
 
+
+### Definiçõe de papéis "Roles" OAuth2
+![roles](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\roles-papeis.png)
+
+* Resource serve: REST API
+* Resource Owner: Representa o usuário Final, o dono dos recursos, ex: O João tem um restaurante e faz a manipulação dos
+registros como cadastra pratos, promoções, ingredientes... 
+  * Pode Autorizar outras entidades a acessarem seus recursos em seu nome
+* Client: Pode ser uma aplicação Web, Mobile, etc, o interesse é acessar os recursos protegidos do `Resource Server`
+* Authorization Server: Servidor que autentica o `Resource Owner` e garante o acesso para o `client` 
+acessar o `Resource Server` em nome do Resource Owner.
+
+![seguranca-oauth2-1](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-oauth2_1.png)
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
@@ -2134,3 +2148,5 @@ para navegar na web.
   - Atual - [Logback-Framework de log para aplicações javas](https://logback.qos.ch/)
   - Antigo - [SLF4j-Framework de log para aplicações javas](https://www.slf4j.org/)
   - [Loggly: solução de gerenciamento de logs na nuvem](https://www.loggly.com/)
+- Autenticação
+  - [Especificação do OAuth 2.0](https://tools.ietf.org/html/rfc6749)
