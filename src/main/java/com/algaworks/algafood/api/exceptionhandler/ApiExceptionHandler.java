@@ -7,6 +7,7 @@ import com.algaworks.algafood.domain.exception.NegocioException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
+import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.internal.util.ExceptionUtils;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @ControllerAdvice //Define que todas as exception do projeto serão tratadas por aqui
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -288,7 +290,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         // fazendo logging) para mostrar a stacktrace no console
         // Se não fizer isso, você não vai ver a stacktrace de exceptions que seriam importantes
         // para você durante, especialmente na fase de desenvolvimento
-        ex.printStackTrace();
+        log.error(ex.getMessage(), ex);
 
         Problem problem = createProblemBuilder(status, problemType, detail).build();
 
