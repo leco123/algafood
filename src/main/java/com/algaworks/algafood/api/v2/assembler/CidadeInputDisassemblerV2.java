@@ -1,6 +1,6 @@
-package com.algaworks.algafood.api.v2.assembler.endereco;
+package com.algaworks.algafood.api.v2.assembler;
 
-import com.algaworks.algafood.api.v2.model.input.endereco.cidade.CidadeInputV2;
+import com.algaworks.algafood.api.v2.model.input.CidadeInputV2;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Estado;
 import org.modelmapper.ModelMapper;

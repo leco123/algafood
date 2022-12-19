@@ -21,7 +21,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/restaurantes/{restauranteId}/produtos",
+@RequestMapping(path = "/v1/restaurantes/{restauranteId}/produtos",
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestauranteProdutoController implements RestauranteProdutoControllerOpenApi {
 

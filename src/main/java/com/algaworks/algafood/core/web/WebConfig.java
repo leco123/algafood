@@ -3,7 +3,6 @@ package com.algaworks.algafood.core.web;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
-import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -32,11 +31,11 @@ public class WebConfig implements WebMvcConfigurer {
                 // .maxAge(30); // 30 PADRÃO
     }
 
-    @Override
-    public void configureContentNegotiation (ContentNegotiationConfigurer configurer) {
-        /** Definindo qual MediaType padrão **/
-        configurer.defaultContentType(AlgaMediaTypes.V2_APPLICATION_JSON);
-    }
+//    @Override
+//    public void configureContentNegotiation (ContentNegotiationConfigurer configurer) {
+//        /** Definindo qual MediaType padrão **/
+//        configurer.defaultContentType(AlgaMediaTypes.V2_APPLICATION_JSON);
+//    }
 
     /**
      * Para funcionar o shallowEtag Basta adicionar essa configuração

@@ -2,7 +2,7 @@ package com.algaworks.algafood.core.modelmapper;
 
 import com.algaworks.algafood.api.v1.model.endereco.EnderecoModel;
 import com.algaworks.algafood.api.v1.model.input.pedido.ItemPedidoInput;
-import com.algaworks.algafood.api.v2.model.input.endereco.cidade.CidadeInputV2;
+import com.algaworks.algafood.api.v2.model.input.CidadeInputV2;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Endereco;
 import com.algaworks.algafood.domain.model.ItemPedido;

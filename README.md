@@ -1945,6 +1945,16 @@ Accept:application/vnd.localhost.v2+json
 ````text
 Accept:application/vnd.localhost.v2+json
 ````
+### Como definir MediaType de versionamento 
+
+Classe `WebConfig` adicionar método `configureContentNegotiation`
+````java
+@Override
+    public void configureContentNegotiation (ContentNegotiationConfigurer configurer) {
+        /** Definindo qual MediaType padrão **/
+        configurer.defaultContentType(AlgaMediaTypes.V2_APPLICATION_JSON);
+    }
+````
 ## versionamento da API por URI
 
 # CONHECIMENTOS DIVERSOS

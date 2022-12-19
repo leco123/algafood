@@ -1,4 +1,4 @@
-package com.algaworks.algafood.api.v2.model.input.endereco.cidade;
+package com.algaworks.algafood.api.v2.model.input;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class CidadeInputV2 {
 
-    @ApiModelProperty(example = "Pato Branco", required = true)
+    @ApiModelProperty(example = "Uberlândia", required = true)
     @NotBlank
     private String nomeCidade;
 
