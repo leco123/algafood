@@ -1979,7 +1979,7 @@ Criar arquivo `logback-spring.xml` dentro da pastar `resource`.
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
   <include resource="org/springframework/boot/logging/logback/base.xml"/>
-
+   
   <springProperty name="logglyToken" source="logging.loggly.token" />
 
   <appender name="loggly" class="ch.qos.logback.ext.loggly.LogglyAppender">
@@ -1997,7 +1997,6 @@ Criar arquivo `logback-spring.xml` dentro da pastar `resource`.
 
 </configuration>
 ````
-
 
 ## Serviço log nuvem
 [Loggly: solução de gerenciamento de logs na nuvem](https://www.loggly.com/)
