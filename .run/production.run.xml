@@ -1,0 +1,26 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="production" type="springBootConfigurationType" factoryName="Spring Boot">
+    <envs>
+      <env name="algafood.email.remetente" value="AlgaFood-Não responder &lt;alexcarvalho31@gmail.com&gt;" />
+      <env name="algafood.storage.s3.chave-acesso-secreta" value="JFRFq14lPpocuRBOx8Ymjw0c2eiYzTd9L5rCDgGA" />
+      <env name="algafood.storage.s3.id-chave-acesso" value="AKIA6N36SSR3V7Y3A6FE" />
+      <env name="logging.loggly.token" value="5f1bb514-a058-4e42-a0dd-6052c475bdf0" />
+      <env name="spring.mail.host" value="email-smtp.us-east-1.amazonaws.com" />
+      <env name="spring.mail.password" value="BMzJ6X7bH2xeTDa3NwpZPOn7TPXznvONjSg+F3ZB6lo5" />
+      <env name="spring.mail.port" value="587" />
+      <env name="spring.mail.username" value="AKIA6N36SSR362XCXJCM" />
+      <env name="spring_output_ansi_enabled" value="always" />
+      <env name="spring_profiles_active" value="default" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.algaworks.algafood.AlgafoodApiApplication" />
+    <module name="algafood-api" />
+    <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+      <option name="credential" />
+      <option name="region" />
+      <option name="useCurrentConnection" value="true" />
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

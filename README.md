@@ -2019,6 +2019,16 @@ https://meu-dominio.loggly.com/tokens
 ![custmoer-tokens](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\dzEast.jpg)
 
 
+# SEGURANÇA REST APIs
+
+Mecanismo de Autenticação: Quando usuário está logado na API
+Mecanismo de Autorização Quando usuário tem permissão para acessar o recurso
+
+Implementar segurança usando HTTP Basic Authentication
+![seguranca-http-basic](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-http-basic.png)
+Implementar segurança usando OAuth2
+![seguranca-oauth2](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-oauth2.png)
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
