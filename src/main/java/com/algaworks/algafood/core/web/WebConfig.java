@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // DEFININDO QUALQUER CAMINHO E QUALQUER ORIGIN
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                //.allowedOrigins("*")
                 .allowedMethods("*");
 
                 // PADRÃO DO SPRING
