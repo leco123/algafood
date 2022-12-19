@@ -2044,3 +2044,4 @@ para navegar na web.
 - LOG´s
   - Atual - [Logback-Framework de log para aplicações javas](https://logback.qos.ch/)
   - Antigo - [SLF4j-Framework de log para aplicações javas](https://www.slf4j.org/)
+  - [Loggly: solução de gerenciamento de logs na nuvem](https://www.loggly.com/)
