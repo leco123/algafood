@@ -1958,9 +1958,67 @@ Classe `WebConfig` adicionar método `configureContentNegotiation`
 ## versionamento da API por URI
 
 
-# LOGBACK e SLF4J
+# LOG
 
-## 
+## Configurar o appender do Loggly no Logback
+
+Appender é um componente que tem função de escrever os log's em algum lugar, console, em um arquivo, em algum webservices...
+
+### Como criar um Appender para log
+
+Adicionar Extensão appender LogBack no arquivo pom.xml
+````xml
+    <dependency>
+      <groupId>org.logback-extensions</groupId>
+      <artifactId>logback-ext-loggly</artifactId>
+      <version>0.1.5</version>
+    </dependency>
+````
+Criar arquivo `logback-spring.xml` dentro da pastar `resource`.
+````xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+  <springProperty name="logglyToken" source="logging.loggly.token" />
+
+  <appender name="loggly" class="ch.qos.logback.ext.loggly.LogglyAppender">
+    <endpointUrl>https://logs-01.loggly.com/bulk/${logglyToken}/tag/logback</endpointUrl>
+    <pattern>%d{"ISO8601", UTC} %p %t %c %M - %m%n</pattern>
+  </appender>
+
+  <appender name="logglyAsync" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="loggly" />
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="loggly" />
+  </root>
+
+</configuration>
+````
+
+
+## Serviço log nuvem
+[Loggly: solução de gerenciamento de logs na nuvem](https://www.loggly.com/)
+
+API Token e Customer Token
+Existem dois tipos de token no Loggly: API Token e Customer Token.
+O API Token serve apenas para consultar logs, não é possível registrar logs com ele. Esse tipo de token é obtido no link
+abaixo, substituindo "meu-dominio" pelo valor adequado:
+
+https://meu-dominio.loggly.com/account/users/api/tokens
+
+Há um aviso no topo da página de API Tokens do Loggly, sobre seu escopo de leitura:
+![api-tokens](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\4OIG7T.jpg)
+
+
+No nosso caso, precisamos de um Customer Token, pois vamos registrar logs. Para criar um token, acesse o link abaixo 
+substituindo "meu-dominio" pelo valor adequado, ou através do menu conforme a imagem:
+
+https://meu-dominio.loggly.com/tokens
+![custmoer-tokens](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\dzEast.jpg)
+
 
 # CONHECIMENTOS DIVERSOS
 
