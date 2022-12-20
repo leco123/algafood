@@ -2185,3 +2185,5 @@ para navegar na web.
   - [Spring Security OAuth](https://spring.io/projects/spring-security-oauth)
   - [Spring Security](https://spring.io/projects/spring-security)
   - [Spring Security OAuth 2.0 Roadmap Update](https://spring.io/blog/2019/11/14/spring-security-oauth-2-0-roadmap-update)
+  - [Dependências para resolver problema com Spring Security OAuth2 e Java 11+](https://gist.github.com/thiagofa/ef9a40d495016cb2581add41b5cbde1b)
+  - [RFC 7662 - OAuth 2.0 Token Introspection](https://tools.ietf.org/html/rfc7662)
