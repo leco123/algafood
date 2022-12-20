@@ -2150,3 +2150,6 @@ para navegar na web.
   - [Loggly: solução de gerenciamento de logs na nuvem](https://www.loggly.com/)
 - Autenticação
   - [Especificação do OAuth 2.0](https://tools.ietf.org/html/rfc6749)
+  - [Spring Security OAuth](https://spring.io/projects/spring-security-oauth)
+  - [Spring Security](https://spring.io/projects/spring-security)
+  - [Spring Security OAuth 2.0 Roadmap Update](https://spring.io/blog/2019/11/14/spring-security-oauth-2-0-roadmap-update)
