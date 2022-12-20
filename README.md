@@ -1063,7 +1063,7 @@ public class TomcatCustomizer implements WebServerFactoryCustomizer<TomcatServle
 Para evitar erro 406 basta passar no header no `key = Accept` e no value `application/pdf,application/json` mas é claro que deve existir as validações
 a questão aqui é apenas pra dizer para o navegador: "Se não encontrar nada no `application/pdf` tente no `application/json`".
 veja a imagem abaixo:
-![Exemplo de como validar parâmetros quando for arquivo pdf](D:\repository\spring\algafood-api\src\main\resources\images\validar_parametros_pdf.png "header parâmetros")
+![Exemplo de como validar parâmetros quando for arquivo pdf](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/validar_parametros_pdf.png "header parâmetros")
 
 
 ## Como salvar binários na base de dados, como um arquivo, existe algumas formas de fazer isso que é exemplificado abaixo.
@@ -1395,12 +1395,12 @@ resposta, antes de chegar à aplicação. Também é um cache compartilhado, mas
 - **Cache de aplicação** - esse armazenamento ocorre dentro da aplicação e permite que o desenvolvedor especifique quais 
 arquivos o navegador deve armazenar em cache e os disponibilize para usuários mesmo quando estiverem offline.
 
-<img src="/resources/images/img_pages/pmk-769-http-caching-diagram-1.png" title="Como funciona o caching http" width="800"/>
+<img src="https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/pmk-769-http-caching-diagram-1.png" title="Como funciona o caching http" width="800"/>
 
 Nos headers (cabeçalhos) das requisições e das respostas são dadas diretivas para definir características do 
 armazenamento em cache. Por exemplo:
 
-<img src="D:\repository\spring\algafood-api\src\main\resources\images\img_pages\headers.png" title="Headers" width="800"/>
+<img src="https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/headers.png" title="Headers" width="800"/>
 
 ## ETags
 
@@ -1581,9 +1581,9 @@ usado dessa forma, para ter certeza que o código é o correto, basta usar o pro
 [Wireshark - software para análise de tráfego de rede](https://www.wireshark.org/) 
 
 Status 304 é um status que representa usa oque esta em cache por que não foi nada modificado.
-![304 modified](D:\repository\spring\algafood-api\src\main\resources\images\readme\304-modified.png)
+![304 modified](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/readme/304-modified.png)
 
-![if none match](D:\repository\spring\algafood-api\src\main\resources\images\readme\if-none-match.png)
+![if none match](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/readme/if-none-match.png)
 
 
 #### Diretivas de Cache-Control na resposta HTTP
@@ -1937,11 +1937,11 @@ descobrirá as URLs conforme navega entre seus recursos.
 aplicação consumidora terá um link inicial e a partir dele terá acesso a outros recursos caso necessário.
 
 Exemplo de Hateoas
-![Conhecendo especificações para formatos Hypermedia](D:\repository\spring\algafood-api\src\main\resources\images\readme\conhecendo-especificacoes-para-formatos-hypermedia.png "Conhecendo especificações para formatos Hypermedia")
+![Conhecendo especificações para formatos Hypermedia](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/readme/conhecendo-especificacoes-para-formatos-hypermedia.png "Conhecendo especificações para formatos Hypermedia")
 
 
 ## Paginação com Spring HATEOAS
-![Paginação com Spring HATEOAS](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\diagrama-hypermedia-em-recurso-com-paginacao.drawio.png)
+![Paginação com Spring HATEOAS](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/diagrama-hypermedia-em-recurso-com-paginacao.drawio.png)
 
 # RETROCOMPATIBILIDADE VS QUEBRA DE COMPATIBILIDADE
 * **Retrocompatibilidade**: Manter compatibilidade para versões antigas
@@ -2021,14 +2021,14 @@ abaixo, substituindo "meu-dominio" pelo valor adequado:
 https://meu-dominio.loggly.com/account/users/api/tokens
 
 Há um aviso no topo da página de API Tokens do Loggly, sobre seu escopo de leitura:
-![api-tokens](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\4OIG7T.jpg)
+![api-tokens](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/4OIG7T.jpg)
 
 
 No nosso caso, precisamos de um Customer Token, pois vamos registrar logs. Para criar um token, acesse o link abaixo 
 substituindo "meu-dominio" pelo valor adequado, ou através do menu conforme a imagem:
 
 https://meu-dominio.loggly.com/tokens
-![custmoer-tokens](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\dzEast.jpg)
+![custmoer-tokens](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/dzEast.jpg)
 
 
 # SEGURANÇA REST APIs
@@ -2123,7 +2123,7 @@ bloqueio de categorias inteiras.
 
 ### Proxy reverso
 
-![Proxy reverso](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\proxy_reverso.png)
+![Proxy reverso](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/proxy_reverso.png)
 
 Um outro uso bem comum são os servidores de Proxy Reverso. Nos exemplos citados acima, a origem da conexão era sempre 
 dentro da rede, passava pelo proxy até a Internet. No caso do proxy reverso, a origem das requisições estão na Internet 
