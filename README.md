@@ -2088,14 +2088,29 @@ Você pode encontrar o mesmo fluxo mas com nomes diferentes:
 
 mas todos seguinificam a mesma coisa.
 
-**Resource Owner Password Credentials Grant**: É a forma de obter o acessToken "Token de acesso" apartir de um,
-usuário e senha, é trocado um usuário e senha em troca de um acessToken
+**Resource Owner Password Credentials Grant**: É a forma de obter o Access Token "Token de acesso" apartir de um,
+usuário e senha, é trocado um usuário e senha em troca de um Access Token
 * O `Cliente` oferece usuário e senha para o `Authorization Server`
-* O `Authorization Server` emite um accessToken para esse `client`
+* O `Authorization Server` emite um Access Token para esse `client`
 * Depois do acessToken estar com o cliente pode usar para acessar os recursos do `Resource Serve` em nome do 
 `Resource Owner` "Usuário Final".
   
 ![Fluxo de Resource Owner Password Credentials Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/seguranca-oauth2_2-retorna-acess-token.png)
+
+### Access Token e Refresh Token, Quando usar
+
+Tanto o Access Token como Refresh Token ambos são usados para gerar um novo token, porém existe uma pequena diferença 
+entre eles, o Acess Token é usado para solicitar o primeiro Token, porém existe um tempo limite o qual vai expirar esse
+token, se não tiver ninguém usando o token o processo e finalizado, porém caso alguém esta acessando algum recuro e o
+token expíra é aí que entra o Refresh Token um token diferente o papel dele é ser usado para ser gerado um novo Access 
+Token sem que preciser informar as credencias novamente. 
+
+**Solicitação de Access Token**
+
+![Fluxo representa Acess Token Expirado](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/fluxo-access-token-expirou.png)
+
+**Refrech Token**
+![Fluxo representa Refresh Token](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/fluxo-refresh-token.png)
 
 # CONHECIMENTOS DIVERSOS
 
