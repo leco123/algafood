@@ -2065,6 +2065,26 @@ acessar o `Resource Server` em nome do Resource Owner.
 
 ![seguranca-oauth2-1](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-oauth2_1.png)
 
+
+### Fluxo de Resource Owner Password Credentials Grant 
+
+Você pode encontrar o mesmo fluxo mas com nomes diferentes:
+* **Password Credencials**;
+* **Password Flow**;
+* **Password Grant**;
+* **Password Crendentials Type**;
+
+mas todos seguinificam a mesma coisa.
+
+**Resource Owner Password Credentials Grant**: É a forma de obter o acessToken "Token de acesso" apartir de um,
+usuário e senha, é trocado um usuário e senha em troca de um acessToken
+* O `Cliente` oferece usuário e senha para o `Authorization Server`
+* O `Authorization Server` emite um accessToken para esse `client`
+* Depois do acessToken estar com o cliente pode usar para acessar os recursos do `Resource Serve` em nome do 
+`Resource Owner` "Usuário Final".
+  
+![Fluxo de Resource Owner Password Credentials Grant](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-oauth2_2-retorna-acess-token.png)
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
