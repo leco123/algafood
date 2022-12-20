@@ -2066,7 +2066,7 @@ acessar o `Resource Server` em nome do Resource Owner.
 ![seguranca-oauth2-1](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-oauth2_1.png)
 
 
-### Fluxo de Resource Owner Password Credentials Grant 
+### Fluxo de Resource Owner Password Credentials Grant (Não é o mais seguro)
 
 Você pode encontrar o mesmo fluxo mas com nomes diferentes:
 * **Password Credencials**;
