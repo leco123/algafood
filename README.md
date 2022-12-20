@@ -2047,7 +2047,7 @@ Adicionar no `pom.xml`
 ````
 
 Implementar segurança usando HTTP Basic Authentication
-![seguranca-http-basic](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-http-basic.png)
+![seguranca-http-basic](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/seguranca-http-basic.png)
 
 O método de segurança HTTP Basic, disponibiliza por padrão usuário: `user` e a senha é retornado no console da aplicação: 
 ````shell
@@ -2061,11 +2061,11 @@ spring.security.user.password=123456
 ````
 
 Implementar segurança usando OAuth2
-![seguranca-oauth2](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-oauth2.png)
+![seguranca-oauth2](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/seguranca-oauth2.png)
 
 
 ### Definiçõe de papéis "Roles" OAuth2
-![roles](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\roles-papeis.png)
+![roles](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/roles-papeis.png)
 
 * Resource serve: REST API
 * Resource Owner: Representa o usuário Final, o dono dos recursos, ex: O João tem um restaurante e faz a manipulação dos
@@ -2075,7 +2075,7 @@ registros como cadastra pratos, promoções, ingredientes...
 * Authorization Server: Servidor que autentica o `Resource Owner` e garante o acesso para o `client` 
 acessar o `Resource Server` em nome do Resource Owner.
 
-![seguranca-oauth2-1](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-oauth2_1.png)
+![seguranca-oauth2-1](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/seguranca-oauth2_1.png)
 
 
 ### Fluxo de Resource Owner Password Credentials Grant (Não é o mais seguro)
@@ -2095,13 +2095,13 @@ usuário e senha, é trocado um usuário e senha em troca de um acessToken
 * Depois do acessToken estar com o cliente pode usar para acessar os recursos do `Resource Serve` em nome do 
 `Resource Owner` "Usuário Final".
   
-![Fluxo de Resource Owner Password Credentials Grant](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\seguranca-oauth2_2-retorna-acess-token.png)
+![Fluxo de Resource Owner Password Credentials Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/seguranca-oauth2_2-retorna-acess-token.png)
 
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
 
-![Oque é e como funciona Proxy](D:\repository\spring\algafood-api\src\main\resources\images\img_pages\Topologia-proxy-1024x343.png)
+![Oque é e como funciona Proxy](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/Topologia-proxy-1024x343.png)
 
 ### Oque é e como funciona Proxy
 Os servidores proxy são normalmente utilizados como ponte entre origem e destino de uma requisição.
