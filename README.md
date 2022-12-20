@@ -1395,7 +1395,7 @@ resposta, antes de chegar à aplicação. Também é um cache compartilhado, mas
 - **Cache de aplicação** - esse armazenamento ocorre dentro da aplicação e permite que o desenvolvedor especifique quais 
 arquivos o navegador deve armazenar em cache e os disponibilize para usuários mesmo quando estiverem offline.
 
-<img src="D:\repository\spring\algafood-api\src\main\resources\images\img_pages\pmk-769-http-caching-diagram-1.png" title="Como funciona o caching http" width="800"/>
+<img src="/resources/images/img_pages/pmk-769-http-caching-diagram-1.png" title="Como funciona o caching http" width="800"/>
 
 Nos headers (cabeçalhos) das requisições e das respostas são dadas diretivas para definir características do 
 armazenamento em cache. Por exemplo:
