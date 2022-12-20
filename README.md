@@ -2105,6 +2105,9 @@ token, se não tiver ninguém usando o token o processo e finalizado, porém cas
 token expíra é aí que entra o Refresh Token um token diferente o papel dele é ser usado para ser gerado um novo Access 
 Token sem que preciser informar as credencias novamente. 
 
+* **Access Token expíra em**: 12 horas, esse é o valor padrão;
+* **Refresh Token expíra em**: 30 dias, esse é o valor padrão;
+
 **Solicitação de Access Token**
 
 ![Fluxo representa Acess Token Expirado](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/fluxo-access-token-expirou.png)
