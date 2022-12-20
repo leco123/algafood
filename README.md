@@ -2123,7 +2123,7 @@ bloqueio de categorias inteiras.
 
 ### Proxy reverso
 
-![Proxy reverso](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/proxy_reverso.png)
+![Proxy reverso](https://raw.githubusercontent.com/leco123/algafood/25154f973fe3cb1ebc9083ae13ea835449b26d69/src/main/resources/images/img_pages/proxy_reverso.png)
 
 Um outro uso bem comum são os servidores de Proxy Reverso. Nos exemplos citados acima, a origem da conexão era sempre 
 dentro da rede, passava pelo proxy até a Internet. No caso do proxy reverso, a origem das requisições estão na Internet 
