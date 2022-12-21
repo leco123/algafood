@@ -2254,6 +2254,12 @@ o https://free-proxy-list.net/ , que fornecem endereços de servidores proxy ao 
 Qualquer pessoa na Internet pode fazer as devidas configurações em seu navegador e usar o servidor oferecido 
 para navegar na web.
 
+# Nota sobre o allowCredentials
+A configuração de allowCredentials como "true", combinada com allowedOrigins como "*", não é suportada pelos navegadores. 
+Recomendamos utilizar a opção allowCredentials como false, caso o allowedOrigins seja "*".
+
+Só é possível utilizar a opção allowCredentials como "true", caso sejam especificadas as Origins permitidas.
+
 # LINKS DE DOCUMENTAÇÕES
 
 - [Documentação do Spring Data JPA: Keywords de query methods](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation) chaves usadas para fazer consultas em banco

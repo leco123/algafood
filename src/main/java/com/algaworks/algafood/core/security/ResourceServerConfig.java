@@ -15,6 +15,8 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .anyRequest().authenticated()
                 .and()
+                    .cors().
+                and()
                 // Oauth Resource emite um opaqueToken, é um chave que não da pra identificar oque existe dentro dela
                 .oauth2ResourceServer().opaqueToken();
 
