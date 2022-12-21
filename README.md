@@ -2217,6 +2217,14 @@ Existe 2(dois) métodos de especificação **s256** e **plain**, porém o recome
 ![Exemplo de Fluxo Authorization Code Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_authorization_code_pcket_especification.png)
 
 
+### Decidir qual Fluxo do OAuth2 devo usar?
+
+* Público
+* Confidencial
+
+![Decidir qual Fluxo do OAuth2 devo usar](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2._qual_fluxo_usar.png)
+
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
