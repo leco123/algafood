@@ -2112,7 +2112,7 @@ Token sem que preciser informar as credencias novamente.
 
 ![Fluxo representa Acess Token Expirado](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/fluxo-access-token-expirou.png)
 
-no arquuivo AuthorizationServerConfig.java da aplicação externa deve ser configurado assim:
+no arquivo AuthorizationServerConfig.java da aplicação externa deve ser configurado assim:
 
 ````java
 public void configure (ClientDetailsServiceConfigurer clients) throws Exception {
@@ -2201,6 +2201,12 @@ http:/auth.algafood.local:8081/oauth/authorize?response_type=code&client_id=food
 
 ![Exemplo de Fluxo Authorization Code Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_authorization_code_grant_2.png)
 
+### Fluxo Implicit
+
+Não deve ser usado porque não é seguro, o client faz um post no /oauth/token do authorization server pra emitir o access
+token em troca do código de autorização, o problema aqui é já é retornado access token na url sem o código. 
+
+![Exemplo de Fluxo Authorization Code Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_fluxo-implicit.png)
 
 # CONHECIMENTOS DIVERSOS
 
