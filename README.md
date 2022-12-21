@@ -2112,14 +2112,78 @@ Token sem que preciser informar as credencias novamente.
 
 ![Fluxo representa Acess Token Expirado](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/fluxo-access-token-expirou.png)
 
+no arquuivo AuthorizationServerConfig.java da aplicação externa deve ser configurado assim:
+
+````java
+public void configure (ClientDetailsServiceConfigurer clients) throws Exception {
+        clients
+                .inMemory()
+                    // identificação do cliente
+                    .withClient("algafood-web")
+                    .secret(passwordEncoder.encode("web123"))
+                    // São fluxos
+                    .authorizedGrantTypes("password","refresh_token")
+                    // Tipos de escopo
+                    .scopes("write","read")
+                    //.accessTokenValiditySeconds(60 * 60 * 6)
+                    .accessTokenValiditySeconds(60 * 60 * 6) // 6 horas
+                    .refreshTokenValiditySeconds(60 * 24 * 60 * 60) // 60 dias
+                // usado apenas para o Resource Server, fazer chamada da URI de introspeção
+                .and()
+                    .withClient("checktoken")
+                    .secret(passwordEncoder.encode("check123"));
+    }
+````
+
+Usando Postman para fazer requisição para Autenticação
+![Usando Postman para fazer requisição para Autenticação](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_solicitar_token.png)
+
 **Refrech Token**
 ![Fluxo representa Refresh Token](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/fluxo-refresh-token.png)
+
+no arquuivo AuthorizationServerConfig.java da aplicação externa deve ser configurado assim:
+
+````java
+public void configure (ClientDetailsServiceConfigurer clients) throws Exception {
+        clients
+                .inMemory()
+                    // identificação do cliente
+                    .withClient("algafood-web")
+                    .secret(passwordEncoder.encode("web123"))
+                    // São fluxos
+                    .authorizedGrantTypes("password","refresh_token")
+                    // Tipos de escopo
+                    .scopes("write","read")
+                    //.accessTokenValiditySeconds(60 * 60 * 6)
+                    .accessTokenValiditySeconds(60 * 60 * 6) // 6 horas
+                    .refreshTokenValiditySeconds(60 * 24 * 60 * 60); // 60 dias
+    }
+````
+Usando Postman para fazer requisição para Autenticação
+![Usando Postman para fazer requisição para Autenticação](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_refresh_token.png)
+
 
 ### Fluxo Client Credentials Grant
 Este fluxo é usado para acessos da própria aplicação backend, como um serviço que fica rodando backend, neste caso
 não existe o papel do Resource Owner "Usuário final"
 
 ![Fluxo Client Credentials Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/fluxo-client-credentials-grant.png)
+
+no arquuivo AuthorizationServerConfig.java da aplicação externa deve ser configurado assim:
+`````java
+public void configure (ClientDetailsServiceConfigurer clients) throws Exception {
+        clients
+                .inMemory()
+                    .withClient("faturamento")
+                    .secret(passwordEncoder.encode("faturamento123"))
+                    .authorizedGrantTypes("client_credentials")
+                    .scopes("write","read");
+    }
+`````
+
+![Usando Postman para fazer requisição para Autenticação](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_client-credentials.png)
+
+
 
 # CONHECIMENTOS DIVERSOS
 
