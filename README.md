@@ -2194,6 +2194,13 @@ para o Authorization Server solicitando o Access Token e assim segue conforme os
 Exemplo de Fluxo Authotization Code Grant é do Spotify
 ![Exemplo de fluxo é do Spotify](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_authorization_code_spotify.png)
 
+exemplo de link de login:
+````text
+http:/auth.algafood.local:8081/oauth/authorize?response_type=code&client_id=foodanalytics&state=NG6541nsdHEj&redirect_uri=http://aplicacao-cliente
+````
+
+![Exemplo de Fluxo Authorization Code Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_authorization_code_grant_2.png)
+
 
 # CONHECIMENTOS DIVERSOS
 
