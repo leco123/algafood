@@ -2316,3 +2316,4 @@ Só é possível utilizar a opção allowCredentials como "true", caso sejam esp
   - [Exemplo de Authorization Code Flow do Spotify](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/?epik=dj0yJnU9UUp6Z0piSUh0dW5BM0tMU0ZSTGlnb1RvS2pLdnlseW8mcD0wJm49dWEtZ1daaWN5RHlqVXJuSnRkVERRdyZ0PUFBQUFBR09qQkkw)
   - [RFC 7636 - PKCE-Chave de prova para troca de código por clientes públicos OAuth](https://www.rfc-editor.org/rfc/rfc7636)
   - [Implementação de PKCE para Spring Security OAuth2](https://gist.github.com/thiagofa/daca4f4790b5b18fed800b83747127ca)
+  - [Ferramenta online para gerar Code Verifier e Code Challenge (PKCE)](https://tonyxu-io.github.io/pkce-generator/)
