@@ -2115,6 +2115,12 @@ Token sem que preciser informar as credencias novamente.
 **Refrech Token**
 ![Fluxo representa Refresh Token](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/fluxo-refresh-token.png)
 
+### Fluxo Client Credentials Grant
+Este fluxo é usado para acessos da própria aplicação backend, como um serviço que fica rodando backend, neste caso
+não existe o papel do Resource Owner "Usuário final"
+
+![Fluxo Client Credentials Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/fluxo-client-credentials-grant.png)
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
