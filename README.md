@@ -81,13 +81,21 @@
 * [SEGURANÇA REST APIs](#segurança-rest-apis)
     * [Definiçõe de papéis "Roles" OAuth2](#definiçõe-de-papéis--roles--oauth2)
     * [Fluxo de Resource Owner Password Credentials Grant (Não é o mais seguro)](#fluxo-de-resource-owner-password-credentials-grant--não-é-o-mais-seguro-)
+    * [Access Token e Refresh Token, Quando usar](#access-token-e-refresh-token-quando-usar)
+    * [Fluxo Client Credentials Grant](#fluxo-client-credentials-grant)
+    * [Fluxo Authotization Code Grant](#fluxo-authotization-code-grant)
+    * [Fluxo Implicit](#fluxo-implicit)
+    * [Authorization Code + PKCE-Chave de prova para troca de código por clientes públicos OAuth](#authorization-code--pkce-chave-de-prova-para-troca-de-código-por-clientes-públicos-oauth)
+    * [Decidir qual Fluxo do OAuth2 devo usar?](#decidir-qual-fluxo-do-oauth2-devo-usar)
 * [CONHECIMENTOS DIVERSOS](#conhecimentos-diversos)
   * [PROXY](#proxy)
     * [Oque é e como funciona Proxy](#oque-é-e-como-funciona-proxy)
     * [Proxy reverso](#proxy-reverso)
     * [Proxy para todos](#proxy-para-todos)
+* [Nota sobre o allowCredentials](#nota-sobre-o-allowcredentials)
 * [LINKS DE DOCUMENTAÇÕES](#links-de-documentações)
 <!-- TOC -->
+
 
 # Treinamento Algaworks Especialista em REST (40% do Curso concluído)
 
