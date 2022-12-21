@@ -2183,6 +2183,16 @@ public void configure (ClientDetailsServiceConfigurer clients) throws Exception 
 
 ![Usando Postman para fazer requisição para Autenticação](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_client-credentials.png)
 
+### Fluxo Authotization Code Grant
+
+Neste fluxo o usuário final "Resource Owner" faz uma solicitação direta para o Authorization Server, que é retornado por 
+URI código de autorização e status para evitar CSFR(Cross-site request forgery), com o código o client faz ma requisição
+para o Authorization Server solicitando o Access Token e assim segue conforme os fluxos acima.
+
+![Exemplo de Fluxo Authorization Code Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_authorization_code_grant.png)
+
+Exemplo de Fluxo Authotization Code Grant é do Spotify
+![Exemplo de fluxo é do Spotify](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_authorization_code_spotify.png)
 
 
 # CONHECIMENTOS DIVERSOS
@@ -2275,3 +2285,4 @@ para navegar na web.
   - [Spring Security OAuth 2.0 Roadmap Update](https://spring.io/blog/2019/11/14/spring-security-oauth-2-0-roadmap-update)
   - [Dependências para resolver problema com Spring Security OAuth2 e Java 11+](https://gist.github.com/thiagofa/ef9a40d495016cb2581add41b5cbde1b)
   - [RFC 7662 - OAuth 2.0 Token Introspection](https://tools.ietf.org/html/rfc7662)
+  - [Exemplo de Authorization Code Flow do Spotify](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/?epik=dj0yJnU9UUp6Z0piSUh0dW5BM0tMU0ZSTGlnb1RvS2pLdnlseW8mcD0wJm49dWEtZ1daaWN5RHlqVXJuSnRkVERRdyZ0PUFBQUFBR09qQkkw)
