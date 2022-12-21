@@ -2208,6 +2208,15 @@ token em troca do código de autorização, o problema aqui é já é retornado 
 
 ![Exemplo de Fluxo Authorization Code Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_fluxo-implicit.png)
 
+### Authorization Code + PKCE-Chave de prova para troca de código por clientes públicos OAuth
+
+![Exemplo de Fluxo Authorization Code Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_authorization_code_pkce.png)
+
+Existe 2(dois) métodos de especificação **s256** e **plain**, porém o recomendado é usar **s256**
+
+![Exemplo de Fluxo Authorization Code Grant](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2_authorization_code_pcket_especification.png)
+
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
@@ -2305,3 +2314,4 @@ Só é possível utilizar a opção allowCredentials como "true", caso sejam esp
   - [Dependências para resolver problema com Spring Security OAuth2 e Java 11+](https://gist.github.com/thiagofa/ef9a40d495016cb2581add41b5cbde1b)
   - [RFC 7662 - OAuth 2.0 Token Introspection](https://tools.ietf.org/html/rfc7662)
   - [Exemplo de Authorization Code Flow do Spotify](https://developer.spotify.com/documentation/general/guides/authorization/code-flow/?epik=dj0yJnU9UUp6Z0piSUh0dW5BM0tMU0ZSTGlnb1RvS2pLdnlseW8mcD0wJm49dWEtZ1daaWN5RHlqVXJuSnRkVERRdyZ0PUFBQUFBR09qQkkw)
+  - [RFC 7636 - PKCE-Chave de prova para troca de código por clientes públicos OAuth](https://www.rfc-editor.org/rfc/rfc7636)
