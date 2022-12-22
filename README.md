@@ -2255,19 +2255,53 @@ Existe 2(dois) métodos de especificação **s256** e **plain**, porém o recome
 ![Decidir qual Fluxo do OAuth2 devo usar](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2._qual_fluxo_usar.png)
 
 
-# Armazenando tokens no Redis: um banco de dados NoSQL
-
-![Armazenando tokens no Redis: um banco de dados NoSQL](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-1-armazenandotokens-no-redis-um-banco-de-dados-NoSQL.png)
-
 # REDIS BANCO DE DADOS NoSQL
 
-Para saber como baixar e instalr o Redis acesse 
+Para saber como [fazer donwload e instalr o Redis acesse](#como-instalar-o-redis)
 
 ## Configurando o RedisTokenStore
 
-Adicionar no pom.xml dependência do redis
+Adicionar no pom.xml dependência do redis no projeto Authorization
 ````xml
+    <!-- Banco de dados redis NoSQL-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+````
 
+Configurando acesso ao redis no aquivo `application.properties`
+````properties
+spring.redis.host=localhost
+spring.redis.password=
+spring.redis.port=6378
+````
+
+## Armazenando tokens no Redis: um banco de dados NoSQL
+
+![Armazenando tokens no Redis: um banco de dados NoSQL](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-1-armazenandotokens-no-redis-um-banco-de-dados-NoSQL.png)
+
+## Comandos Redis
+
+### Comando Redis para entrar CLI
+````shell
+redis-cli
+````
+
+### Comando Redis para Authenticar
+Usar apenas quando foi definido uma senha
+````shell
+AUTH aqui-vai-a-senha
+````
+
+### Comando Redis para visualizar todas as chaves
+````shell
+Keys *
+````
+
+### Comando Redis para limpar todos os dados
+````shell
+flushall
 ````
 
 # CONHECIMENTOS DIVERSOS
