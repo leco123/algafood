@@ -411,9 +411,9 @@ Existem 2(dois) tipos de desenvolvedores que usam REST:
 _Constraints_ é uma restrição há algo que limita ou controla o que você pode fazer, abaixo esta listado as constraints 
 do padrão REST
 
-— **Cliente-servidor:** devem poder evoluir separadamente sem qualquer dependência entre elas.
+— **Cliente-servidor:** podem evoluir separadamente sem qualquer dependência entre elas.
 
-— **Stateless:** Sem estador, aplicação não deve possuir estado, resumindo a requisição feita ao servidor deve conter 
+— **Stateless:** Sem estado, aplicação não deve possuir estado, resumindo a requisição feita ao servidor deve conter 
 tudo que precisa para ser processado, o servidor não pode manter sessão nele mesmo, isso significa que o servidor não 
 manterá o histórico de uso;
 
@@ -485,6 +485,10 @@ protocolo HTTP estava sendo usado superficialmente.
     -O nível 0(zero) de maturidade não utiliza recursos de URI, HTTP Methods e HATEOAS.
 
     -A API têm um único URI e usa um único método HTTP (normalmente POST).
+
+# DIFERENÇA ENRTE STATEFUL E STATELESS
+
+## Application State VS Resource State
 
 ### Dícas
 
