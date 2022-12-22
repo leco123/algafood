@@ -2259,6 +2259,16 @@ Existe 2(dois) métodos de especificação **s256** e **plain**, porém o recome
 
 ![Armazenando tokens no Redis: um banco de dados NoSQL](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-1-armazenandotokens-no-redis-um-banco-de-dados-NoSQL.png)
 
+# REDIS BANCO DE DADOS NoSQL
+
+Para saber como baixar e instalr o Redis acesse 
+
+## Configurando o RedisTokenStore
+
+Adicionar no pom.xml dependência do redis
+````xml
+
+````
 
 # CONHECIMENTOS DIVERSOS
 
@@ -2417,6 +2427,7 @@ Gerenciador para Redis com interface gráfica
 Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é necessário instalar o Redis.
 
 [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager)
+
 
 # LINKS DE DOCUMENTAÇÕES
 
