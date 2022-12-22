@@ -1,6 +1,7 @@
 # Tópicos abordados
 
 <!-- TOC -->
+* [Tópicos abordados](#tópicos-abordados)
 * [Treinamento Algaworks Especialista em REST](#treinamento-algaworks-especialista-em-rest)
     * [Rodar projeto via line command](#rodar-projeto-via-line-command)
       * [WINDOWS](#windows)
@@ -92,6 +93,7 @@
   * [Fluxo Stateless Authentication](#fluxo-stateless-authentication)
   * [Token Transparênte](#token-transparênte)
   * [Token Opaco](#token-opaco)
+* [Entendendo a diferença entre assinatura com chave simétrica e assimétrica](#entendendo-a-diferença-entre-assinatura-com-chave-simétrica-e-assimétrica)
 * [REDIS BANCO DE DADOS NoSQL](#redis-banco-de-dados-nosql)
   * [Configurando o RedisTokenStore](#configurando-o-redistokenstore)
   * [Armazenando tokens no Redis: um banco de dados NoSQL](#armazenando-tokens-no-redis--um-banco-de-dados-nosql)
@@ -2277,6 +2279,10 @@ As informações ficam contidas dentro dele e codificadas com base64
 ![Fluxo Stateful Authentication](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-3-token_transparente.png)
 ## Token Opaco
 Fica armazenado apenas o hash das informações
+
+# Entendendo a diferença entre assinatura com chave simétrica e assimétrica
+![Entendendo a diferença entre assinatura com chave simétrica e assimétrica](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-3-entendendo-a-diferenca-entre-assinatura-com-chave-simetrica-e-assimetrica.png)
+
 
 # REDIS BANCO DE DADOS NoSQL
 
