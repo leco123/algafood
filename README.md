@@ -94,6 +94,9 @@
   * [Token Transparênte](#token-transparênte)
   * [Token Opaco](#token-opaco)
 * [Entendendo a diferença entre assinatura com chave simétrica e assimétrica](#entendendo-a-diferença-entre-assinatura-com-chave-simétrica-e-assimétrica)
+* [GERAR PAR DE CHAVES COM KEYTOOL](#gerar-par-de-chaves-com-keytool)
+    * [Gerando um arquivo JKS com um par de chaves](#gerando-um-arquivo-jks-com-um-par-de-chaves)
+    * [Listando as entradas de um arquivo JKS](#listando-as-entradas-de-um-arquivo-jks)
 * [REDIS BANCO DE DADOS NoSQL](#redis-banco-de-dados-nosql)
   * [Configurando o RedisTokenStore](#configurando-o-redistokenstore)
   * [Armazenando tokens no Redis: um banco de dados NoSQL](#armazenando-tokens-no-redis--um-banco-de-dados-nosql)
@@ -2282,6 +2285,26 @@ Fica armazenado apenas o hash das informações
 
 # Entendendo a diferença entre assinatura com chave simétrica e assimétrica
 ![Entendendo a diferença entre assinatura com chave simétrica e assimétrica](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-3-entendendo-a-diferenca-entre-assinatura-com-chave-simetrica-e-assimetrica.png)
+
+# GERAR PAR DE CHAVES COM KEYTOOL
+### Gerando um arquivo JKS com um par de chaves
+
+**Siginificado de cada comando**:
+* `keytoll`: comando principal defini que estamos usando a ferramenta keytool do java
+* `-genkeypair`: deve ser gerado chaves pares
+* `-alias`: deve adicionar o nome pra chave exemplo: `algafood`
+* `-keyalg`: precisa ser passado um algaritimo ex: `RSA`
+* `-keypass`: especificar a senha do par de chave que vai ficar dentro keystore  ex: `123456`
+* `-keystore`: nome do arquivo jks onde será armazenado o arquivo  ex: `algafood.jks`
+* `-storepass`: é a senha para o arquivo jks `algafood.jks`, que quiser abrir esse arquivo vai precisar dessa senha ex: `123456`
+* `-validity`:  ex: `3650`
+````shell
+keytool -genkeypair -alias algafood -keyalg RSA -keypass 123456 -keystore algafood.jks -storepass 123456 -validity 3650
+````
+### Listando as entradas de um arquivo JKS
+````shell
+keytool -list -keystore algafood.jks
+````
 
 
 # REDIS BANCO DE DADOS NoSQL
