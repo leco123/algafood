@@ -1,7 +1,7 @@
 # Tópicos abordados
 
 <!-- TOC -->
-* [Treinamento Algaworks Especialista em REST (40% do Curso concluído)](#treinamento-algaworks-especialista-em-rest--40-do-curso-concluído-)
+* [Treinamento Algaworks Especialista em REST](#treinamento-algaworks-especialista-em-rest)
     * [Rodar projeto via line command](#rodar-projeto-via-line-command)
       * [WINDOWS](#windows)
       * [LINUX](#linux)
@@ -87,17 +87,24 @@
     * [Fluxo Implicit](#fluxo-implicit)
     * [Authorization Code + PKCE-Chave de prova para troca de código por clientes públicos OAuth](#authorization-code--pkce-chave-de-prova-para-troca-de-código-por-clientes-públicos-oauth)
     * [Decidir qual Fluxo do OAuth2 devo usar?](#decidir-qual-fluxo-do-oauth2-devo-usar)
+* [Armazenando tokens no Redis: um banco de dados NoSQL](#armazenando-tokens-no-redis--um-banco-de-dados-nosql)
+  * [Gerenciador desktop para o Redis](#gerenciador-desktop-para-o-redis)
 * [CONHECIMENTOS DIVERSOS](#conhecimentos-diversos)
   * [PROXY](#proxy)
     * [Oque é e como funciona Proxy](#oque-é-e-como-funciona-proxy)
     * [Proxy reverso](#proxy-reverso)
     * [Proxy para todos](#proxy-para-todos)
 * [Nota sobre o allowCredentials](#nota-sobre-o-allowcredentials)
+* [Como instalar o Redis](#como-instalar-o-redis)
+  * [Instalando o Redis no Ubuntu](#instalando-o-redis-no-ubuntu)
+  * [Instalando o Redis no Windows - Redis da Memurai](#instalando-o-redis-no-windows---redis-da-memurai)
+    * [CLI do Redis Memurai](#cli-do-redis-memurai)
+    * [Windows - Redis Server da Microsoft (Não recebe mais atualizações)](#windows---redis-server-da-microsoft--não-recebe-mais-atualizações-)
+  * [Instalando o Redis no Mac](#instalando-o-redis-no-mac)
 * [LINKS DE DOCUMENTAÇÕES](#links-de-documentações)
 <!-- TOC -->
 
-
-# Treinamento Algaworks Especialista em REST (40% do Curso concluído)
+# Treinamento Algaworks Especialista em REST
 
 Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_, como o curso é amplo dexei apenas informações que não conhecia ou não lembrava e até mesmo informação que conhecia, porém, de uma abordagem diferente.
 
@@ -110,6 +117,20 @@ Descrevi em tópicos o que aprendi no curso e também pesquisando na _internet_,
 #### LINUX
 ````shell
 sudo mvn clean spring-boot:run
+````
+
+#### Adicionar variaveis de ambiente no profile
+````properties
+algafood.email.remetente=AlgaFood-Não responder <aqui.vai.o.email.do@remetente>;
+logging.loggly.token=AQUI-VAI-O-TOKEN;
+spring.mail.host=email-smtp.us-east-1.amazonaws.com;\
+  spring.mail.username=CODENOME_DA_AMAZON;\
+  algafood.storage.s3.chave-acesso-secreta=HASH-45646565;\
+  spring.mail.password=HASH-SDFSDFSD;\
+  spring.mail.port=587;\
+  spring_output_ansi_enabled=always;\
+  algafood.storage.s3.id-chave-acesso=CHAVE-DE-ACESSO;\
+  spring_profiles_active=default
 ````
 
 ### Variável _`serialVersionUID`_ e sua importância na arquitetura Java
@@ -2233,6 +2254,19 @@ Existe 2(dois) métodos de especificação **s256** e **plain**, porém o recome
 ![Decidir qual Fluxo do OAuth2 devo usar](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/oauth2._qual_fluxo_usar.png)
 
 
+# Armazenando tokens no Redis: um banco de dados NoSQL
+
+![Armazenando tokens no Redis: um banco de dados NoSQL](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-1-armazenandotokens-no-redis-um-banco-de-dados-NoSQL.png)
+
+## Gerenciador desktop para o Redis
+
+Gerenciador para Redis com interface gráfica
+
+Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é necessário instalar o Redis.
+
+-[AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager)
+
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
@@ -2290,6 +2324,99 @@ A configuração de allowCredentials como "true", combinada com allowedOrigins c
 Recomendamos utilizar a opção allowCredentials como false, caso o allowedOrigins seja "*".
 
 Só é possível utilizar a opção allowCredentials como "true", caso sejam especificadas as Origins permitidas.
+
+
+# Como instalar o Redis
+
+Para instalar o Redis, precisamos entender o conceito de que, se vamos trabalhar com ele na nossa máquina, precisamos 
+instalar o Redis Server. Caso fossemos apenas acessar o Redis Server que está em outra maquina remota, precisaríamos 
+apenas instalar o Redis CLI, que é o cliente do Redis que acessa o Redis Server.
+
+Dito isso, como vamos executar o Redis na nossa máquina e acessar ela pelo cliente, temos que instalar o Redis Server. 
+Normalmente, ao instalar o Redis Server, você já terá juntamente com ele o Redis CLI.
+
+Abaixo vamos descrever os processos de instalação do Redis Server nos sistemas operacionais Ubuntu, Windows e MacOS, 
+respectivamente.
+
+## Instalando o Redis no Ubuntu
+Primeiro execute o comando abaixo para atualizar os repositórios:
+
+````shell
+sudo apt-get update
+````
+````shell
+sudo apt-get install redis-server
+````
+OBS: Se não encontrar o redis-server, adicione o seguinte repository abaixo e tente instalar novamente.
+````shell
+sudo add-apt-repository universe
+````
+Depois de instalar, execute o seguinte comando:
+````shell
+sudo service redis status
+````
+Esse comando serve para mostrar o status do serviço do Redis. Você deve receber uma série de informações, 
+após executar esse comando, e detre as informações, você deve ver algo como "active (running)", 
+o que significa que o serviço do Redis está sendo executado.
+
+Então, após isso, basta executar o seguinte comando para acessar o cliente do Redis:
+````shell
+redis-cli
+````
+## Instalando o Redis no Windows - Redis da Memurai
+Como o Redis Server da Microsoft não está sendo mais atualizado, podemos utilizar a alternativa do Memurai,
+que atualmente possui uma versão grátis. Para realizar o download é necessário criar uma conta. O processo 
+de instalação é simples, e o Redis do Memurai é executado como um serviço no Windows, assim como o MySQL, 
+logo não é necessário executar o programa manualmente.
+
+[Link para cadastro e download do Memurai](https://www.memurai.com/)
+
+### CLI do Redis Memurai
+Para executar o CLI, acessa a pasta de instalação do Memurai que fica por padrão localizado em 
+`"C:\Program Files\Memurai"`, acesse essa pasta utilizando "cd" no prompt de comandos. em seguida, execute "**memurai-cli.exe**".
+
+### Windows - Redis Server da Microsoft (Não recebe mais atualizações)
+
+Primeiro, acesse este [link para baixar o arquivo zip Redis-64-3.0.504.zip(https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504).
+
+Depois de baixar este arquivo, descompacte-o em uma pasta de sua preferência.
+
+Agora você deve executar o arquivo redis-server para que o Redis Server seja iniciado. Na primeira vez, será pedido 
+permissões de administrador para executar este arquivo, você pode concedê-la e executar o arquivo.
+
+Após isso, será aberta uma tela do prompt de comando (CMD), indicando que o serviço do Redis Server está em execução.
+
+Veja que, já com o Redis Server em execução, precisamos agora executar o Redis CLI para acessarmos o Redis Server. 
+Para fazer isso, basta executar o arquivo redis-cli na pasta que você descompactou a pouco.
+
+OBS: Sempre que precisar executar o Redis, precisara executar estes dois arquivos. Se você iniciar o arquivo redis-cli 
+sem iniciar o arquivo redis-server, nada irá acontecer, pois o Redis CLI não conseguirá acessar nenhum serviço.
+
+## Instalando o Redis no Mac
+No Mac o processo é bem simples. Primeiro executamos o comando abaixo para atualizarmos repositórios:
+````shell
+brew update
+````
+Depois executamos o comando abaixo para instalar o Redis:
+````shell
+brew install redis
+````
+Depois do Redis instalado, precisamos iniciar o serviço do Redis assim:
+````shell
+brew services start redis
+````
+Para entrar no Redis CLI, basta executar o seguinte comando:
+````shell
+redis-cli
+````
+**Testando o Redis (para qualquer sistema operacional)**
+Para testarmos se a comunicação entre o Redis CLI e o Redis Server está funcionando corretamente. Iremos executar 
+o comando abaixo, já dentro do Redis CLI:
+````shell
+ping
+````
+Como resposta, devemos receber a palavra "PONG". Se receber esta palavra, significa que o Redis CLI está comunicando corretamente com o Redis Server.
+
 
 # LINKS DE DOCUMENTAÇÕES
 
