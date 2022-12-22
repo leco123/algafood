@@ -1,6 +1,7 @@
 # Tópicos abordados
 
 <!-- TOC -->
+* [Tópicos abordados](#tópicos-abordados)
 * [Treinamento Algaworks Especialista em REST](#treinamento-algaworks-especialista-em-rest)
     * [Rodar projeto via line command](#rodar-projeto-via-line-command)
       * [WINDOWS](#windows)
@@ -19,7 +20,11 @@
       * [REST:](#rest-)
       * [RESTful ou REST API:](#restful-ou-rest-api-)
   * [Medindo a maturidade de sua (API) - "Richardson Maturity Model" (RMM)](#medindo-a-maturidade-de-sua--api-----richardson-maturity-model---rmm-)
-    * [Dícas](#dícas)
+* [DIFERENÇA ENRTE STATEFUL E STATELESS](#diferença-enrte-stateful-e-stateless)
+  * [Fluxo Stateful Authentication](#fluxo-stateful-authentication)
+  * [Fluxo Stateless Authentication](#fluxo-stateless-authentication)
+  * [Token Transparênte](#token-transparênte)
+  * [Token Opaco](#token-opaco)
     * [Como implementar Verbo PATCH de forma dinâmica porém de forma não amigável.](#como-implementar-verbo-patch-de-forma-dinâmica-porém-de-forma-não-amigável)
       * [Como evitar erros de NullPointerException usando o Optional lançado no Java 8](#como-evitar-erros-de-nullpointerexception-usando-o-optional-lançado-no-java-8)
       * [Propósitos dos Optional](#propósitos-dos-optional)
@@ -88,20 +93,27 @@
     * [Fluxo Implicit](#fluxo-implicit)
     * [Authorization Code + PKCE-Chave de prova para troca de código por clientes públicos OAuth](#authorization-code--pkce-chave-de-prova-para-troca-de-código-por-clientes-públicos-oauth)
     * [Decidir qual Fluxo do OAuth2 devo usar?](#decidir-qual-fluxo-do-oauth2-devo-usar)
-* [Armazenando tokens no Redis: um banco de dados NoSQL](#armazenando-tokens-no-redis--um-banco-de-dados-nosql)
-  * [Gerenciador desktop para o Redis](#gerenciador-desktop-para-o-redis)
+* [REDIS BANCO DE DADOS NoSQL](#redis-banco-de-dados-nosql)
+  * [Configurando o RedisTokenStore](#configurando-o-redistokenstore)
+  * [Armazenando tokens no Redis: um banco de dados NoSQL](#armazenando-tokens-no-redis--um-banco-de-dados-nosql)
+  * [Comandos Redis](#comandos-redis)
+    * [Comando Redis para entrar CLI](#comando-redis-para-entrar-cli)
+    * [Comando Redis para Authenticar](#comando-redis-para-authenticar)
+    * [Comando Redis para visualizar todas as chaves](#comando-redis-para-visualizar-todas-as-chaves)
+    * [Comando Redis para limpar todos os dados](#comando-redis-para-limpar-todos-os-dados)
 * [CONHECIMENTOS DIVERSOS](#conhecimentos-diversos)
   * [PROXY](#proxy)
     * [Oque é e como funciona Proxy](#oque-é-e-como-funciona-proxy)
     * [Proxy reverso](#proxy-reverso)
     * [Proxy para todos](#proxy-para-todos)
 * [Nota sobre o allowCredentials](#nota-sobre-o-allowcredentials)
-* [Como instalar o Redis](#como-instalar-o-redis)
+* [COMO INSTALAR REDIS](#como-instalar-redis)
   * [Instalando o Redis no Ubuntu](#instalando-o-redis-no-ubuntu)
   * [Instalando o Redis no Windows - Redis da Memurai](#instalando-o-redis-no-windows---redis-da-memurai)
     * [CLI do Redis Memurai](#cli-do-redis-memurai)
     * [Windows - Redis Server da Microsoft (Não recebe mais atualizações)](#windows---redis-server-da-microsoft--não-recebe-mais-atualizações-)
   * [Instalando o Redis no Mac](#instalando-o-redis-no-mac)
+  * [Gerenciador desktop para o Redis](#gerenciador-desktop-para-o-redis)
 * [LINKS DE DOCUMENTAÇÕES](#links-de-documentações)
 <!-- TOC -->
 
@@ -488,9 +500,17 @@ protocolo HTTP estava sendo usado superficialmente.
 
 # DIFERENÇA ENRTE STATEFUL E STATELESS
 
-## Application State VS Resource State
-
-### Dícas
+## Fluxo Stateful Authentication
+Os dados são armazenados no servidor de Authentication Server, Browser.
+![Fluxo Stateful Authentication](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-3-entendendo-a-diferenca-entre-stateful-e-stateless-authentication.png)
+## Fluxo Stateless Authentication
+Os dados são armazenados no lado do client, Browser, neste caso o servidor não armazena nada, não sabe quais tokens esta sendo gerenciado.
+![Fluxo Stateful Authentication](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-3-entendendo-a-diferenca-entre-stateful-e-stateless-authentication_1.png)
+## Token Transparênte
+As informações ficam contidas dentro dele e codificadas com base64
+![Fluxo Stateful Authentication](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-3-token_transparente.png)
+## Token Opaco
+Fica armazenado apenas o hash das informações
 
 ### Como implementar Verbo PATCH de forma dinâmica porém de forma não amigável.
 
