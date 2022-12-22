@@ -2289,7 +2289,7 @@ Fica armazenado apenas o hash das informações
 # GERAR PAR DE CHAVES COM KEYTOOL
 ### Gerando um arquivo JKS com um par de chaves
 
-**Siginificado de cada comando**:
+**Siginificado de cada comando ou argumento**:
 * `keytoll`: comando principal defini que estamos usando a ferramenta keytool do java
 * `-genkeypair`: deve ser gerado chaves pares
 * `-alias`: deve adicionar o nome pra chave exemplo: `algafood`
@@ -2305,6 +2305,48 @@ keytool -genkeypair -alias algafood -keyalg RSA -keypass 123456 -keystore algafo
 ````shell
 keytool -list -keystore algafood.jks
 ````
+### Extraindo a chave pública do arquivo jks no formato PEM
+Precisa dessa chave pública para validar o `Resource Service`
+
+
+Precisa ser extraido o par de chaves do certificado, o certificado contém informações que incluimos na emissão desse
+par de chave e também inclui a chave pública que fica dentro desse certificado, a chave pública é a chave criptográfica 
+que precisamos para validar assinatura do JWT.
+
+**Siginificado de cada comando ou argumento**:
+
+* `keytool`: comando principal defini que estamos usando a ferramenta keytool do java
+* `-export`: especifica que vai ser exportar o certificado armazenado no keystore
+* `-rfc`:  flag que indica que vamos exportar em formato de texto e não em binário
+* `-alias`: é o nome de idenficação do `keypair` que está dentro `keystore` ex: `algafood`
+* `-keystore`: nome do arquivo jks onde será extraido o certificado  ex: `algafood.jks`
+* `-file`: é o nome do arquivo que será criado e o certificado vai ficar dentro desse arquivo ex: `algafood-cert.pem`
+
+#### Gerando o certificado
+````shell
+keytool -export -rfc -alias algafood -keystore algafood.jks -file algafood-cert.pem
+````
+#### Gerando a chave pública
+
+**Siginificado de cada comando ou argumento**:
+* `openssl`: comando principal para gerar chave pública
+* `x509`: qual o tipo de certificado que vai passar como entrada ou seja o formato do certificado
+* `-pubkey`: define que vamos gerar a chave pública como saída
+* `-noout`: não é para imprimir na saída os dados do certificado de entrada junto com a chave pública, eu quero apenas a chave pública
+* `-in`: qual é o arquivo de entrada ou seja o arquivo de certificado seguindo nosso exemplo seria: `algafood-cert.pem`
+* `>`: nome do arquivo para onde mandar a saída
+
+````shell
+openssl x509 -pubkey -noout -in algafood-cert.pem > algafood-pkey.pem
+````
+
+# COMO INSTALAR OPENSSL NO WINDOWS
+1. Baixa o openssl do windows https://sourceforge.net/projects/openssl-for-windows/
+2. Copiar a pasta openSSl para dentro do `C:\Program Files\`
+3. Adicionar variável de ambiente de usuário e procurar arquivo `C:\Program Files\OpenSSL\bin\openssl.cnf`
+4. Nomear a váriavel `OPENSSL_CONF`
+
+![openSSl no Windows](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/adicionar-openssl-windows.png)
 
 
 # REDIS BANCO DE DADOS NoSQL
