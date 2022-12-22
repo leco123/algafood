@@ -2259,14 +2259,6 @@ Existe 2(dois) métodos de especificação **s256** e **plain**, porém o recome
 
 ![Armazenando tokens no Redis: um banco de dados NoSQL](https://raw.githubusercontent.com/leco123/algafood/master/src/main/resources/images/img_pages/23-1-armazenandotokens-no-redis-um-banco-de-dados-NoSQL.png)
 
-## Gerenciador desktop para o Redis
-
-Gerenciador para Redis com interface gráfica
-
-Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é necessário instalar o Redis.
-
--[AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager)
-
 
 # CONHECIMENTOS DIVERSOS
 
@@ -2327,7 +2319,7 @@ Recomendamos utilizar a opção allowCredentials como false, caso o allowedOrigi
 Só é possível utilizar a opção allowCredentials como "true", caso sejam especificadas as Origins permitidas.
 
 
-# Como instalar o Redis
+# COMO INSTALAR REDIS
 
 Para instalar o Redis, precisamos entender o conceito de que, se vamos trabalhar com ele na nossa máquina, precisamos 
 instalar o Redis Server. Caso fossemos apenas acessar o Redis Server que está em outra maquina remota, precisaríamos 
@@ -2378,7 +2370,7 @@ Para executar o CLI, acessa a pasta de instalação do Memurai que fica por padr
 
 ### Windows - Redis Server da Microsoft (Não recebe mais atualizações)
 
-Primeiro, acesse este [link para baixar o arquivo zip Redis-64-3.0.504.zip(https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504).
+Primeiro, acesse este [link para baixar o arquivo zip Redis-64-3.0.504.zip](https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504).
 
 Depois de baixar este arquivo, descompacte-o em uma pasta de sua preferência.
 
@@ -2418,6 +2410,13 @@ ping
 ````
 Como resposta, devemos receber a palavra "PONG". Se receber esta palavra, significa que o Redis CLI está comunicando corretamente com o Redis Server.
 
+## Gerenciador desktop para o Redis
+
+Gerenciador para Redis com interface gráfica
+
+Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é necessário instalar o Redis.
+
+[AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager)
 
 # LINKS DE DOCUMENTAÇÕES
 
@@ -2461,3 +2460,6 @@ Como resposta, devemos receber a palavra "PONG". Se receber esta palavra, signif
   - [RFC 7636 - PKCE-Chave de prova para troca de código por clientes públicos OAuth](https://www.rfc-editor.org/rfc/rfc7636)
   - [Implementação de PKCE para Spring Security OAuth2](https://gist.github.com/thiagofa/daca4f4790b5b18fed800b83747127ca)
   - [Ferramenta online para gerar Code Verifier e Code Challenge (PKCE)](https://tonyxu-io.github.io/pkce-generator/)
+  - [Link para cadastro e download do Memurai](https://www.memurai.com/)
+  - [link para baixar o arquivo zip Redis-64-3.0.504.zip](https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504)
+  - [AnotherRedisDesktopManager](https://github.com/qishibo/AnotherRedisDesktopManager)
