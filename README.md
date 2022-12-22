@@ -5,6 +5,7 @@
     * [Rodar projeto via line command](#rodar-projeto-via-line-command)
       * [WINDOWS](#windows)
       * [LINUX](#linux)
+      * [Adicionar variaveis de ambiente no profile](#adicionar-variaveis-de-ambiente-no-profile)
     * [Variável _`serialVersionUID`_ e sua importância na arquitetura Java](#variável-serialversionuid-e-sua-importância-na-arquitetura-java)
       * [O que é o serialVersionUID?](#o-que-é-o-serialversionuid)
   * [Oque é Predicado?](#oque-é-predicado)
