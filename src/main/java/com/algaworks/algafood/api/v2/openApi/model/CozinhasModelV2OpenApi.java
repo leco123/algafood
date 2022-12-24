@@ -16,7 +16,7 @@ public class CozinhasModelV2OpenApi {
 
     private CozinhasEmbeddedModelOpenApi _embedded;
     private Links _links;
-    private PageModelV2OpenApi page;
+    //private PageModelV2OpenApi page;
 
     @ApiModel("CozinhasEmbeddedModel")
     @Data

@@ -1,11 +1,9 @@
 package com.algaworks.algafood.core.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
@@ -19,8 +17,8 @@ public class WebConfig implements WebMvcConfigurer {
 //    @Autowired
 //    private __ApiDeprecationHandler apiDeprecationHandler;
 
-    @Autowired
-    private ApiRetirementHandler apiRetirementHandler;
+//    @Autowired
+//    private ApiRetirementHandler apiRetirementHandler;
 
     /**
      * Método usado para habilitar o CORS globalmente
@@ -46,14 +44,14 @@ public class WebConfig implements WebMvcConfigurer {
 //    }
 
 
-    @Override
-    public void addInterceptors (InterceptorRegistry registry) {
-          // aviso que api está depreciada
-//        registry.addInterceptor(apiDeprecationHandler);
-
-        // API desligada retorna http status 410
-        //registry.addInterceptor(apiRetirementHandler);
-    }
+//    @Override
+//    public void addInterceptors (InterceptorRegistry registry) {
+//          // aviso que api está depreciada
+////        registry.addInterceptor(apiDeprecationHandler);
+//
+//        // API desligada retorna http status 410
+//        //registry.addInterceptor(apiRetirementHandler);
+//    }
 
     /**
      * Para funcionar o shallowEtag Basta adicionar essa configuração

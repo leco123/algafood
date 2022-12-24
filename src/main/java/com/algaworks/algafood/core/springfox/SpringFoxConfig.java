@@ -11,9 +11,7 @@ import com.algaworks.algafood.api.v1.model.usuario.UsuarioModel;
 import com.algaworks.algafood.api.v1.model.usuario.grupo.GrupoModel;
 import com.algaworks.algafood.api.v1.model.usuario.permissao.PermissaoModel;
 import com.algaworks.algafood.api.v1.openapi.model.*;
-import com.algaworks.algafood.api.v2.model.CidadeModelV2;
 import com.algaworks.algafood.api.v2.model.CozinhaModelV2;
-import com.algaworks.algafood.api.v2.openApi.model.CidadesModelV2OpenApi;
 import com.algaworks.algafood.api.v2.openApi.model.CozinhasModelV2OpenApi;
 import com.fasterxml.classmate.TypeResolver;
 import org.springframework.context.annotation.Bean;
@@ -213,9 +211,9 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                         typeResolver.resolve(PagedModel.class, CozinhaModelV2.class),
                         CozinhasModelV2OpenApi.class))
 
-                .alternateTypeRules(AlternateTypeRules.newRule(
-                        typeResolver.resolve(CollectionModel.class, CidadeModelV2.class),
-                        CidadesModelV2OpenApi.class))
+//                .alternateTypeRules(AlternateTypeRules.newRule(
+//                        typeResolver.resolve(CollectionModel.class, CidadeModelV2.class),
+//                        CidadesModelV2OpenApi.class))
 
                 .apiInfo(apiInfoV2())
 
