@@ -1,5 +1,6 @@
 package com.algaworks.algafood.core.security;
 
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.lang.annotation.Retention;
@@ -44,6 +45,20 @@ public @interface CheckSecurity {
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeConsultar { }
+
+	}
+
+	public @interface Pedidos {
+//		Antes da execução do método onde esta annotation checka esta expressão
+		@PreAuthorize("hasAuthority('SCOPE_READ') and isAuthenticated()")
+//		Depois da execução do método onde esta annotation checka esta expressão
+//		deve ser usando somente em buscar os lista de registro
+		@PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or " +
+				"@algaSecurity.getUsuarioId() == returnObject.cliente.id or " +
+				"@algaSecurity.gerenciaRestaurante(returnObject.restaurante.id)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeBuscar { }
 
 	}
 	

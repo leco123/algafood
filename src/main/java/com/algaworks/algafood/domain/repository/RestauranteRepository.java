@@ -47,10 +47,6 @@ public interface RestauranteRepository extends
 
     int countByCozinhaId(Long cozinhaId);
 
-    @Query("select case when count(1) > 0 then true else false end " +
-            "from Restaurante rest " +
-            "join rest.reponsaveis resp " +
-            "where rest.id = :restauranteId and resp.id = :usuarioId")
-    boolean existesResponsavel(Long restauranteId, Long usuarioId);
+    boolean existsResponsavel(Long restauranteId, Long usuarioId);
 
 }

@@ -10,6 +10,7 @@ import com.algaworks.algafood.api.v1.openapi.controller.PedidoControllerOpenApi;
 import com.algaworks.algafood.core.PageableTranslator;
 import com.algaworks.algafood.core.data.PageWrapper;
 import com.algaworks.algafood.core.security.AlgaSecurity;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.filter.PedidoFilter;
@@ -56,6 +57,7 @@ public class PedidoController implements PedidoControllerOpenApi {
     @Autowired
     private AlgaSecurity algaSecurity;
 
+    @CheckSecurity.Pedidos.PodeBuscar
     @Override
     @GetMapping
     public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro,
