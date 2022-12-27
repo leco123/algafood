@@ -23,7 +23,7 @@
     <aws-java-sdk-s3.version>1.11.671</aws-java-sdk-s3.version>
     <springfox.version>2.9.2</springfox.version>
     <logback-ext-loggly.version>0.1.5</logback-ext-loggly.version>
-    <oauth2-oidc-sdk.version>6.21.2</oauth2-oidc-sdk.version>
+    <oauth2-oidc-sdk.version>6.23</oauth2-oidc-sdk.version>
   </properties>
 
   <dependencies>
