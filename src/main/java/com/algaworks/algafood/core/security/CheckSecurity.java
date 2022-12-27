@@ -10,18 +10,18 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 public @interface CheckSecurity {
 
-    public @interface Cozinhas {
+	public @interface Cozinhas {
+		
+		@PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeEditar { }
 
-        @PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
-        @Retention(RUNTIME)
-        @Target(METHOD)
-        public @interface PodeEditar { }
-
-        @PreAuthorize("isAuthenticated()")
-        @Retention(RUNTIME)
-        @Target(METHOD)
-        public @interface PodeConsultar { }
-
-    }
-
+		@PreAuthorize("isAuthenticated()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeConsultar { }
+		
+	}
+	
 }

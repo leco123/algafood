@@ -8,16 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class AlgaSecurity {
 
-    /**
-     * Retorna o Token que esta representando a requisição atual
-     * @return Authentication
-     */
-    public Authentication getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
-
-    public Long getUsuarioId() {
-        Jwt  jwt = (Jwt) getAuthentication().getPrincipal();
-        return jwt.getClaim("usuario_id");
-    }
+	public Authentication getAuthentication() {
+		return SecurityContextHolder.getContext().getAuthentication();
+	}
+	
+	public Long getUsuarioId() {
+		Jwt jwt = (Jwt) getAuthentication().getPrincipal();
+		
+		return jwt.getClaim("usuario_id");
+	}
+	
 }
