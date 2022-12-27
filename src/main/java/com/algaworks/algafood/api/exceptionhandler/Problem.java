@@ -21,7 +21,7 @@ public class Problem {
     @ApiModelProperty(example = "2022-12-12T17:42:47.4357898Z", value = "Data e Hora UTC", position = 3)
     private OffsetDateTime timestamp;
 
-    @ApiModelProperty(example = "http://localhost:8080/recurso-nao-encontrado", position = 6)
+    @ApiModelProperty(example = "http://api.algafood.local:8080/recurso-nao-encontrado", position = 6)
     private String type;
 
     @ApiModelProperty(example = "Recurso não encontrado", position = 9)

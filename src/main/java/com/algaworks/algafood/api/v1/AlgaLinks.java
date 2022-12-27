@@ -47,7 +47,7 @@ public class AlgaLinks {
 
 //        pedidoModel.add(WebMvcLinkBuilder.linkTo(PedidoController.class).withRel("pedidos"));
 //       UriTemplate, recebe 2(dois) parâmetros
-//       1º urlString exemplo "http://localhost:8080/pedidos"
+//       1º urlString exemplo "http://api.algafood.local:8080/pedidos"
 //       2º TemplateVariables variaveis da página ex: {"page","sort","size"... outros}
 
         return new Link(UriTemplate.of(pedidosUrl, PAGINACAO_VARIABLES.concat(filtroVariables)), rel);

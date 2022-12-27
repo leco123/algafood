@@ -1582,7 +1582,7 @@ uma nova requisição para o servidor pra trazer o recurso atualizado?**
 ````text
 
 -----> GERAL
-Solicitar URL: http://localhost:8080/formas-pagamento
+Solicitar URL: http://api.algafood.local:8080/formas-pagamento
 Método da solicitação: GET
 Código de status: 200 
 Endereço remoto: [::1]:8080
