@@ -7,7 +7,7 @@ import com.algaworks.algafood.api.v1.model.input.pedido.PedidoInput;
 import com.algaworks.algafood.api.v1.model.pedido.PedidoModel;
 import com.algaworks.algafood.api.v1.model.pedido.PedidoResumoModel;
 import com.algaworks.algafood.api.v1.openapi.controller.PedidoControllerOpenApi;
-import com.algaworks.algafood.core.PageableTranslator;
+import com.algaworks.algafood.core.data.PageableTranslator;
 import com.algaworks.algafood.core.data.PageWrapper;
 import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.core.security.CheckSecurity;

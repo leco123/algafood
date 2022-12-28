@@ -12,7 +12,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface CheckSecurity {
 
 	public @interface Cozinhas {
-		
+
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and hasAuthority('EDITAR_COZINHAS')")
 		@Retention(RUNTIME)
 		@Target(METHOD)
@@ -22,7 +22,7 @@ public @interface CheckSecurity {
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeConsultar { }
-		
+
 	}
 
 	public @interface Restaurantes {
@@ -32,11 +32,9 @@ public @interface CheckSecurity {
 		@Target(METHOD)
 		public @interface PodeGerenciarCadastro { }
 
-		/**
-		 * "@algaSecurity" respresenta o nome do bean da classe e "gerenciaRestaurante" o método
-		 */
-		@PreAuthorize("hasAuthority('SCOPE_WRITE') and " +
-				"(hasAuthority('EDITAR_RESTAURANTES') or @algaSecurity.gerenciaRestaurante(#restauranteId))")
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and "
+				+ "(hasAuthority('EDITAR_RESTAURANTES') or "
+				+ "@algaSecurity.gerenciaRestaurante(#restauranteId))")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeGerenciarFuncionamento { }
@@ -49,19 +47,17 @@ public @interface CheckSecurity {
 	}
 
 	public @interface Pedidos {
-//		Antes da execução do método onde esta annotation checka esta expressão
+
 		@PreAuthorize("hasAuthority('SCOPE_READ') and isAuthenticated()")
-//		Depois da execução do método onde esta annotation checka esta expressão
-//		deve ser usando somente em buscar os lista de registro
-		@PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or " +
-				"@algaSecurity.getUsuarioId() == returnObject.cliente.id or " +
-				"@algaSecurity.gerenciaRestaurante(returnObject.restaurante.id)")
+		@PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or "
+				+ "@algaSecurity.usuarioAutenticadoIgual(returnObject.cliente.id) or "
+				+ "@algaSecurity.gerenciaRestaurante(returnObject.restaurante.id)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeBuscar { }
 
 		@PreAuthorize("hasAuthority('SCOPE_READ') and (hasAuthority('CONSULTAR_PEDIDOS') or "
-				+ "@algaSecurity.getUsuarioId() == #filtro.clienteId or"
+				+ "@algaSecurity.usuarioAutenticadoIgual(#filtro.clienteId) or"
 				+ "@algaSecurity.gerenciaRestaurante(#filtro.restauranteId))")
 		@Retention(RUNTIME)
 		@Target(METHOD)
@@ -76,8 +72,7 @@ public @interface CheckSecurity {
 				+ "@algaSecurity.gerenciaRestauranteDoPedido(#codigoPedido))")
 		@Retention(RUNTIME)
 		@Target(METHOD)
-		public @interface PodeGerenciarPedidos {
-		}
+		public @interface PodeGerenciarPedidos { }
 
 	}
 
@@ -126,13 +121,13 @@ public @interface CheckSecurity {
 	public @interface UsuariosGruposPermissoes {
 
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and "
-				+ "@algaSecurity.getUsuarioId() == #usuarioId")
+				+ "@algaSecurity.usuarioAutenticadoIgual(#usuarioId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeAlterarPropriaSenha { }
 
 		@PreAuthorize("hasAuthority('SCOPE_WRITE') and (hasAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES') or "
-				+ "@algaSecurity.getUsuarioId() == #usuarioId)")
+				+ "@algaSecurity.usuarioAutenticadoIgual(#usuarioId))")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeAlterarUsuario { }
@@ -159,5 +154,5 @@ public @interface CheckSecurity {
 		public @interface PodeConsultar { }
 
 	}
-	
+
 }

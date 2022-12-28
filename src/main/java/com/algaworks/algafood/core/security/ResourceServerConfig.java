@@ -22,32 +22,32 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.csrf().disable()
-			.cors().and()
-			.oauth2ResourceServer().jwt()
+				.csrf().disable()
+				.cors().and()
+				.oauth2ResourceServer().jwt()
 				.jwtAuthenticationConverter(jwtAuthenticationConverter());
 	}
-	
+
 	private JwtAuthenticationConverter jwtAuthenticationConverter() {
 		var jwtAuthenticationConverter = new JwtAuthenticationConverter();
 		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
 			var authorities = jwt.getClaimAsStringList("authorities");
-			
+
 			if (authorities == null) {
 				authorities = Collections.emptyList();
 			}
-			
+
 			var scopesAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
 			Collection<GrantedAuthority> grantedAuthorities = scopesAuthoritiesConverter.convert(jwt);
-			
+
 			grantedAuthorities.addAll(authorities.stream()
 					.map(SimpleGrantedAuthority::new)
 					.collect(Collectors.toList()));
-			
+
 			return grantedAuthorities;
 		});
-		
+
 		return jwtAuthenticationConverter;
 	}
-	
+
 }

@@ -15,14 +15,9 @@ public class ModelMapperConfig {
     public ModelMapper modelMapper() {
         var modelMapper = new ModelMapper();
 
-        // Skip configurando para não atribuir código da cidade
-//        modelMapper.createTypeMap(CidadeInputV2.class, Cidade.class)
-//                .addMappings(mapper -> mapper.skip(Cidade::setId));
-
 //		modelMapper.createTypeMap(Restaurante.class, RestauranteModel.class)
 //			.addMapping(Restaurante::getTaxaFrete, RestauranteModel::setPrecoFrete);
 
-        // Skip configurando para não atribuir código da itemPedido
         modelMapper.createTypeMap(ItemPedidoInput.class, ItemPedido.class)
                 .addMappings(mapper -> mapper.skip(ItemPedido::setId));
 
@@ -35,4 +30,5 @@ public class ModelMapperConfig {
 
         return modelMapper;
     }
+
 }

@@ -20,9 +20,9 @@ public class SquigglyConfig {
     @Bean
     public FilterRegistrationBean<SquigglyRequestFilter> squigglyRequestFilter(ObjectMapper objectMapper) {
         // RequestSquigglyContextProvider, já traz algumas informações sendo a propriedade {fields: ... }
-        Squiggly.init(objectMapper, new RequestSquigglyContextProvider("campos",null));
+        Squiggly.init(objectMapper, new RequestSquigglyContextProvider("campos", null));
 
-        var urlPatterns = Arrays.asList("/pedido/*","/restaurantes/*");
+        var urlPatterns = Arrays.asList("/pedidos/*", "/restaurantes/*");
 
         var filterRegistration = new FilterRegistrationBean<SquigglyRequestFilter>();
         filterRegistration.setFilter(new SquigglyRequestFilter());
