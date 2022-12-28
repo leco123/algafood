@@ -2609,3 +2609,4 @@ Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é nece
 - OAuth2 avançado com JWT e controle de acesso
   - [RFC 7519 - JSON Web Token](https://tools.ietf.org/html/rfc7519)
   - [Ferramenta online para debugging de JWT](https://jwt.io/)
+  - [DDL da tabela de clientes OAuth2](https://gist.github.com/thiagofa/7b1792745d4de64bd86b230d0e3a381d)
