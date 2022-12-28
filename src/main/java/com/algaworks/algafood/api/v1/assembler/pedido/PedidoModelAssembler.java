@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.v1.assembler.pedido;
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.pedido.PedidoController;
 import com.algaworks.algafood.api.v1.model.pedido.PedidoModel;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.domain.model.Pedido;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class PedidoModelAssembler
 
     @Autowired
     private AlgaLinks algaLinks;
+    @Autowired
+    private AlgaSecurity algaSecurity;
 
     public PedidoModelAssembler() {
         super(PedidoController.class, PedidoModel.class);
@@ -29,17 +32,19 @@ public class PedidoModelAssembler
         modelMapper.map(pedido, pedidoModel);
 
         pedidoModel.add(algaLinks.linkToPedidos("pedidos"));
+        // valida se pode gerenciar pedido
+        if (algaSecurity.podeGerenciarPedidos(pedido.getCodigo())) {
+            if (pedido.podeSerConfirmado()) {
+                pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
+            }
 
-        if (pedido.podeSerConfirmado()) {
-            pedidoModel.add(algaLinks.LinkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
-        }
+            if (pedido.podeSerCancelado()) {
+                pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));
+            }
 
-        if (pedido.podeSerCancelado()) {
-            pedidoModel.add(algaLinks.LinkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));
-        }
-
-        if (pedido.podeSerEntregue()) {
-            pedidoModel.add(algaLinks.LinkToEntregaPedido(pedido.getCodigo(), "entregar"));
+            if (pedido.podeSerEntregue()) {
+                pedidoModel.add(algaLinks.linkToEntregaPedido(pedido.getCodigo(), "entregar"));
+            }
         }
 
         pedidoModel.getRestaurante().add(

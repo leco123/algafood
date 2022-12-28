@@ -9,9 +9,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
-/**
- * Utilitárioa para criar Heteos
- */
 @UtilityClass
 public class ResourceUriHelper {
 

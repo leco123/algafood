@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.exceptionhandler;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -10,7 +11,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @ApiModel("Problema")
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(Include.NON_NULL)
 @Getter
 @Builder
 public class Problem {
@@ -18,30 +19,38 @@ public class Problem {
     @ApiModelProperty(example = "400", position = 1)
     private Integer status;
 
-    @ApiModelProperty(example = "2022-12-12T17:42:47.4357898Z", value = "Data e Hora UTC", position = 3)
+    @ApiModelProperty(example = "2019-12-01T18:09:02.70844Z", position = 5)
     private OffsetDateTime timestamp;
 
-    @ApiModelProperty(example = "http://api.algafood.local:8080/recurso-nao-encontrado", position = 6)
+    @ApiModelProperty(example = "https://algafood.com.br/dados-invalidos", position = 10)
     private String type;
 
-    @ApiModelProperty(example = "Recurso não encontrado", position = 9)
+    @ApiModelProperty(example = "Dados inválidos", position = 15)
     private String title;
 
-    @ApiModelProperty(example = "Não existe um cadastro de restaurante com código 10 ", position = 12)
+    @ApiModelProperty(example = "Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.",
+            position = 20)
     private String detail;
 
-    @ApiModelProperty(example = "Não existe um cadastro de restaurante com código 10 ", position = 15)
+    @ApiModelProperty(example = "Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.",
+            position = 25)
     private String userMessage;
 
-    @ApiModelProperty(value = "Objetos ou campos que geraram o erro (opcional) ", position = 18)
+    @ApiModelProperty(value = "Lista de objetos ou campos que geraram o erro (opcional)",
+            position = 30)
     private List<Object> objects;
 
     @ApiModel("ObjetoProblema")
     @Getter
     @Builder
     public static class Object {
+
+        @ApiModelProperty(example = "preco")
         private String name;
+
+        @ApiModelProperty(example = "O preço é obrigatório")
         private String userMessage;
+
     }
 
 }
