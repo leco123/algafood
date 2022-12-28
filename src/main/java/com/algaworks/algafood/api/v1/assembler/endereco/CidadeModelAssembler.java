@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.v1.assembler.endereco;
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.endereco.CidadeController;
 import com.algaworks.algafood.api.v1.model.endereco.cidade.CidadeModel;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.domain.model.Cidade;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
     @Autowired
     private AlgaLinks algaLinks;
 
+    @Autowired
+    private AlgaSecurity algaSecurity;
+
     public CidadeModelAssembler() {
         super(CidadeController.class, CidadeModel.class);
     }
@@ -29,24 +33,26 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
 
         modelMapper.map(cidade, cidadeModel);
 
-        cidadeModel.add(algaLinks.linkToCidades("cidades"));
+        if (algaSecurity.podeConsultarCidades()) {
+            cidadeModel.add(algaLinks.linkToCidades("cidades"));
+        }
 
-        cidadeModel.getEstado().add(algaLinks.linkToEstado(cidadeModel.getEstado().getId()));
+        if (algaSecurity.podeConsultarEstados()) {
+            cidadeModel.getEstado().add(algaLinks.linkToEstado(cidadeModel.getEstado().getId()));
+        }
 
         return cidadeModel;
     }
 
     @Override
     public CollectionModel<CidadeModel> toCollectionModel(Iterable<? extends Cidade> entities) {
-        return super.toCollectionModel(entities)
-                .add(algaLinks.linkToCidades());
+        CollectionModel<CidadeModel> collectionModel = super.toCollectionModel(entities);
+
+        if (algaSecurity.podeConsultarCidades()) {
+            collectionModel.add(algaLinks.linkToCidades());
+        }
+
+        return collectionModel;
     }
-
-
-//    public List<CidadeModel> toCollectionModel(List<Cidade> cidades) {
-//        return cidades.stream()
-//                .map(cidade -> toModel(cidade))
-//                .collect(Collectors.toList());
-//    }
 
 }

@@ -2,14 +2,12 @@ package com.algaworks.algafood.api.v1.assembler.pedido;
 
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.pedido.PedidoController;
-import com.algaworks.algafood.api.v1.controller.restaurante.RestauranteController;
-import com.algaworks.algafood.api.v1.controller.usuario.UsuarioController;
 import com.algaworks.algafood.api.v1.model.pedido.PedidoResumoModel;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.domain.model.Pedido;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 
@@ -23,6 +21,9 @@ public class PedidoResumoModelAssembler
     @Autowired
     private AlgaLinks algaLinks;
 
+    @Autowired
+    private AlgaSecurity algaSecurity;
+
     public PedidoResumoModelAssembler() {
         super(PedidoController.class, PedidoResumoModel.class);
     }
@@ -32,13 +33,18 @@ public class PedidoResumoModelAssembler
         PedidoResumoModel pedidoModel = createModelWithId(pedido.getCodigo(), pedido);
         modelMapper.map(pedido, pedidoModel);
 
-        pedidoModel.add(algaLinks.linkToPedidos("pedidos"));
+        if (algaSecurity.podePesquisarPedidos()) {
+            pedidoModel.add(algaLinks.linkToPedidos("pedidos"));
+        }
 
-        pedidoModel.getRestaurante().add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RestauranteController.class)
-                .buscar(pedido.getRestaurante().getId())).withSelfRel());
+        if (algaSecurity.podeConsultarRestaurantes()) {
+            pedidoModel.getRestaurante().add(
+                    algaLinks.linkToRestaurante(pedido.getRestaurante().getId()));
+        }
 
-        pedidoModel.getCliente().add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsuarioController.class)
-                .buscar(pedido.getCliente().getId())).withSelfRel());
+        if (algaSecurity.podeConsultarUsuariosGruposPermissoes()) {
+            pedidoModel.getCliente().add(algaLinks.linkToUsuario(pedido.getCliente().getId()));
+        }
 
         return pedidoModel;
     }
