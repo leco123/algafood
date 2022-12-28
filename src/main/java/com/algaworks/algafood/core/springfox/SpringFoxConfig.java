@@ -11,8 +11,6 @@ import com.algaworks.algafood.api.v1.model.usuario.UsuarioModel;
 import com.algaworks.algafood.api.v1.model.usuario.grupo.GrupoModel;
 import com.algaworks.algafood.api.v1.model.usuario.permissao.PermissaoModel;
 import com.algaworks.algafood.api.v1.openapi.model.*;
-import com.algaworks.algafood.api.v2.model.CozinhaModelV2;
-import com.algaworks.algafood.api.v2.openApi.model.CozinhasModelV2OpenApi;
 import com.fasterxml.classmate.TypeResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,17 +26,12 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.builders.ResponseMessageBuilder;
+import springfox.documentation.builders.*;
 import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.ModelRef;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.ResponseMessage;
-import springfox.documentation.service.Tag;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -141,6 +134,9 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                         typeResolver.resolve(CollectionModel.class, UsuarioModel.class),
                         UsuariosModelOpenApi.class))
 
+                .securitySchemes(Arrays.asList(securityScheme()))
+                .securityContexts(Arrays.asList(securityContext()))
+
                 .apiInfo(apiInfoV1())
                 .tags(new Tag("Cidades", "Gerencia as cidades"),
                         new Tag("Grupos","Gerencia os grupos de usuários"),
@@ -155,72 +151,33 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                         new Tag("Permissões", "Gerencia as permissões"));
     }
 
-    /**
-     * Docket em português é sumário, representa uma classe do SpringFox de configuração da OpenApi, para
-     * reger definição usando especificação
-     */
-    @Bean
-    public Docket apiDocketV2() {
+    private SecurityScheme securityScheme() {
+        return new OAuthBuilder()
+                .name("Algafood")
+                .grantTypes(grantTypes())
+                .scopes(scopes())
+                .build();
+    }
 
-        var typeResolver = new TypeResolver();
-        // CONFIGURANDO
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("V2")
-                // quais endicadores que deseja especificar para criar o json
-                .select()
-                // Selecionar os andPoint que encontrar pode selecionar
-                .apis(RequestHandlerSelectors.basePackage("com.algaworks.algafood.api"))
-                .paths(PathSelectors.ant("/v2/**"))
-                // Tudo que encontrar pode selecionar
-                .apis(RequestHandlerSelectors.any())
+    private List<GrantType> grantTypes () {
+        // Retorna passwordFlow
+        return  Arrays.asList(new ResourceOwnerPasswordCredentialsGrant("/oauth/token"));
+    }
 
-                // selecionar os caminhos
-                //.paths(PathSelectors.ant("/restaurantes/*"))
-                .build()
-                //useDefaultResponseMessages, desabilitar códigos de status 406, 500... gerados de forma padrão pelo Swegger UI
-                .useDefaultResponseMessages(false)
-                // Definir resposta padrão para os métodos usando globalResponseMessage
-                .globalResponseMessage(RequestMethod.GET, globalGetResponseMessages())
-                .globalResponseMessage(RequestMethod.POST, globalPostPutResponseMessages())
-                .globalResponseMessage(RequestMethod.DELETE, globalDeleteResponseMessages())
-                // Parametros Globais usado no SquigglyConfig, usado para fazer filtros da requisição
-                // e também está sendo adicionando parâmetros de forma implícita
-                /*.globalOperationParameters(Arrays.asList(
-                        new ParameterBuilder()
-                                .name("campos")
-                                .description("Nomes das propriedades separadas por vírgula")
-                                .parameterType("query")
-                                .modelRef(new ModelRef("string"))
-                                .build()
-                ))*/
-                // Adicionar modelo de problem
-                .additionalModels(typeResolver.resolve(Problem.class))
-                // Ignorar Argumento ou propriedade no ParameterTypes que não deve ser mostrado na documentação
-                .ignoredParameterTypes(ServletWebRequest.class,
-                        URL.class,
-                        URI.class,
-                        URLStreamHandler.class,
-                        Resource.class,
-                        File.class,
-                        InputStream.class)
-                // Quando recurso faz uso de paginação Pageable, deve ser criado uma classe para subistituir essa
-                // paginação PageableModelOpenApi.class, é apenas para fim de documentação
-                .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
-                .directModelSubstitute(Links.class, LinksModelOpenApi.class)
-                .alternateTypeRules(AlternateTypeRules.newRule(
-                        typeResolver.resolve(PagedModel.class, CozinhaModelV2.class),
-                        CozinhasModelV2OpenApi.class))
+    private SecurityContext securityContext () {
+        var securityReference = SecurityReference.builder()
+                .reference("Algafood")
+                .scopes(scopes().toArray(new AuthorizationScope[0]))
+                .build();
+        return SecurityContext.builder()
+                .securityReferences(Arrays.asList(securityReference))
+                .forPaths(PathSelectors.any())
+                .build();
+    }
 
-//                .alternateTypeRules(AlternateTypeRules.newRule(
-//                        typeResolver.resolve(CollectionModel.class, CidadeModelV2.class),
-//                        CidadesModelV2OpenApi.class))
-
-                .apiInfo(apiInfoV2())
-
-                .tags(new Tag("Cidades", "Gerencia as cidades"),
-                        new Tag("Cozinhas", "Gerencia as cozinhas"));
-
-
+    private List<AuthorizationScope> scopes(){
+        return Arrays.asList(new AuthorizationScope("READ","Acesso de leitura"),
+                new AuthorizationScope("WRITE","Acesso de escrita"));
     }
 
     /**
@@ -319,19 +276,6 @@ public class SpringFoxConfig implements WebMvcConfigurer {
                                 "meuemail@meusite.com.br"
                                 ))
                     .build();
-    }
-
-    public ApiInfo apiInfoV2() {
-        return new ApiInfoBuilder()
-                .title("AlgaFood API")
-                .description("API aberta para clientes e restaurantes")
-                .version("2")
-                .contact(new Contact(
-                        "Alex de Carvalho",
-                        "https://www.meusite.com.br",
-                        "meuemail@meusite.com.br"
-                ))
-                .build();
     }
 
     // Mapeamento para servir arquivos estáticos de arquivos SpringFox Swagger UI.
