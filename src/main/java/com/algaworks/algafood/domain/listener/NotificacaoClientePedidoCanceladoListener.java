@@ -1,7 +1,6 @@
 package com.algaworks.algafood.domain.listener;
 
 import com.algaworks.algafood.domain.event.PedidoCanceladoEvent;
-import com.algaworks.algafood.domain.event.PedidoConfirmadoEvent;
 import com.algaworks.algafood.domain.model.Pedido;
 import com.algaworks.algafood.domain.service.EnvioEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class NotificacaoClientePedidoCanceladoListener {
         var mensagem = EnvioEmailService.Mensagem
                 .builder()
                     .assunto(pedido.getRestaurante().getNome() +" - Pedido cancelado")
-                    .corpo("pedido-cancelado.html")
+                    .corpo("emails/pedido-cancelado.html")
                     .variavel("pedido",pedido)
                     .destinatario(pedido.getCliente().getEmail())
                 .build();
