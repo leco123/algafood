@@ -1,5 +1,9 @@
 package com.algaworks.algafood.core.security.authorizationserver;
 
+import com.nimbusds.jose.JWEAlgorithm;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.KeyUse;
+import com.nimbusds.jose.jwk.RSAKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +24,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.sql.DataSource;
+import java.security.KeyPair;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 
 @Configuration
@@ -44,38 +50,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.jdbc(dataSource);
-
-
-//			.inMemory()
-//				.withClient("algafood-web")
-//				.secret(passwordEncoder.encode("web123"))
-//				.authorizedGrantTypes("password", "refresh_token")
-//				.scopes("WRITE", "READ")
-//				.accessTokenValiditySeconds(6 * 60 * 60)// 6 horas
-//				.refreshTokenValiditySeconds(60 * 24 * 60 * 60) // 60 dias
-//
-//			.and()
-//				.withClient("foodanalytics")
-//				.secret(passwordEncoder.encode(""))
-//				.authorizedGrantTypes("authorization_code")
-//				.scopes("WRITE", "READ")
-//				.redirectUris("http://www.foodanalytics.local:8082")
-//
-//			.and()
-//				.withClient("webadmin")
-//				.authorizedGrantTypes("implicit")
-//				.scopes("WRITE", "READ")
-//				.redirectUris("http://aplicacao-cliente")
-//
-//			.and()
-//				.withClient("faturamento")
-//				.secret(passwordEncoder.encode("faturamento123"))
-//				.authorizedGrantTypes("client_credentials")
-//				.scopes("WRITE", "READ")
-//
-//			.and()
-//				.withClient("checktoken")
-//					.secret(passwordEncoder.encode("check123"));
 	}
 	
 	@Override
@@ -108,22 +82,34 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		
 		return approvalStore;
 	}
+
+	@Bean
+	public JWKSet jwkSet() {
+		// Instancia JWKS e contém um jwk que é representado por apenas uma chave pública, mas pode existir mais de uma
+		// chave
+		RSAKey.Builder builder = new RSAKey.Builder((RSAPublicKey) keyPair().getPublic())
+				.keyUse(KeyUse.SIGNATURE)
+				.algorithm(JWEAlgorithm.RSA_OAEP_256)
+				.keyID("algafood-key-id");
+				return new JWKSet(builder.build());
+	}
 	
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
 		var jwtAccessTokenConverter = new JwtAccessTokenConverter();
-
-		var keyStorePass = jwtKeyStoreProperties.getPassword();
-		var keyPairAlias = jwtKeyStoreProperties.getKeypairAlias();
-		
-		var keyStoreKeyFactory = new KeyStoreKeyFactory(jwtKeyStoreProperties.getJksLocation(), keyStorePass.toCharArray());
-		var keyPair = keyStoreKeyFactory.getKeyPair(keyPairAlias);
-		
-		jwtAccessTokenConverter.setKeyPair(keyPair);
+		jwtAccessTokenConverter.setKeyPair(keyPair());
 		
 		return jwtAccessTokenConverter;
 	}
-	
+
+	private KeyPair keyPair() {
+		var keyStorePass = jwtKeyStoreProperties.getPassword();
+		var keyPairAlias = jwtKeyStoreProperties.getKeypairAlias();
+
+		var keyStoreKeyFactory = new KeyStoreKeyFactory(jwtKeyStoreProperties.getJksLocation(), keyStorePass.toCharArray());
+		return keyStoreKeyFactory.getKeyPair(keyPairAlias);
+	}
+
 	private TokenGranter tokenGranter(AuthorizationServerEndpointsConfigurer endpoints) {
 		var pkceAuthorizationCodeTokenGranter = new PkceAuthorizationCodeTokenGranter(endpoints.getTokenServices(),
 				endpoints.getAuthorizationCodeServices(), endpoints.getClientDetailsService(),
