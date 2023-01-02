@@ -1,7 +1,6 @@
 # Tópicos abordados
 
 <!-- TOC -->
-* [Tópicos abordados](#tópicos-abordados)
 * [Treinamento Algaworks Especialista em REST](#treinamento-algaworks-especialista-em-rest)
     * [Rodar projeto via line command](#rodar-projeto-via-line-command)
       * [WINDOWS](#windows)
