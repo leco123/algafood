@@ -2410,6 +2410,38 @@ docker container run --rm -it ubuntu bash
 
 ## Construindo a imagem da aplicação com Dockerfile
 
+criar arquivo Dockefile
+
+````shell
+FROM openjdk:12-alpine
+
+## WORKDIR ONDE AS instruções vão rodar
+WORKDIR /app
+
+## COPY copiando aplicação para dentro do app e nomeando com api.jar
+COPY target/*.jar /app/api.jar
+
+## QUAL PORTA O CONTAINER VAI ESCUTAR
+EXPOSE 8080
+
+## COMANDO PADRÃO QUE O DOCKER CONTAINER LEVANTAR
+CMD ["java", "-jar", "api.jar"]
+````
+
+````shell
+docker image build -t algafood-api . 
+````
+
+## Docker Criando uma rede
+
+````shell
+docker network create --driver bridge algafood-network
+````
+
+## Docker iníciar aplicação
+````shell
+docker container run --rm -p 8080:8080 -e DB_HOST=mysql --network algafood-network algafood-api
+````
 
 # CONHECIMENTOS DIVERSOS
 
