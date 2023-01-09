@@ -2401,6 +2401,16 @@ Keys *
 flushall
 ````
 
+# Dockerizando a aplicação
+
+Exemplo de como iniciar container `ubuntu`
+````shell
+docker container run --rm -it ubuntu bash
+````
+
+## Construindo a imagem da aplicação com Dockerfile
+
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
@@ -2611,3 +2621,7 @@ Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é nece
   - [DDL da tabela de clientes OAuth2](https://gist.github.com/thiagofa/7b1792745d4de64bd86b230d0e3a381d)
   - [Template da página de login com Bootstrap](https://gist.github.com/thiagofa/9b5cb7db488ca9b4ae123661a8087a9f#file-login-html)
   - [RFC-7517 - JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517)
+- Docker
+  - [Documentação sobre instalação do Docker Engine](https://docs.docker.com/engine/install/)
+  - [Documentação do Docker CLI](https://docs.docker.com/engine/reference/commandline/docker/)
+  - [Docker Hub](https://hub.docker.com/)
