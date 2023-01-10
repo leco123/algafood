@@ -2718,3 +2718,5 @@ Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é nece
   - [Documentação sobre instalação do Docker Compose](https://docs.docker.com/compose/install/)
   - [Documentação sobre o Compose file](https://docs.docker.com/compose/compose-file/)
   - [Documentação dos comandos do docker-compose](https://docs.docker.com/compose/reference/)
+  - [Repositório no GitHub do wait-for-it](https://github.com/vishnubob/wait-for-it)
+  - Problemas comuns [Corrigindo erro "bash\r" do wait_for_it.sh](https://www.loom.com/share/09da78cea7ed4514a9215905eceb3878)
