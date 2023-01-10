@@ -2443,6 +2443,12 @@ docker network create --driver bridge algafood-network
 docker container run --rm -p 8080:8080 -e DB_HOST=mysql --network algafood-network algafood-api
 ````
 
+## Docker ativando profile
+-Pdocker, o -P é o parametro e o docker o nome que foi da do no id do profile do pom.xml `<profile><id>docker</id>`
+````shell
+ ./mvnw package -Pdocker
+````
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
@@ -2657,3 +2663,4 @@ Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é nece
   - [Documentação sobre instalação do Docker Engine](https://docs.docker.com/engine/install/)
   - [Documentação do Docker CLI](https://docs.docker.com/engine/reference/commandline/docker/)
   - [Docker Hub](https://hub.docker.com/)
+  - [Dockerfile Maven Plugin](https://github.com/spotify/dockerfile-maven)
