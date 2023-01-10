@@ -2467,6 +2467,38 @@ Rodar projeto
 docker container run --rm -p 8080:8080 -e DB_HOST=mysql --network algafood-network leco123/algafood-api
 ````
 
+### Como resolver Erro: Unable to load authentication plugin 'caching_sha2_password'
+
+Erro: Unable to load authentication plugin 'caching_sha2_password'.
+Dependendo da versão da imagem Docker utilizada no MySQL e do ambiente, esse erro pode ocorrer. Recomendamos a ativação de um plugin de senha mysql_native_password via propriedade command que será lida durante a criação do container.
+
+Nota que para adicionar esse parâmetro, é necessário remover o container (se já tiver criado antes) e recriá-lo, caso contrário, o parâmetro não será lido.
+
+Ficando da seguinte forma:
+````yaml
+services:
+  algafood-mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: "123"
+    ports:
+      - "3306:3306"
+    networks:
+      - algafood-network
+````
+
+## Como rodar o yaml docker-compose.yaml
+````yaml
+docker-compose up
+````
+
+Parar e remover docker compose
+````shell
+docker-compose down --volumes
+````
+
 
 # CONHECIMENTOS DIVERSOS
 
@@ -2683,3 +2715,6 @@ Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é nece
   - [Documentação do Docker CLI](https://docs.docker.com/engine/reference/commandline/docker/)
   - [Docker Hub](https://hub.docker.com/)
   - [Dockerfile Maven Plugin](https://github.com/spotify/dockerfile-maven)
+  - [Documentação sobre instalação do Docker Compose](https://docs.docker.com/compose/install/)
+  - [Documentação sobre o Compose file](https://docs.docker.com/compose/compose-file/)
+  - [Documentação dos comandos do docker-compose](https://docs.docker.com/compose/reference/)
