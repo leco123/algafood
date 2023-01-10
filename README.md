@@ -2449,6 +2449,25 @@ docker container run --rm -p 8080:8080 -e DB_HOST=mysql --network algafood-netwo
  ./mvnw package -Pdocker
 ````
 
+## Disponibilizando a imagem no Docker Hub
+````shell
+docker image tag algafood-api:latest leco123/algafood-api:latest
+````
+Logar no Docker Hub
+````shell
+docker login
+````
+Enviar imagem para Docker Hub
+````shell
+docker push leco123/algafood-api:latest
+````
+
+Rodar projeto
+````shell
+docker container run --rm -p 8080:8080 -e DB_HOST=mysql --network algafood-network leco123/algafood-api
+````
+
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
