@@ -2482,7 +2482,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_ROOT_PASSWORD: "123"
+      MYSQL_ROOT_PASSWORD: ""
     ports:
       - "3306:3306"
     networks:
@@ -2499,6 +2499,10 @@ Parar e remover docker compose
 docker-compose down --volumes
 ````
 
+## Docker compose com balanceamento de carga
+````shell
+docker-compose up --scale algafood-api=2
+````
 
 # CONHECIMENTOS DIVERSOS
 
