@@ -108,6 +108,20 @@
     * [Comando Redis para Authenticar](#comando-redis-para-authenticar)
     * [Comando Redis para visualizar todas as chaves](#comando-redis-para-visualizar-todas-as-chaves)
     * [Comando Redis para limpar todos os dados](#comando-redis-para-limpar-todos-os-dados)
+* [Dockerizando a aplicação](#dockerizando-a-aplicação)
+  * [Construindo a imagem da aplicação com Dockerfile](#construindo-a-imagem-da-aplicação-com-dockerfile)
+    * [Docker Criando uma rede](#docker-criando-uma-rede)
+    * [Docker iníciar aplicação](#docker-iníciar-aplicação)
+    * [Docker ativando profile](#docker-ativando-profile)
+    * [Disponibilizando a imagem no Docker Hub](#disponibilizando-a-imagem-no-docker-hub)
+    * [Logar no Docker Hub](#logar-no-docker-hub)
+    * [Enviar imagem para Docker Hub](#enviar-imagem-para-docker-hub)
+    * [Rodar projeto](#rodar-projeto)
+    * [Como resolver Erro: Unable to load authentication plugin 'caching_sha2_password'](#como-resolver-erro--unable-to-load-authentication-plugin--cachingsha2password)
+    * [Como rodar o yaml docker-compose.yaml](#como-rodar-o-yaml-docker-composeyaml)
+    * [Parar e remover docker compose](#parar-e-remover-docker-compose)
+    * [Docker compose com balanceamento de carga](#docker-compose-com-balanceamento-de-carga)
+    * [Docker compose pegar o ip](#docker-compose-pegar-o-ip)
 * [CONHECIMENTOS DIVERSOS](#conhecimentos-diversos)
   * [PROXY](#proxy)
     * [Oque é e como funciona Proxy](#oque-é-e-como-funciona-proxy)
@@ -2432,37 +2446,37 @@ CMD ["java", "-jar", "api.jar"]
 docker image build -t algafood-api . 
 ````
 
-## Docker Criando uma rede
+### Docker Criando uma rede
 
 ````shell
 docker network create --driver bridge algafood-network
 ````
 
-## Docker iníciar aplicação
+### Docker iníciar aplicação
 ````shell
 docker container run --rm -p 8080:8080 -e DB_HOST=mysql --network algafood-network algafood-api
 ````
 
-## Docker ativando profile
+### Docker ativando profile
 -Pdocker, o -P é o parametro e o docker o nome que foi da do no id do profile do pom.xml `<profile><id>docker</id>`
 ````shell
  ./mvnw package -Pdocker
 ````
 
-## Disponibilizando a imagem no Docker Hub
+### Disponibilizando a imagem no Docker Hub
 ````shell
 docker image tag algafood-api:latest leco123/algafood-api:latest
 ````
-Logar no Docker Hub
+### Logar no Docker Hub
 ````shell
 docker login
 ````
-Enviar imagem para Docker Hub
+### Enviar imagem para Docker Hub
 ````shell
 docker push leco123/algafood-api:latest
 ````
 
-Rodar projeto
+### Rodar projeto
 ````shell
 docker container run --rm -p 8080:8080 -e DB_HOST=mysql --network algafood-network leco123/algafood-api
 ````
@@ -2489,22 +2503,22 @@ services:
       - algafood-network
 ````
 
-## Como rodar o yaml docker-compose.yaml
+### Como rodar o yaml docker-compose.yaml
 ````yaml
 docker-compose up
 ````
 
-## Parar e remover docker compose
+### Parar e remover docker compose
 ````shell
 docker-compose down --volumes
 ````
 
-## Docker compose com balanceamento de carga
+### Docker compose com balanceamento de carga
 ````shell
 docker-compose up --scale algafood-api=2
 ````
 
-## Docker compose pegar o ip
+### Docker compose pegar o ip
 ````shell
 docker container run --rm -it --network algafood-network alpine sh
 ````
@@ -2730,3 +2744,12 @@ Caso queira gerenciar o Redis via desktop, assim como uma IDE, mas ainda é nece
   - [Repositório no GitHub do wait-for-it](https://github.com/vishnubob/wait-for-it)
   - Problemas comuns [Corrigindo erro "bash\r" do wait_for_it.sh](https://www.loom.com/share/09da78cea7ed4514a9215905eceb3878)
   - [Projeto Spring Security OAuth no GitHub](https://github.com/spring-attic/spring-security-oauth)
+- SERVIDORES
+  - [Cloud Foundry](https://www.cloudfoundry.org/)
+  - [Heroku](https://www.heroku.com/)
+  - [Digital Ocean](https://www.digitalocean.com/)
+  - [Microsoft Azure](https://azure.microsoft.com/pt-br/)
+  - [Google Cloud](https://cloud.google.com/)
+  - [Alibaba Cloud](https://www.alibabacloud.com/)
+  - [Amazon Web Services](https://aws.amazon.com/pt/)
+  - [Quadrante Mágico de 2020 do Gartner](https://aws.amazon.com/pt/resources/analyst-reports/22-global-gartner-mq-cips/)
