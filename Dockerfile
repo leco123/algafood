@@ -1,4 +1,4 @@
-FROM openjdk:12-alpine
+FROM openjdk:11-jre-slim
 
 ## WORKDIR ONDE AS instruções vão rodar
 WORKDIR /app

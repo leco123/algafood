@@ -2504,6 +2504,11 @@ docker-compose down --volumes
 docker-compose up --scale algafood-api=2
 ````
 
+Docker compose pegar o ip
+````shell
+docker container run --rm -it --network algafood-network alpine sh
+````
+
 # CONHECIMENTOS DIVERSOS
 
 ## PROXY
