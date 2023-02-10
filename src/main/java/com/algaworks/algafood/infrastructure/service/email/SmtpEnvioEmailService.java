@@ -23,6 +23,9 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
     @Autowired
     private Configuration freemarkerConfig;
 
+    @Autowired
+    private ProcessadorEmailTemplate processadorEmailTemplate;
+
     @Override
     public void enviar(Mensagem mensagem) {
         try {
@@ -44,7 +47,7 @@ public class SmtpEnvioEmailService implements EnvioEmailService {
     }
 
     protected MimeMessage criarMimeMessage(Mensagem mensagem) throws MessagingException {
-        String corpo = processarTemplate(mensagem);
+        String corpo = processadorEmailTemplate.processarTemplate(mensagem);
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 

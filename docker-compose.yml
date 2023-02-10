@@ -14,23 +14,30 @@ services:
       - "3306:3306"
     networks:
       - algafood-network
+    volumes:
+      - volume-algafood-mysql:/var/lib/mysql
 
   algafood-redis:
     image: redis:6.2.1-alpine
     networks:
       - algafood-network
+    volumes:
+      - volume-algafood-redis:/data
 
   algafood-api:
-    image: algafood-api
+    image: leco123/algafood-api
     command: ["/wait-for-it.sh", "algafood-mysql:3306", "-t", "30", "--", "java", "-jar", "api.jar"]
     environment:
       DB_HOST: algafood-mysql
       SPRING_SESSION_STORE_TYPE: redis
       SPRING_REDIS_HOST: algafood-redis
+      SPRING_PROFILES_ACTIVE: development
     networks:
       - algafood-network
     depends_on:
       - algafood-mysql
+    volumes:
+      - volume-algafood-api:/app/
 
   algafood-proxy:
     build: ./nginx
@@ -39,5 +46,13 @@ services:
       - "80:80"
     networks:
       - algafood-network
+    volumes:
+      - volume-algafood-proxy:/etc/nginx/
+
+volumes:
+  volume-algafood-proxy:
+  volume-algafood-api:
+  volume-algafood-redis:
+  volume-algafood-mysql:
 
 
