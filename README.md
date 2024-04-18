@@ -1,3 +1,55 @@
+# Projeto de estudo, usado para aplicar os conhecimentos abordado no curso.
+
+### Como Configurar e Executar o Projeto
+
+Este projeto é uma aplicação REST desenvolvida com o framework Spring Boot, utilizando Java como linguagem de programação. Aqui estão as instruções detalhadas para configurar seu ambiente e executar o projeto:
+
+#### Pré-requisitos
+1. **Java JDK 17**: Certifique-se de ter o Java JDK 17 instalado em seu sistema. Você pode baixar o instalador do [site oficial da Oracle](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
+2. **Maven**: O Maven é usado para gerenciar as dependências e facilitar a construção do projeto. Instale o Maven seguindo as instruções em [Apache Maven](https://maven.apache.org/install.html).
+3. **PostgreSQL**: Este projeto usa o PostgreSQL como banco de dados. Instale-o seguindo as instruções no [site oficial do PostgreSQL](https://www.postgresql.org/download/).
+
+#### Configuração do Ambiente
+1. **Variáveis de Ambiente**: Configure as variáveis de ambiente necessárias para o projeto. Isso inclui configurar o banco de dados e outras propriedades específicas do projeto:
+   ```bash
+   export DATABASE_URL="jdbc:postgresql://localhost:5432/nomeDoBancoDeDados"
+   export DATABASE_USERNAME="seuUsuario"
+   export DATABASE_PASSWORD="suaSenha"
+   ```
+
+#### Executando o Projeto
+1. **Clone o Repositório**: Primeiro, clone o repositório para seu ambiente local usando:
+   ```bash
+   git clone https://github.com/leco123/algafood.git
+   ```
+2. **Navegue até o diretório do projeto**:
+   ```bash
+   cd algafood
+   ```
+3. **Compile e execute o projeto usando Maven**:
+   - Para compilar o projeto e instalar as dependências, execute:
+     ```bash
+     mvn clean install
+     ```
+   - Para rodar o projeto, execute:
+     ```bash
+     mvn spring-boot:run
+     ```
+
+4. **Acesse a Aplicação**: Após iniciar o servidor, acesse a aplicação pelo navegador ou usando um cliente HTTP como Postman. A aplicação estará disponível em:
+   ```
+   http://localhost:8080
+   ```
+
+#### Tecnologias Utilizadas
+- **Spring Boot**: Framework para facilitar a configuração e execução de aplicações Java.
+- **Maven**: Ferramenta de automação e gerenciamento de projetos.
+- **PostgreSQL**: Sistema gerenciador de banco de dados relacional.
+
+---
+
+Esse é um exemplo de como você pode organizar a documentação para que ela seja técnica, informativa e útil para usuários de todos os níveis. Quer que eu detalhe outra parte específica do projeto ou isso atende às suas necessidades?
+
 # Tópicos abordados
 
 <!-- TOC -->
