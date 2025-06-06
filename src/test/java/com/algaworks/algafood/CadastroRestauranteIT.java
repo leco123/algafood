@@ -93,11 +93,12 @@ public class CadastroRestauranteIT {
 			.body(jsonRestauranteCorreto)
 			.contentType(ContentType.JSON)
 			.accept(ContentType.JSON)
-		.when()
-			.post()
-		.then()
-			.statusCode(HttpStatus.CREATED.value());
-	}
+                .when()
+                        .post()
+                .then()
+                        .statusCode(HttpStatus.CREATED.value())
+                        .body("nome", equalTo("New York Barbecue"));
+        }
 	
 	@Test
 	public void deveRetornarStatus400_QuandoCadastrarRestauranteSemTaxaFrete() {
