@@ -261,7 +261,7 @@ deserializar esse arquivo com a versão antiga não vai conseguir porque esta em
 **1º A mais simples foi descrito no tópico acima**: É adicionar de forma explícita o _serialVersionUID_, assim que for 
 adicionado o implements Serializable tópico: Como evitar erro Exception por causa do _serialVersionUID_;
 
-**2ª Descubir qual era o valor _serialVersionUID que o Java tinha atribuido para classe**:
+**2ª Descobrir qual era o valor _serialVersionUID que o Java tinha atribuido para classe**:
 
 Descoberto o valor de serialVersionUID na versão antiga da classe, então, basta declará-lo explicitamente na nova 
 versão para conseguir desserializar os objetos mais antigos:
